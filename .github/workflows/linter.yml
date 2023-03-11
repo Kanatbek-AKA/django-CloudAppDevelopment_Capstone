@@ -1,7 +1,6 @@
 name: 'Lint Code'
 
 on:  
-  workflow_dispatch: # inputs: loglevels: etc
   push:
       branches: [master, main]
   pull_request:
