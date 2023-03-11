@@ -21,3 +21,14 @@ body {
 .seperator {
   margin: 100px 0 0 100px;
 }
+
+.r-anchor {
+  text-align: right;
+  /* margin-right: 5px; */
+}
+
+.redg {
+  margin-right: 5px;
+  color: whitesmoke;
+  padding: 5px;
+}

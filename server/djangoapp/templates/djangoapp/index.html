@@ -1,5 +1,4 @@
-<!--{% comment %} This is only a demo webpage. Here indeed, you should use layout {%
-endcomment %} -->
+<!--{% comment %} This is only a demo webpage. Here indeed, you should use layout {%endcomment %} -->
 {%load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +33,52 @@ endcomment %} -->
           <a href="#" class="anchor">Our Partner</a>
           <a href="/djangoapp/contact_us/" class="anchor">Contact</a>
         </div>
+        <div class="r-anchor">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+              <a class="btn btn-link" href="#"
+                >{{ user.first_name }}({{ user.username }})</a
+              >
+              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <form
+                class="form-inline"
+                action="{% url 'djangoapp:login' %}"
+                method="post"
+              >
+                {% csrf_token %}
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    name="username"
+                  />
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="password"
+                    name="psw"
+                  />
+                  <button class="btn btn-primary" type="submit">Login</button>
+                  <a
+                    class="btn btn-link"
+                    href="{% url 'djangoapp:registration' %}"
+                    >Sign Up</a
+                  >
+                </div>
+              </form>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
     </nav>
-    <!--Add a dealer table here -->
 
     <!--remove seperator-->
     <!-- Begin page content -->
