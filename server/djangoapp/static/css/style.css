@@ -1,0 +1,23 @@
+body {
+  background: lightcyan;
+}
+
+.anchor {
+  margin-left: 5px;
+  color: whitesmoke;
+  padding: 5px;
+}
+
+.anchor:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.text_label {
+  padding-top: 10px;
+  font-style: oblique;
+}
+
+.seperator {
+  margin: 100px 0 0 100px;
+}
