@@ -12,7 +12,10 @@ jobs: # list of things to do
     runs-on: ubuntu-latest 
     steps: # list of steps
       - name: Install NodeJS
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+            node-version: 16
 
       - name: Code Checkout
         uses: actions/checkout@v3
