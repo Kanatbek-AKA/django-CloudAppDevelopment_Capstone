@@ -12,12 +12,12 @@ jobs: # list of things to do
     runs-on: ubuntu-latest 
     steps: # list of steps
       - name: Install NodeJS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: 19
+          node-version: 16
 
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: npm install
@@ -32,7 +32,7 @@ jobs: # list of things to do
     name: Linting Python Function 
     runs-on: ubuntu-latest 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
@@ -50,7 +50,7 @@ jobs: # list of things to do
     name: Linting Django Server 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
