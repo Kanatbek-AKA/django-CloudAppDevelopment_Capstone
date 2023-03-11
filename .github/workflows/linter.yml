@@ -1,10 +1,12 @@
 name: 'Lint Code'
 
-on:
+on:  
+  workflow_dispatch: # inputs: loglevels: etc
   push:
-    branches: [master, main]
+      branches: [master, main]
   pull_request:
-    branches: [master, main]
+      branches: [master, main]
+    
 
 jobs: # list of things to do
   lint_function_js:
