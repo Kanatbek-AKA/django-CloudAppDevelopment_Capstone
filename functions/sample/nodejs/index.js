@@ -2,8 +2,8 @@
  * Get all databases
  */
 
-const { CloudantV1 } = require("@ibm-cloud/cloudant");
-const { IamAuthenticator } = require("ibm-cloud-sdk-core");
+//const { CloudantV1 } = require("@ibm-cloud/cloudant");
+//const { IamAuthenticator } = require("ibm-cloud-sdk-core");
 
 require("dotenv").config({path: require("find-config")("../../.env")})
 // I tried this one too
@@ -31,17 +31,17 @@ function connectServer(params) {
   return cloudant
 }
 
-function getDbs(cloudant) {
-  cloudant
-    .getAllDbs()
-    .then((body) => {
-       console.log(body.result)
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+//function getDbs(cloudant) {
+//  cloudant
+//    .getAllDbs()
+//    .then((body) => {
+//       console.log(body.result)
+//      });
+//    })
+//    .catch((err) => {
+//      console.log(err);
+//    });
+//}
 
 // invoke function
 // getDBs(connectServer(dct))  
