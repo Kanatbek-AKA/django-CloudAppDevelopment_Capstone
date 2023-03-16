@@ -14,12 +14,13 @@ require("dotenv").config({path: require("find-config")("../../.env")})
 
 dct = {
     "API_KEY": process.env.API,
-   "URL" : process.env.URL
+    "URL" : process.env.URL
 }
 
 // Checking if the .env file values readable
 console.log( dct.API_KEY )
  
+
 
 function connectServer(params) {
   const authenticator = new IamAuthenticator({ apikey: params.API_KEY });
