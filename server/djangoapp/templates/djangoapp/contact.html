@@ -25,14 +25,49 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
   </head>
   <body>
-    <!--Add a nav bar here -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-dark">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a href="/">Home</a>
+          <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
+          <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+          <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+            >Dearlers</a
+          >
+          <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+          <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+        </div>
+        <div class="r-anchor">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+              <a class="btn btn-link" href="#"
+                >{{ user.first_name }}({{ user.username }})</a
+              >
+              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <a
+                class="btn btn-link text-decoration-none"
+                href="{% url 'djangoapp:login' %}"
+                >Login
+              </a>
+              <a
+                class="btn btn-link text-decoration-none"
+                href="{% url 'djangoapp:registration' %}"
+                >Sign Up
+              </a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </nav>
+    <div class="seperator">
+      <div class="devider-sep"></div>
+    </div>
 
     <div class="container mt-4">
       <h2>Have a question? Write to us</h2>
@@ -54,15 +89,16 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <title>Placeholder</title>
+            <title>Custom</title>
             <rect width="100%" height="100%" fill="#777" />
             <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
           </svg>
 
           <h3 class="fw-normal">Custom Service</h3>
           <p>
-            Some representative placeholder content for the three columns of
-            text below the carousel. This is the first column.
+            Cars might be damaged, crashed or stolen that our representative at
+            place is going to care of all paperclip for your. Your relaxation
+            and time is our concern
           </p>
           <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
         </div>
@@ -78,15 +114,16 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <title>Placeholder</title>
+            <title>ADS</title>
             <rect width="100%" height="100%" fill="#777" />
             <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
           </svg>
 
           <h3 class="fw-normal">Advertising Team</h3>
           <p>
-            Another exciting bit of representative placeholder content. This
-            time, we've moved on to the second column.
+            You want to sell or rent your exclusive cars for businesses, then
+            AKA ADS team is here for you. Just get in touch with us, we take
+            care of all your needs.
           </p>
           <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
         </div>
@@ -102,15 +139,16 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <title>Placeholder</title>
+            <title>HQ</title>
             <rect width="100%" height="100%" fill="#777" />
             <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
           </svg>
 
-          <h3 class="fw-normal">HQ AKA-Cars</h3>
+          <h3 class="fw-normal">HQ AKA motors</h3>
           <p>
-            And lastly cars might be damaged, crashed or stolen that our
-            representative at place is going to care of all paperclip for your.
+            If you have a complaint, lawsuit about AKA dealers or you are
+            dissatisfied with the service, please contact us. You will here from
+            us within 3 days.
           </p>
           <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
         </div>
@@ -119,99 +157,6 @@
 
     <div class="seperator">
       <div class="devider-sep"></div>
-    </div>
-
-    <div class="b-example-divider"></div>
-    <!-- Footer -->
-    <div class="container sticky-sm-bottom">
-      <footer class="py-5">
-        <div class="row">
-          <div class="col-6 col-md-2 mb-3">
-            <h5>AKA Cars</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="/" class="nav-link p-0 text-muted">Home</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="/about_us/" class="nav-link p-0 text-muted"
-                  >About Us</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Pricing</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="/contact_us/" class="nav-link p-0 text-muted"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Service</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Partners</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Buy</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Warranty</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Delivery</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form>
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden"
-                  >Email address</label
-                >
-                <input
-                  id="newsletter1"
-                  type="text"
-                  class="form-control"
-                  placeholder="Email address"
-                />
-                <button class="btn btn-primary" type="button">Subscribe</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div
-          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-        >
-          <p>&copy; 2023 Inc. All rights reserved.</p>
-          <ul class="list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook" /></svg
-              ></a>
-            </li>
-          </ul>
-        </div>
-      </footer>
     </div>
   </body>
 </html>

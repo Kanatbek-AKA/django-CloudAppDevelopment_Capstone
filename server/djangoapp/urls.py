@@ -3,22 +3,23 @@ from django.conf.urls.static import static
 from django.conf import settings
 from . import views
 
+
 app_name = 'djangoapp'
 urlpatterns = [
-
-    # path for about view
-    path("about_us/", views.about, name="about_us"),
-    # path for contact us view
-    path("djangoapp/contact_us/", views.contact, name="contact_us"),
-    # path for registration, login, logout
+    # Pure cloud according IBM staffs recomendation
+    path(route='', view=views.IndexPageView.as_view(), name='index'),
     path('registration/', views.registration_request, name='registration'),
     path('login/', views.login_request, name='login'),
     path('logout/', views.logout_request, name='logout'),
-    # path  
-    path(route='', view=views.get_dealerships, name='index'),
+    path("about_us/", views.AboutPageView.as_view(), name="about"),
+    path("dealerships/", views.DealerPageView.as_view(), name="dealerships"),
+    path("reviews/", views.AddReviewView.as_view(), name="reviews"),
+    path("contact_us/", views.ContactPageView.as_view(), name="contact"),
 
-    # path for dealer reviews view
+    # Course using local SQlite
+    # path(route='', view=views.get_dealerships, name='index'),
+    # path("dealerships/<int:dealer_id>/ ", views.DealerPageView.as_view(), name="dealerships"),
+    # path("reviews/<int:dealer_id>/review/ ", views.AddReviewView.as_view(), name="reviews"),
 
-    # path for add a review view
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

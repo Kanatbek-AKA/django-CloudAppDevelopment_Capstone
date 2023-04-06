@@ -1,3 +1,46 @@
-body {
-  background-color: black;
+.anchor {
+  margin-left: 5px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.text_label {
+  padding-top: 10px;
+  font-style: oblique;
+}
+
+.seperator {
+  margin: 100px 0 0 100px;
+}
+
+.r-anchor {
+  text-align: right;
+  /* margin-right: 5px; */
+}
+
+main {
+  /* margin-top: -1cm; */
+  background-color: aliceblue;
+}
+.mt {
+  margin-top: 5rem;
+}
+
+.background {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#cont {
+  margin: 200px auto;
+}
+
+.mx {
+  margin-left: 50px;
+  margin-right: 400px;
 }
