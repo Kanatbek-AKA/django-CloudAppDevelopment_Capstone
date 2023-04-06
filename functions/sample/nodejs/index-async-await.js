@@ -134,7 +134,7 @@ main(dct)
 
 // // // //  Get dealerships values
 // function connectServer() {
-//       const authenticator = new IamAuthenticator({ apikey:"Y7YSbi9BEIpkArP_JF8HXAw3-KiK7GppcqKedjFEl0P0" })
+//       const authenticator = new IamAuthenticator({ apikey:"API_KEY" })
 //       const cloudant = CloudantV1.newInstance({
 //           authenticator: authenticator
 //       });
