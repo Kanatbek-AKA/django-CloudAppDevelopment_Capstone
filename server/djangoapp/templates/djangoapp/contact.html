@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact</title>
 
-    <link rel="stylesheet" href={% static 'css/contact.css' %} />
-    <!--{% comment %} <script defer src="{%url 'javascript/contact.js' %}"></script> {% endcomment %}-->
-    <!--{% comment %}  {% endcomment %} -->
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+    <script defer src="{% static  'javascript/contact.js' %}"></script>
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -25,138 +25,140 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
-          <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
-          <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
-            >Dearlers</a
-          >
-          <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
-          <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+    <main>
+      <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
+            <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+            <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+              >Dearlers</a
+            >
+            <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+            <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+          </div>
+          <div class="r-anchor">
+            <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li>
+                <a class="btn btn-link" href="#"
+                  >{{ user.first_name }}({{ user.username }})</a
+                >
+                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+                  >Logout</a
+                >
+              </li>
+              {% else %}
+              <li>
+                <a
+                  class="btn btn-link text-decoration-none"
+                  href="{% url 'djangoapp:login' %}"
+                  >Login
+                </a>
+                <a
+                  class="btn btn-link text-decoration-none"
+                  href="{% url 'djangoapp:registration' %}"
+                  >Sign Up
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
-        <div class="r-anchor">
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <li>
-              <a class="btn btn-link" href="#"
-                >{{ user.first_name }}({{ user.username }})</a
-              >
-              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-                >Logout</a
-              >
-            </li>
-            {% else %}
-            <li>
-              <a
-                class="btn btn-link text-decoration-none"
-                href="{% url 'djangoapp:login' %}"
-                >Login
-              </a>
-              <a
-                class="btn btn-link text-decoration-none"
-                href="{% url 'djangoapp:registration' %}"
-                >Sign Up
-              </a>
-            </li>
-            {% endif %}
-          </ul>
+      </nav>
+      <div class="seperator">
+        <div class="devider-sep"></div>
+      </div>
+
+      <div class="container mt-4">
+        <h2>Have a question? Write to us</h2>
+      </div>
+      <div class="seperator">
+        <div class="devider-sep"></div>
+      </div>
+      <div class="b-example-divider"></div>
+      <div class="container marketing mt-4">
+        <div class="row">
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Custom</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">Custom Service</h3>
+            <p>
+              Cars might be damaged, crashed or stolen that our representative
+              at place is going to care of all paperclip for your. Your
+              relaxation and time is our concern
+            </p>
+            <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>ADS</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">Advertising Team</h3>
+            <p>
+              You want to sell or rent your exclusive cars for businesses, then
+              AKA ADS team is here for you. Just get in touch with us, we take
+              care of all your needs.
+            </p>
+            <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>HQ</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">HQ AKA motors</h3>
+            <p>
+              If you have a complaint, lawsuit about AKA dealers or you are
+              dissatisfied with the service, please contact us. You will here
+              from us within 3 days.
+            </p>
+            <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
+          </div>
         </div>
       </div>
-    </nav>
-    <div class="seperator">
-      <div class="devider-sep"></div>
-    </div>
 
-    <div class="container mt-4">
-      <h2>Have a question? Write to us</h2>
-    </div>
-    <div class="seperator">
-      <div class="devider-sep"></div>
-    </div>
-    <div class="b-example-divider"></div>
-    <div class="container marketing mt-4">
-      <div class="row">
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns=""
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Custom</title>
-            <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
-
-          <h3 class="fw-normal">Custom Service</h3>
-          <p>
-            Cars might be damaged, crashed or stolen that our representative at
-            place is going to care of all paperclip for your. Your relaxation
-            and time is our concern
-          </p>
-          <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
-        </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns=""
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>ADS</title>
-            <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
-
-          <h3 class="fw-normal">Advertising Team</h3>
-          <p>
-            You want to sell or rent your exclusive cars for businesses, then
-            AKA ADS team is here for you. Just get in touch with us, we take
-            care of all your needs.
-          </p>
-          <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
-        </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns=""
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>HQ</title>
-            <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
-
-          <h3 class="fw-normal">HQ AKA motors</h3>
-          <p>
-            If you have a complaint, lawsuit about AKA dealers or you are
-            dissatisfied with the service, please contact us. You will here from
-            us within 3 days.
-          </p>
-          <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
-        </div>
+      <div class="seperator">
+        <div class="devider-sep"></div>
       </div>
-    </div>
-
-    <div class="seperator">
-      <div class="devider-sep"></div>
-    </div>
+    </main>
   </body>
 </html>

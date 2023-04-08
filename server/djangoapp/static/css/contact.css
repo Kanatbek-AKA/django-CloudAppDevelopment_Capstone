@@ -1,7 +1,24 @@
 body {
-  background: aliceblue;
+  background-color: aliceblue;
+}
+
+.anchor {
+  margin-left: 10px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover,
+.anchor:focus {
+  color: red;
+  text-decoration: none;
+}
+
+.r-anchor {
+  text-align: right;
 }
 
 .seperator {
-  margin: 100px 0 0 100px;
+  margin: 100px 0 100px 0;
 }

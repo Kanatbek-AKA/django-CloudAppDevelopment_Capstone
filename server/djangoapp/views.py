@@ -1,5 +1,4 @@
 import os
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
@@ -10,9 +9,9 @@ from datetime import datetime
 import logging
 import json
 from django.views.generic import TemplateView
-from .restapis import get_dealers, get_reviews, post_reviews, be_aka
+from .restapis import get_dealers, get_reviews, post_reviews, be_aka, analyze_review_sentiments #, infoAddress
 from datetime import datetime
-
+from requests.exceptions import ConnectionError
 
 # from django.core.mail import send_mail, BadHeaderError, EmailMessage
 
@@ -72,13 +71,16 @@ def registration_request(request):
             context['message'] = "User already exists."
             return render(request, 'djangoapp/registration.html', context)
 
+class ErrorPage(TemplateView):
+    # model = 
+    template_name = "djangoapp/error.html"
+    # extra_content = 
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 class IndexPageView(TemplateView):
     # model=
     template_name = "djangoapp/index.html"
     extra_context = {"date": datetime.today().strftime("%Y")}
-
 # def get(self, request, **kwargs):
 #     context = {}
 #     # In case you want to read the stored files in the same folder/ directory
@@ -105,12 +107,78 @@ class ContactPageView(TemplateView):
     template_name = "djangoapp/contact.html"
     # extra_content =
 
-# Send Grid 
-    # def get(self, request, **kwargs):
+    # Used Send Grid to send emails 
+    # def post(self, request, **kwargs):
     #     context = {}
     #     if request.method == "POST":
     #     # TODO create email smtp or send-grid
 
+
+def infoDevice():
+    from platform import platform, machine, system, processor, node
+    dct = {
+    "devices": platform()[:10],
+    'machines': machine(),
+    'processors':processor()[:5],
+    'nodes': node(),
+    'systems': system(),
+    }
+    return dct
+
+# Testing automation fill in the address and verification
+
+# For new dealers
+class NewDealerMember(TemplateView):
+    # model =
+    template_name = 'djangoapp/member.html'
+    # context_object_name=
+    extra_context = {"extract": infoDevice()}
+    # login_url=
+    # success_url=
+    # form_class=
+    
+    # To find free providers for automation EU/US/CA/Australian, etc addressess by entering Postal/ZIP, City for verification.   
+    def post(self, request): 
+        context = {}
+        if request.method == "POST":
+            first_name = request.POST['firstname']
+            last_name = request.POST['lastname']
+            short_name = request.POST['shortname']
+            dob= request.POST['dob']
+            address = request.POST['address']
+            city = request.POST['city'] 
+            state = request.POST['state']
+            st = request.POST['st']
+            zipcode = request.POST['zip']
+            latitude = request.POST['latitude']     # Using JS or Python to get address lat (to create)
+            longitude = request.POST['longitude']   # Using JS or Python to get address lat (to create)  
+            image = request.FILES['image'].read()   #  required JSON serialization 
+            # Accessed device 
+            device = infoDevice()['devices'][:10]
+            system = infoDevice()['systems']
+            processor = infoDevice()['processors'][:5]
+            machine = infoDevice()['machines']
+            
+            payloads = {
+                'full_name': f"{first_name} {last_name}",
+                "short_name": short_name,
+                'address': address,
+                'city': city,
+                'state': state,
+                'st': st,
+                "zipcode": zipcode,
+                'latitude': latitude,
+                'longitude': longitude,
+                'date': f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                "image": f"{image}",
+                "device": device,
+                "system": system,
+                "processor": processor,
+                "machine": machine,                           
+            }
+            be_aka(payloads)
+            return redirect("djangoapp:registration")  # Missing something
+        return render(request, 'djangoapp/error.html', )
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 class DealerPageView(TemplateView):
@@ -124,59 +192,18 @@ class DealerPageView(TemplateView):
 
     def get(self, request, **kwargs):  #
         context = {}
-        # dbname = dct['DBNAME']
+        # try:
         if request.method == "GET":
             templ_file = get_dealers()
             context['dealerships'] = templ_file['body']['rows']
-            return render(request, "djangoapp/dealer_details.html", context)
-        return HttpResponse("<html><body><h1>404 Page not Found. Please check later</h1></body></html>")
-
-    # # Be a member of AKA Dealers around the world.
-    # To find free providers for automation EU/US/CA/Australian, etc addressess by entering Postal/ZIP, City for verification.   
-    def post(self, request):
-        context = {}
-    #     # dbname = dct['DBNAME']
-        if request.method == "POST":
-            full_name = request.POST['full_name']
-            short_name = request.POST['short_name']
-            address = request.POST['address']
-            city = request.POST['city'] 
-            state = request.POST['state']
-            st = request.POST['st']
-            zipcode = request.POST['zipcode']
-            latitude = request.POST['latitude']     # Using JS or Python to get address lat (to create)
-            longitude = request.POST['longitude']   # Using JS or Python to get address lat (to create)  
-            image = request.FILE['image']           # Image required to test
-            
-            payloads = {
-                'full_name': full_name,
-                "short_name": short_name,
-                'address': address,
-                'city': city,
-                'state': state,
-                'st': st,
-                "zipcode": zipcode,
-                'latitude': latitude,
-                'longitude': longitude,
-                'date': f"{datetime.now()}",
-                "image": image,                
-            }
-            
-            be_aka(payloads)
-            return redirect("djangoapp:dealerships")  # Missing something
-
-        else:
-            render(request, 'djangoapp/add_review.html', context)
-    #         return render(request, 'djangoapp/dealer_details.html', context)
-    #     else:
-    #         return HttpResponseNotFound("<html><body><h1>Oops! AKA member page not found - 404</h1></body></html>")
-
+        return render(request, "djangoapp/dealer_details.html", context)
+        # except ConnectionError as conn:
+        #     return render(request, 'djangoapp/error.html', )
 
 # Additional to get the point
     # data={'name':request.POST.get("device")}
     #    headers = {'content-type': 'application/json'}
     #    response = requests.post('http://localhost:3000/path', data=json.dumps(data), headers=headers)
-
     # return render(request, 'mytemplate.html', {'allow_redirect': settings.ALLOW_REDIRECT})
 
 
@@ -185,15 +212,24 @@ class DealerPageView(TemplateView):
 class AddReviewView(TemplateView):
     # model = DealerReview
     template_name = 'djangoapp/add_review.html'
-    # extra_content =
-    
+    # extra_content = 
+        
     def get(self, request):
+        # try:
         context = {}
         if request.method == "GET":
             templ_file = get_reviews()
             context['reviews'] = templ_file['body']['rows']
-            return render(request, "djangoapp/add_review.html", context)
-        return HttpResponse("<html><body><h1>404 Page not Found. Please check later</h1></body></html>")
+            for i in context['reviews']:
+                value = i['doc']   # dict
+                print(value)
+                conv = json.dumps(value)
+                # print(conv)  # str
+            sentiment = analyze_review_sentiments(conv)
+            return render(request, "djangoapp/add_review.html", {"data": context['reviews'], "analyse": sentiment}) # 
+        # except ConnectionError as conn: 
+        #     return render(request, 'djangoapp/error.html', )
+        
 
     ## INFO:  additional  user authentucation to post their reviews, it is up to you.
     def post(self, request):
@@ -220,6 +256,7 @@ class AddReviewView(TemplateView):
             return redirect("djangoapp:reviews")  # Missing something
         else:
             render(request, 'djangoapp/add_review.html', context)
+
 
 
 # Course

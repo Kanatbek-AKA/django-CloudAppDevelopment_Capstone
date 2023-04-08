@@ -1,3 +1,9 @@
+.contact {
+  background: aliceblue;
+  justify-content: center;
+  align-items: center;
+}
+
 .anchor {
   margin-left: 10px;
   color: whitesmoke;
@@ -18,13 +24,13 @@
 .h2 {
   text-align: center;
   font-size: 20px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .h3 {
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
-  /* width: 35rem; */
+  font-family: "Courier New", Courier, monospace;
+  /* width: 500px; */
 }
 .seperator {
   margin: 100px 0 0 100px;
@@ -32,12 +38,32 @@
 
 .cards_img {
   border: thin solid hidden;
-  /* background-color: black; */
-  /* color: white; */
   margin-left: 40px;
   width: 100%;
   max-width: 800px;
   height: 100%;
   max-height: 400px;
   overflow: scroll;
+}
+
+.sentiment {
+  display: flex;
+  flex-direction: row;
+  background-color: aliceblue;
+  /* overflow: hidden; */
+  /* color: ; */
+}
+
+.columns_own {
+  margin: 30px auto;
+  padding: 20px auto;
+  /* width: 100%;
+  max-width: 500px;
+  height: 100%;
+  max-height: 400px;
+  overflow: scroll; */
+}
+
+.feedback {
+  border: thin solid rgba(red, green, blue, 1);
 }

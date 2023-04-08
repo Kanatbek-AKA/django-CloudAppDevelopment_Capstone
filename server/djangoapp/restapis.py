@@ -1,14 +1,15 @@
 from ibm_cloud_sdk_core import ApiException
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibmcloudant.cloudant_v1 import CloudantV1, Document, AllDocsQuery
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_watson.natural_language_understanding_v1 import Features, EntitiesOptions, KeywordsOptions, CategoriesOptions, ClassificationsOptions, ConceptsOptions, EmotionOptions, SemanticRolesOptions, SentimentOptions
 import os
-import requests
 import json
 # import related models here
 from requests.auth import HTTPBasicAuth
+from requests.exceptions import ConnectionError
 
-
-# django-environ worked 5-10 minutes ago and now stopped working
+# django-environ worked 5-10 minutes ago and now stopped working on Chromebook
 # import environ
 # environ.Env()
 # environ.Env.read_env('../../functions/.env')
@@ -23,8 +24,13 @@ dct = {
     'COUCH_URL': os.getenv("URL"),
     "DB1": os.getenv("DATADBNAME"),
     'DB2': os.getenv("DATADBNAME2"),
+    'NLUAPI': os.getenv('NLU_KEY'),
+    "NLURL": os.getenv('NLU_URL'),
+    'zipapi': os.getenv("ZIPCODE"),
+    "zipurl": os.getenv('URLCODE'),
 }
 # print(dct['DB1'], dct['DB2'])
+
 
 def connectServer(params):
     authenticator = IAMAuthenticator(params['IAM_API_KEY'])
@@ -37,8 +43,7 @@ def get_dealers():
     # Retrieve db value  or you can define multiple db values
     service = connectServer(dct)
     dbname = dct['DB1']
-    values = service.post_all_docs(
-        db=dbname, include_docs=True).get_result()
+    values = service.post_all_docs(db=dbname, include_docs=True).get_result()
     result = {
         'statusCode': 200,
         'headers': {'Content-Type': 'application/json'},
@@ -46,6 +51,9 @@ def get_dealers():
     }
     # print(result)
     return result
+    # except ConnectionError:
+    #     pass
+        
 
 
 def be_aka(params):
@@ -63,6 +71,11 @@ def be_aka(params):
         long=params['longitude'],  # Using JS or Python to get address lat (new)
         reg_date=params['date'],  # date of registration being aka 
         image=params['image'],   # Image required 
+        # Device informtion
+        device=params['device'],
+        machine=params['machine'],
+        system=params['system'],
+        processor=params['processor'],
     )
     response = service.post_document(
         db=dbname, document=new_member).get_result()
@@ -75,17 +88,6 @@ def be_aka(params):
     return res
     # values = service.post_find(db=dbname,  selector={
     #                            "state": {"$eq": val}}).get_result()
-    # result = {
-    #     'statusCode': 200,
-    #     'headers': {'Content-Type': 'application/json'},
-    #     'body': values
-    # }
-    # # print(result)
-    # return result
-
-# Test
-# dc = {}
-# be_aka(dc)
 
 
 # Get reviews
@@ -101,6 +103,8 @@ def get_reviews():
     }
     # print(result)
     return result
+    # except ConnectionError:
+    #     pass
 
 # Post review 
 def post_reviews(params):
@@ -127,15 +131,31 @@ def post_reviews(params):
     # print(res)
     return res
 
-# dc = {
-#     'name': input("your name: "),
-#     'review': input('Your review max 200 words: '),
-#     'car_make': input('Car type: '),
-#     'car_model': input("Model: "),
-#     "date": "{}".format(datetime.today().strftime('%Y-%m-%d') ),
-# }
-# post_request(dc)
+# Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
+# - Call get_request() with specified arguments
+# - Get the returned sentiment label such as Positive or Negative
+def analyze_review_sentiments(text):
+    authenticator = IAMAuthenticator(dct['NLUAPI'])
+    natural_language_understanding = NaturalLanguageUnderstandingV1(version='2022-04-07', authenticator=authenticator)
+    natural_language_understanding.set_service_url(dct['NLURL'])
+    response = natural_language_understanding.analyze(
+        text= text,
+        # return_analyzed_text=True,
+        # fallback_to_raw=True,  # to use raw html
+        features=Features(
+            entities=EntitiesOptions(emotion=True, sentiment=True, limit=2),
+            keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
+    # print(json.dumps(response, indent=2))
+    return response
 
+    
+
+
+# TODO New member get address by zip and state code
+def infoAddress(html_zip, html_code):
+    import requests as rq
+    response = rq.get(f"{dct['zipurl']}zipCode={html_zip}&countryCode={html_code}&apiKey={dct['zipapi']}").json()
+    return response
 
 
 
