@@ -9,15 +9,14 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <link
       href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
       rel="stylesheet"
     />
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <!-- MUX player -->
+    <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+
     <!-- Local css/js -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <script defer src="{% static 'javascript/style.js' %}"></script>
@@ -83,69 +82,88 @@
       </nav>
 
       <!-- Begin page content -->
-      <div class="flex-shrink-0">
-        <div class="container">
-          <h1 class="mt-5 display-2">AKA Cars</h1>
-          <p class="lead">
-            Get an offer for super cars in less than 2 minutes. It is simple
-            easy online in 3 steps.<br />
-            Enter a few details and leave pickup to us.
-            <br />
-            <label for="loc" class="text_label">State: </label>
-            <input
-              type="text"
-              id="loc"
-              placeholder="e.g. New-York"
-              name="location"
-              class="mb-2 rounded"
-              style="margin-left: 80px"
-              required
-            />
-            <br />
-            <label for="statecode" class="text_label">City Code: </label>
-            <input
-              type="text"
-              id="statecode"
-              placeholder="e.g. 3001BE"
-              name="statecode"
-              class="mb-2 rounded"
-              style="margin-left: 45px"
-              required
-            />
-            <br />
-            <label for="phone" class="text_label">Phone Number: </label>
-            <input
-              type="tel"
-              id="phone"
-              placeholder="e.g.+4175362319"
-              name="phone"
-              class="mb-2 rounded"
-              pattern="^\d+$"
-              required
-            />
-            <br />
-            <button
-              class="btn btn-outline-secondary btn-sm mt-3 px-4"
-              id="btn_demo"
-            >
-              Send
-            </button>
-          </p>
-          <div class="pop_txt ctc_form" id="ctc_form">
-            <div
-              class="text-warning bg-dangerous p-3 mx-3-auto"
-              id="txt_demo"
-            ></div>
-            <button onclick="popUp(false)" class="btn btn-secondary col-xs-3">
-              OK
-            </button>
+      <!-- Demo video on background-->
+      <section class="test_video">
+        <!-- <video autoplay muted loop id="myVideo">
+          <source src="{static 'video/demo.mp4' }" type="video/mp4">
+        </video> -->
+
+        <!-- Form -->
+        <!-- <div class="content"> -->
+        <div class="flex-shrink-0">
+          <div class="container">
+            <h1 class="mt-5 display-2">AKA Cars</h1>
+            <p class="lead">
+              Get an offer for super cars in less than 2 minutes. It is simple
+              easy online in 3 steps.<br />
+              Enter a few details and leave pickup to us.
+            </p>
+            <form novalidate>
+              <div class="text-dangerous mx-auto px-auto" id="warning"></div>
+              <label for="loc" class="text_label">State: </label>
+              <input
+                type="text"
+                id="loc"
+                placeholder="e.g. New-York"
+                name="location"
+                class="mb-2 rounded"
+                style="margin-left: 70px"
+                value=""
+                required
+              />
+              <br />
+              <label for="statecode" class="text_label">City Code: </label>
+              <input
+                type="text"
+                id="statecode"
+                placeholder="e.g. 3001BE"
+                name="statecode"
+                class="mb-2 rounded"
+                style="margin-left: 40px"
+                value=""
+                required
+              />
+              <br />
+              <label for="phone" class="text_label">Phone Number: </label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="e.g.+4175362319"
+                name="phone"
+                style="margin-left: 5px"
+                class="mb-2 rounded"
+                pattern="^\d+$"
+                value=""
+                required
+              />
+              <br />
+              <button
+                class="btn btn-outline-secondary btn-sm mt-3 px-4"
+                id="btn_demo"
+              >
+                Send
+              </button>
+              <div class="pop_txt ctc_form" id="ctc_form">
+                <div
+                  class="text-warning bg-dangerous p-3 mx-3-auto"
+                  id="txt_demo"
+                ></div>
+                <button
+                  onclick="popUp(false)"
+                  class="btn btn-secondary col-xs-3"
+                >
+                  OK
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- </div> -->
+
+          <div class="seperator">
+            <div class="devider-sep"></div>
           </div>
         </div>
-      </div>
-
-      <div class="seperator">
-        <div class="devider-sep"></div>
-      </div>
+      </section>
 
       <!-- Cars -->
       <div class="container px-4 py-5" id="custom-cards">
@@ -228,6 +246,7 @@
     </main>
 
     <!-- Footer -->
+    <!-- <div class="content"> -->
     <div class="container mt-4 border-top">
       <footer class="py-5">
         <div class="row">
@@ -322,5 +341,13 @@
         </div>
       </footer>
     </div>
+    <!-- </div> -->
+
+    <!-- JS CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
   </body>
 </html>

@@ -1,15 +1,26 @@
 'use strict';
 // 3 steps contact only demo
-
+const warn_txt =   document.querySelector('#txt_demo');
+const loc = document.querySelector('#loc');
+const state = document.querySelector('#statecode');
+const phone = document.querySelector('#phone');
 document.getElementById('btn_demo').addEventListener('click', elem => {
   elem.preventDefault();
 
-  document.querySelector('#txt_demo').innerHTML =
-    '<h5>Thank you!</h5><h6>AKA dealers is going to get in touch with you within an hour.</h6>';
-  document.querySelector('#loc').value = '';
-  document.querySelector('#statecode').value = '';
-  document.querySelector('#phone').value = '';
+  if (loc.value == "" || state.value == '' || phone.value == "") {
+      loc.focus();
+      state.focus();
+      phone.focus();
+      document.querySelector("#warning").innerText = 'Fill in all fields required!';
+  }
+  
+  warn_txt.innerHTML =
+  '<h5>Thank you!</h5><h6>AKA dealers is going to get in touch with you within an hour.</h6>';
+  loc.value = '';
+  state.value = '';
+  phone.value = '';
   popUp(true);
+
 });
 
 const popUp = function (bool) {
@@ -19,3 +30,42 @@ const popUp = function (bool) {
     document.querySelector('#ctc_form').style.visibility = 'hidden';
   }
 };
+
+
+//  Add opacity to dark the end flowly
+// Get the video
+// var video = document.getElementById("myVideo");
+// // Get the button
+// // var btn = document.getElementById("myBtn");
+// // Pause and play the video, and change the button text
+// function myFunction() {
+//   if (video.paused) {
+//     video.play();
+//     btn.innerHTML = "Pause";
+//     // todo
+//   } else {
+//     video.pause();
+//     btn.innerHTML = "Play";
+//   }
+// }  
+
+
+// MUX Video
+// POST https://api.mux.com/video/v1/assets
+// {
+//   "input": "https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4",
+//   "playback_policy": [
+//     "public"
+//   ]
+// }
+
+// Upload video file
+// POST https://api.mux.com/video/v1/uploads
+// {
+//   "new_asset_settings": {
+//     "playback_policy": [
+//       "public"
+//     ]
+//   },
+//   "cors_origin": "*"
+// }

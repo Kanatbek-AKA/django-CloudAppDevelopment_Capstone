@@ -5,40 +5,41 @@ from django.conf import settings
 import uuid
 
 # Course
-# class CarMake(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     name = models.CharField(max_length=50, default="AKA motors")
-#     description = models.CharField(max_length=1000)
+class CarMake(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, default="AKA motors")
+    description = models.CharField(max_length=1000)
 
-#     def __str__(self) -> str:
-#         return self.name
-
-
-# class CarModel(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     name = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-#     type = models.CharField(null=False, max_length=20, )
-#     make = models.CharField(null=False, max_length=150, )
-#     year = models.DateField(default=now)
-
-#     def __str__(self):
-#         return str(self.id)
+    def __str__(self) -> str:
+        return self.name
 
 
-# class CarDealer:
-#     def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
-#         self.address = address
-#         self.city = city
-#         self.full_name = full_name
-#         self.id = id
-#         self.lat = lat
-#         self.long = long
-#         self.short_name = short_name
-#         self.st = st
-#         self.zip = zip
+class CarModel(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    type = models.CharField(null=False, max_length=20, blank=True)
+    make = models.CharField(null=False, max_length=150, blank=True)
+    year = models.DateField(default=now)
 
-#     def __str__(self):
-#         return "Dealer name: " + self.full_name
+    def __str__(self):
+        return str(self.id)
+
+
+class CarDealer:
+	
+    def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
+        self.address = address
+        self.city = city
+        self.full_name = full_name
+        self.id = id
+        self.lat = lat
+        self.long = long
+        self.short_name = short_name
+        self.st = st
+        self.zip = zip
+
+    def __str__(self):
+        return "Dealer name: " + self.full_name
 
 
 # This part is apart with additional models.

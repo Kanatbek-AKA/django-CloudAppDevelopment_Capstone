@@ -17,10 +17,10 @@ function updateImageDisplay() {
     para.textContent = "No files currently selected for upload";
     preview.appendChild(para);
   } else {
-    const list = document.createElement("ol");
+    const list = document.createElement("div");
     preview.appendChild(list);
     for (const file of curFiles) {
-      const listItem = document.createElement("li");
+      const listItem = document.createElement("div");
       const para = document.createElement("p");
       if (validFileType(file)) {
         para.textContent = `File name ${file.name}, file size ${returnFileSize(
@@ -28,9 +28,11 @@ function updateImageDisplay() {
         )}.`;
         const image = document.createElement("img");
         image.src = URL.createObjectURL(file);
+        image.style.width="100px";
+        image.style.height="50px";
 
         listItem.appendChild(image);
-        listItem.appendChild(para);
+        // listItem.appendChild(para);
       } else {
         para.textContent = `File name ${file.name}: Not a valid file type. Please upload an image.`;
         listItem.appendChild(para);
@@ -64,6 +66,7 @@ function returnFileSize(number) {
     return `${(number / 1048576).toFixed(1)} MB`;
   }
 }
+
 
 //   Alternative
 // function validateFileType(){

@@ -1,11 +1,38 @@
 from django.contrib import admin
-# from .models import CarDealer, CarMake, CarModel, DealerReview, TuningModel
+from .models import CarDealer, CarMake, CarModel
+
 
 # Course
-# admin.site.register(CarModel, CarModelAdmin)
+class CarMakeInline(admin.StackedInline):
+	model = CarMake
+
+class CarModelInline(admin.StackedInline):
+	model = CarModel
+
+
+class CarDealerInline(admin.StackedInline):
+	model = CarDealer
+
+
+class CarMakeAdmin(admin.ModelAdmin):
+	model = [CarModelInline]
+	list_display = ['name']
+	list_filter = ['name']
+
+
+
+admin.site.register(CarMake, CarMakeAdmin)
+admin.site.register(CarModel)
+# admin.site.register(CarDealer)
+
+
+
+
 
 
 # Apart
+# from django.contrib import admin
+# from .models import CarDealer, CarMake, CarModel, DealerReview, TuningModel
 # # CarModelInline class
 # class CarModelInline(admin.StackedInline):
 #     model = CarModel

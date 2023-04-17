@@ -28,6 +28,26 @@ body {
   /* margin-right: 5px; */
 }
 
+/*.test_video {}*/
+
+#myVideo {
+  /* position: relative; */
+  /* right: 0; */
+  /* bottom: 0; */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+  /* position: relative; */
+  /* bottom: 0; */
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
 .redg {
   margin-right: 5px;
   color: whitesmoke;

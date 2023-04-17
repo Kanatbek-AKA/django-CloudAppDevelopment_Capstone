@@ -1,8 +1,8 @@
 'use strict';
-// pagination: true,
+// pagination: false,
 
 $(function () {
-  $('#table').bootstrapTable({
+  $('#tbl').bootstrapTable({
     search: true,
     columns: [
       {

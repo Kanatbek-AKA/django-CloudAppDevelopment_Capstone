@@ -24,7 +24,6 @@ def connectCloudant(params):
     authenticator = IAMAuthenticator(params["IAM_API_KEY"])
     service = CloudantV1(authenticator=authenticator)
     service.set_service_url(params["COUCH_URL"])
-
     # a = [i for i in dir(service) if "head" in i]
     # print(a)
     return service

@@ -46,8 +46,6 @@ body {
   margin-top: 50px;
 }
 
-/* to FIX: Pagination and table-hover BUG  */
-
 .s_table {
   margin-top: 5rem;
 }
@@ -80,15 +78,15 @@ body {
   width: 100%;
   overflow: auto;
   height: 100px;
-}
-.fixed_header thead tr {
-  display: block;
 } */
-/* .fixed_header thead {
+/* .fixed_header thead tr {
+  display: block;
+}
+.fixed_header thead {
   background: black;
   color: #fff;
-} */
-/* .fixed_header th,
+}
+.fixed_header th,
 .fixed_header td {
   padding: 5px;
   text-align: left;

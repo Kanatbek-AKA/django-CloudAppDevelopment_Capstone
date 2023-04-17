@@ -17,19 +17,27 @@ from requests.exceptions import ConnectionError
 # This part works pure with Cloudant DB remotely, and you do not need to have a local DB dbsqlite3 in your app
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('../../functions/.env'))
-    
+
 dct = {
-    "COUCH_USERNAME": os.getenv('USERNAME'),
-    'IAM_API_KEY': os.getenv("APIKEY"),
-    'COUCH_URL': os.getenv("URL"),
-    "DB1": os.getenv("DATADBNAME"),
-    'DB2': os.getenv("DATADBNAME2"),
-    'NLUAPI': os.getenv('NLU_KEY'),
-    "NLURL": os.getenv('NLU_URL'),
-    'zipapi': os.getenv("ZIPCODE"),
-    "zipurl": os.getenv('URLCODE'),
+"COUCH_USERNAME": os.getenv('USERNAME'),
+'IAM_API_KEY': os.getenv("APIKEY"),
+'COUCH_URL': os.getenv("URL"),
+"DB1": os.getenv("DATADBNAME"),
+'DB2': os.getenv("DATADBNAME2"),
+'NLUAPI': os.getenv('NLU_KEY'),
+"NLURL": os.getenv('NLU_URL'),
+'zipapi': os.getenv("ZIPCODE"),
+# "zipurl": os.getenv('URLCODE'),
 }
-# print(dct['DB1'], dct['DB2'])
+#print(dct['zipurl'], dct['zipapi'])
+
+
+# New member get address by zip and state code
+def infoAddress(html_zip, html_code):
+    import requests as rq
+    dct = {}
+    response = rq.get(f"https://thezipcodes.com/api/v1/search?zipCode={html_zip}&countryCode={html_code}&apiKey={zipapi}").json()
+    return response
 
 
 def connectServer(params):
@@ -40,7 +48,6 @@ def connectServer(params):
 
 
 def get_dealers():
-    # Retrieve db value  or you can define multiple db values
     service = connectServer(dct)
     dbname = dct['DB1']
     values = service.post_all_docs(db=dbname, include_docs=True).get_result()
@@ -49,28 +56,47 @@ def get_dealers():
         'headers': {'Content-Type': 'application/json'},
         'body': values
     }
-    # print(result)
     return result
-    # except ConnectionError:
-    #     pass
-        
+
+
+def get_reviews():
+    service = connectServer(dct)
+    dbname = dct['DB2']
+    # try:
+    values = service.post_all_docs(
+        db=dbname, include_docs=True).get_result()
+    result = {
+        'statusCode': 200,
+        'headers': {'Content-Type': 'application/json'},
+        'body': values
+    }
+    # print(result)
+
+    return result
+
 
 
 def be_aka(params):
     service = connectServer(dct)
     dbname = dct['DB1']
     new_member = Document(
+        id=params['ids'],
         full_name=params['full_name'],
         short_name=params['short_name'],
         address=params['address'],
         city=params['city'],
         state=params['state'],
-        st=params['st'], # or use JS and Python to read and find abbrivation for each state 
+        # or use JS  to read and find abbrivation for each state
+        st=params['st'],
         zip=params['zipcode'],
-        lat=params['latitude'],  # Using JS or Python to get address lat (new)
-        long=params['longitude'],  # Using JS or Python to get address lat (new)
-        reg_date=params['date'],  # date of registration being aka 
-        image=params['image'],   # Image required 
+        # Using JS or Python to get address lat (new)
+        lat=params['latitude'],
+        # Using JS or Python to get address long (new)
+        long=params['longitude'],
+        # date of registration being aka
+        reg_date=params['date'],
+        # Image required
+        image=params['image'],
         # Device informtion
         device=params['device'],
         machine=params['machine'],
@@ -86,14 +112,14 @@ def be_aka(params):
     }
     # print(res)
     return res
-    # values = service.post_find(db=dbname,  selector={
-    #                            "state": {"$eq": val}}).get_result()
+
 
 
 # Get reviews
 def get_reviews():
     service = connectServer(dct)
     dbname = dct['DB2']
+    # try:
     values = service.post_all_docs(
         db=dbname, include_docs=True).get_result()
     result = {
@@ -103,22 +129,25 @@ def get_reviews():
     }
     # print(result)
     return result
-    # except ConnectionError:
-    #     pass
 
-# Post review 
+
+
+# Post review
 def post_reviews(params):
     service = connectServer(dct)
     dbname = dct['DB2']
     products_doc = Document(
+        id=params['ids'],
         type="reviews",
         name=params['name'],
+        dealership=params['dealership'],
         review=params['review'],
         car_make=params['car_make'],
         car_model=params['car_model'],
         purchase=params['bool'],
         car_year=params['year'],
-        purchase_date=params['date']
+        client_purchase_date= params['client_purchase'],
+        reviews_date=params['date']
         # image="assets/img/0gmsnghhew.jpg")
     )
     response = service.post_document(
@@ -131,15 +160,17 @@ def post_reviews(params):
     # print(res)
     return res
 
+
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 def analyze_review_sentiments(text):
     authenticator = IAMAuthenticator(dct['NLUAPI'])
-    natural_language_understanding = NaturalLanguageUnderstandingV1(version='2022-04-07', authenticator=authenticator)
+    natural_language_understanding = NaturalLanguageUnderstandingV1(
+        version='2022-04-07', authenticator=authenticator)
     natural_language_understanding.set_service_url(dct['NLURL'])
     response = natural_language_understanding.analyze(
-        text= text,
+        text=text,
         # return_analyzed_text=True,
         # fallback_to_raw=True,  # to use raw html
         features=Features(
@@ -148,18 +179,32 @@ def analyze_review_sentiments(text):
     # print(json.dumps(response, indent=2))
     return response
 
-    
-
-
-# TODO New member get address by zip and state code
-def infoAddress(html_zip, html_code):
-    import requests as rq
-    response = rq.get(f"{dct['zipurl']}zipCode={html_zip}&countryCode={html_code}&apiKey={dct['zipapi']}").json()
-    return response
 
 
 
-# This part works with local DB dbsqlite3 in your app 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# This part works with local DB dbsqlite3 in your app
 # Create a `get_request` to make HTTP GET requests
 # e.g., response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
 #                                     auth=HTTPBasicAuth('apikey', api_key))
@@ -195,7 +240,6 @@ def infoAddress(html_zip, html_code):
 
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
-
 
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function

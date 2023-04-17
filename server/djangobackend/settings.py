@@ -31,13 +31,11 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'
 # if the repo runs on local machine set Debug to true else debug false hosted
 DEBUG = True
 
-APPEND_SLASH = True    #
-
+# APPEND_SLASH = True    #
 ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'djangoapp.apps.DjangoappConfig',
     'django.contrib.admin',
@@ -57,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'djangobackend.urls'
 

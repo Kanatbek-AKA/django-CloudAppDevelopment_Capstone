@@ -22,107 +22,107 @@ function main(params) {
   });
   cloudant.setServiceUrl(params.COUCH_URL);
 
-  //    //console.log(cloudant.status)
-  //    let dbList = getDbs(cloudant);
-  //    return { dbs: dbList };
+     //console.log(cloudant.status)
+     let dbList = getDbs(cloudant);
+     return { dbs: dbList };
 
-  // Get all DB names
-  // cloudant.getAllDbs().then(response => {
-  //   console.log({"dbs": response.result});
-  // }).catch((error) => console.log(error));
+  Get all DB names
+  cloudant.getAllDbs().then(response => {
+    console.log({"dbs": response.result});
+  }).catch((error) => console.log(error));
 
-  // Get Server information
-  // cloudant.getServerInformation().then(response => {
-  //   console.log(response.result);
-  // }).catch((error) => console.log(error));
+  Get Server information
+  cloudant.getServerInformation().then(response => {
+    console.log(response.result);
+  }).catch((error) => console.log(error));
 
-  // Get Membership information
-  // cloudant.getMembershipInformation().then(response => {
-  //     console.log(response.result);
-  //   }).catch((error) => console.log(error));
+  Get Membership information
+  cloudant.getMembershipInformation().then(response => {
+      console.log(response.result);
+    }).catch((error) => console.log(error));
 
-  // Get Capacity information
-  // cloudant.getCapacityThroughputInformation().then(response => {
-  //   console.log(response.result);
-  // }).catch((error) => console.log(error));
+  Get Capacity information
+  cloudant.getCapacityThroughputInformation().then(response => {
+    console.log(response.result);
+  }).catch((error) => console.log(error));
 
-  // Get UUIDs
-  // const uuidsParams = CloudantV1.GetUuidsParams = {
-  //   count: 10
-  // };
-  // cloudant.getUuids(uuidsParams).then(response => {
-  //   console.log(response.result);
-  // }).catch((error) => console.log(error));
+  Get UUIDs
+  const uuidsParams = CloudantV1.GetUuidsParams = {
+    count: 10
+  };
+  cloudant.getUuids(uuidsParams).then(response => {
+    console.log(response.result);
+  }).catch((error) => console.log(error));
 
-  // Get information about multiple databases
-//   cloudant
-//     .postDbsInfo({ keys: ['flowdb', 'diamonds', 'django-reviews'] })
-//     .then(response => {
-//       console.log(response.result);
-//     })
-//     .catch(error => console.log(error));
+  Get information about multiple databases
+  cloudant
+    .postDbsInfo({ keys: ['flowdb', 'diamonds', 'django-reviews'] })
+    .then(response => {
+      console.log(response.result);
+    })
+    .catch(error => console.log(error));
 
-// Remove db
-// cloudant.deleteDatabase({db: '<enter-db-name>'}).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Remove db
+cloudant.deleteDatabase({db: '<enter-db-name>'}).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Get information about DB content
-// cloudant.getDatabaseInformation({db: 'flowdb'}).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Get information about DB content
+cloudant.getDatabaseInformation({db: 'flowdb'}).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Get head of DB  --> 200
-// cloudant.headDatabase({db: 'flowdb'}).then(response => {
-//   console.log(response.status);
-// }).catch((error) => console.log(error));
+Get head of DB  --> 200
+cloudant.headDatabase({db: 'flowdb'}).then(response => {
+  console.log(response.status);
+}).catch((error) => console.log(error));
 
-// Create a DB
-// cloudant.putDatabase({ db: 'test_new_db_cli', partitioned: false }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Create a DB
+cloudant.putDatabase({ db: 'test_new_db_cli', partitioned: false }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Change feed
-// cloudant.postChanges({ db: 'test_new_db_cli' }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Change feed
+cloudant.postChanges({ db: 'test_new_db_cli' }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Query a list of all design documents in a database
-// cloudant.postDesignDocs({ attachments: true, db: 'diamonds' }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Query a list of all design documents in a database
+cloudant.postDesignDocs({ attachments: true, db: 'diamonds' }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Create or modify docs in a DB
-// const productsDoc: CloudantV1.Document = {
-//   _id: 'small-appliances:1000042',
-//   type: 'product',
-//   productid: '1000042',
-//   brand: 'Salter',
-//   name: 'Digital Kitchen Scales',
-//   description: 'Slim Colourful Design Electronic Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic for Liquids ml + fl. oz. 15Yr Guarantee - Green',
-//   price: 14.99,
-//   image: 'assets/img/0gmsnghhew.jpg'
-// };
-// cloudant.postDocument({db: '<enter-db-name>', document: productsDoc }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Create or modify docs in a DB
+const productsDoc: CloudantV1.Document = {
+  _id: 'small-appliances:1000042',
+  type: 'product',
+  productid: '1000042',
+  brand: 'Salter',
+  name: 'Digital Kitchen Scales',
+  description: 'Slim Colourful Design Electronic Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic for Liquids ml + fl. oz. 15Yr Guarantee - Green',
+  price: 14.99,
+  image: 'assets/img/0gmsnghhew.jpg'
+};
+cloudant.postDocument({db: '<enter-db-name>', document: productsDoc }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Query a list of all documents in a database
-// cloudant.postAllDocs({ db: 'orders', includeDocs: true, startKey: 'abc', limit: 10 }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Query a list of all documents in a database
+cloudant.postAllDocs({ db: 'orders', includeDocs: true, startKey: 'abc', limit: 10 }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
-// Multiple query the list of all Docs in a DB
-// const allDocsQueries: CloudantV1.AllDocsQuery[] = [{
-//         keys: ['small-appliances:1000042', 'small-appliances:1000043'],
-//       },
-//       {
-//         limit: 3,
-//         skip: 2
-//     }];
-// cloudant.postAllDocsQueries({ db: '<enter-db-name>',  queries: allDocsQueries }).then(response => {
-//   console.log(response.result);
-// }).catch((error) => console.log(error));
+Multiple query the list of all Docs in a DB
+const allDocsQueries: CloudantV1.AllDocsQuery[] = [{
+        keys: ['small-appliances:1000042', 'small-appliances:1000043'],
+      },
+      {
+        limit: 3,
+        skip: 2
+    }];
+cloudant.postAllDocsQueries({ db: '<enter-db-name>',  queries: allDocsQueries }).then(response => {
+  console.log(response.result);
+}).catch((error) => console.log(error));
 
 // Bulk docs
 // const eventDoc1: CloudantV1.Document = {

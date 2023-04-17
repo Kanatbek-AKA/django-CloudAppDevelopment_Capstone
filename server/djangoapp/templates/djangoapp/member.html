@@ -1,261 +1,261 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/member.css' %}"
-    />
-    <script defer src="{% static  'javascript/member.js' %}"></script>
-    <!-- CDN -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <link
-      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <main class="mform">
-      <!-- Navigation bar -->
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="/">Home</a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <li>
-              <a class="btn btn-link" href="#"
-                >{{ user.first_name }}({{ user.username }})</a
-              >
-              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-                >Logout</a
-              >
-            </li>
-            {% else %}
-            <li>
-              <form
-                class="form-inline"
-                action="{% url 'djangoapp:login' %}"
-                method="post"
-              >
-                {% csrf_token %}
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Username"
-                    name="username"
-                  />
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="password"
-                    name="psw"
-                  />
-                  <button class="btn btn-primary" type="submit">Login</button>
-                  <a
-                    class="btn btn-link"
-                    href="{% url 'djangoapp:registration' %}"
-                    >Sign Up</a
-                  >
-                </div>
-              </form>
-            </li>
-            {% endif %}
-          </ul>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/member.css' %}"
+  />
+  <script defer src="{% static  'javascript/member.js' %}"></script>
+  <!-- CDN -->
+  <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <link
+  href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+  rel="stylesheet"
+  />
+</head>
+<body>
+  <main class="mform">
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Home</a>
         </div>
-      </nav>
-
-      <div class="info_local_device">
-        <div class="containers">
-          <div class="card">
-            <div class="card-body bg-warning">
-              <span class="lst_text">Your device:</span>
-              <hr />
-              <span class="lst"><b>Device</b>: {{extract.devices}} </span><br />
-              <span class="lst"><b>Processor</b>: {{ extract.processors }}</span
-              ><br />
-              <span class="lst"><b>Machine</b>: {{ extract.machines }}</span
-              ><br />
-              <span class="lst"><b>System</b>: {{ extract.systems }}</span>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a class="btn btn-link" href="#"
+            >{{ user.first_name }}({{ user.username }})</a
+            >
+            <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+            >Logout</a
+            >
+          </li>
+          {% else %}
+          <li>
+            <form
+            class="form-inline"
+            action="{% url 'djangoapp:login' %}"
+            method="post"
+            >
+            {% csrf_token %}
+            <div class="input-group">
+              <input
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              name="username"
+              />
+              <input
+              type="password"
+              class="form-control"
+              placeholder="password"
+              name="psw"
+              />
+              <button class="btn btn-primary" type="submit">Login</button>
+              <a
+              class="btn btn-link"
+              href="{% url 'djangoapp:registration' %}"
+              >Sign Up</a
+              >
             </div>
-          </div>
+          </form>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <div class="info_local_device">
+    <div class="containers">
+      <div class="card">
+        <div class="card-body bg-warning">
+          <span class="lst_text">Your device:</span>
+          <hr />
+          <span class="lst"><b>Device</b>: {{extract.devices}} </span><br />
+          <span class="lst"><b>Processor</b>: {{ extract.processors }}</span
+          ><br />
+          <span class="lst"><b>Machine</b>: {{ extract.machines }}</span
+          ><br />
+          <span class="lst"><b>System</b>: {{ extract.systems }}</span>
         </div>
       </div>
+    </div>
+  </div>
 
-      <form
-        action="{% url 'djangoapp:members' %}"
-        method="post"
-        enctype="multipart/form-data"
-        class="mx-auto px-auto"
+  <form
+  action="{% url 'djangoapp:members' %}"
+  method="post"
+  enctype="multipart/form-data"
+  class="mx-auto px-auto"
+  >
+  {% csrf_token %}
+  <div class="container-sm">
+    <h3 class="mt-5 mb-4 py-auto">New Member</h3>
+    <div class="text-dangerous sizer"><b>*</b>-required</div>
+    <div class="form-group row">
+      <label for="firstname" class="col-sm-2 col-form-label"
+      ><b>First Name:*</b></label
       >
-        {% csrf_token %}
-        <div class="container-sm">
-          <h3 class="mt-5 mb-4 py-auto">New Member</h3>
-          <div class="text-dangerous sizer"><b>*</b>-required</div>
-          <div class="form-group row">
-            <label for="firstname" class="col-sm-2 col-form-label"
-              ><b>First Name:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="firstname"
-                class="form-control"
-                type="text"
-                placeholder="e.g. Smoke"
-                name="firstname"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="lastname" class="col-sm-2 col-form-label"
-              ><b>Last Name:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="lastname"
-                class="form-control"
-                type="text"
-                placeholder="e.g. Healthy "
-                name="lastname"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="shortname" class="col-sm-2 col-form-label"
-              ><b>Short name:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="shortname"
-                class="form-control"
-                type="text"
-                placeholder="e.g. ShortLife "
-                name="shortname"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="dob" class="col-sm-2 col-form-label"
-              ><b>Date of Birth:*</b></label
-            >
-            <div class="col-sm-2">
-              <!-- type="datetime-local" -->
-              <input
-                id="dob"
-                class="form-control"
-                type="date"
-                name="dob"
-                min="1900-01-01"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="address" class="col-sm-2 col-form-label"
-              ><b>Address:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="address"
-                class="form-control"
-                type="text"
-                name="address"
-                placeholder="e.g. Wall Street Av. 38"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="city" class="col-sm-2 col-form-label"
-              ><b>City</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="city"
-                class="form-control"
-                type="text"
-                name="city"
-                placeholder="e.g. Detroit"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="state" class="col-sm-2 col-form-label"
-              ><b>State:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="state"
-                class="form-control"
-                type="text"
-                name="state"
-                placeholder="e.g. Michigan"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="zip" class="col-sm-2 col-form-label"
-              ><b>ZIP code:*</b></label
-            >
-            <div class="col-sm-3">
-              <input
-                id="zip"
-                class="form-control"
-                type="text"
-                name="zip"
-                placeholder="e.g. 3001 BE"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <!-- Image load  -->
-            <label for="image" class="col-sm-2 col-form-label"
-              ><b>Your image:*</b></label
-            >
-            <!-- <div class="col-sm-10"> -->
-            <input
-              id="image"
-              class="ml-3"
-              name="image"
-              type="file"
-              multiple
-              accept="image/*"
-            />
-            <!-- </div> -->
-            <div id="preview"></div>
-            <!-- </div> -->
-          </div>
-          {% if message %}
-          <div class="alert alert-warning">{{ message }}</div>
-          {% endif %}
-          <button class="btn btn-primary" type="submit">Submit</button>
-        </div>
-      </form>
-      <div class="seperator">
-        <div class="devider-sep"></div>
+      <div class="col-sm-3">
+        <input
+        id="firstname"
+        class="form-control"
+        type="text"
+        placeholder="e.g. Smoke"
+        name="firstname"
+        required
+        />
       </div>
-      <button class="btn btn-secondary m-5 py-2 px-4 rounded-4">
-        <a
-          href="{% url 'djangoapp:about' %} "
-          class="text-warning text-decoration-none"
-          >Back</a
-        >
-      </button>
-    </main>
-  </body>
+    </div>
+    <div class="form-group row">
+      <label for="lastname" class="col-sm-2 col-form-label"
+      ><b>Last Name:*</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="lastname"
+        class="form-control"
+        type="text"
+        placeholder="e.g. Healthy "
+        name="lastname"
+        required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="shortname" class="col-sm-2 col-form-label"
+      ><b>Short name:*</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="shortname"
+        class="form-control"
+        type="text"
+        placeholder="e.g. ShortLife "
+        name="shortname"
+        required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="dob" class="col-sm-2 col-form-label"
+      ><b>Date of Birth:*</b></label
+      >
+      <div class="col-sm-2">
+        <!-- type="datetime-local" -->
+        <input
+        id="dob"
+        class="form-control"
+        type="date"
+        name="dob"
+        min="1900-01-01"
+        required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="address" class="col-sm-2 col-form-label"
+      ><b>Address:*</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="address"
+        class="form-control"
+        type="text"
+        name="address"
+        placeholder="e.g. Wall Street Av. 38"
+        required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="city" class="col-sm-2 col-form-label"
+      ><b>City</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="city"
+        class="form-control"
+        type="text"
+        name="city"
+        placeholder="e.g. Detroit"
+
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="zip" class="col-sm-2 col-form-label"
+      ><b>ZIP code:*</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="zip"
+        class="form-control"
+        type="text"
+        name="zip"
+        placeholder="e.g. 3001 BE"
+        required
+        />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="state" class="col-sm-2 col-form-label"
+      ><b>Country Code:*</b></label
+      >
+      <div class="col-sm-3">
+        <input
+        id="state"
+        class="form-control"
+        type="text"
+        name="state"
+        placeholder="e.g. US"
+        required
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <!-- Image load  -->
+      <label for="image" class="col-sm-2 col-form-label"
+      ><b>Your image:*</b></label
+      >
+      <!-- <div class="col-sm-10"> -->
+        <input
+        id="image"
+        class="ml-3"
+        name="image"
+        type="file"
+        multiple
+        accept="image/*"
+        />
+        <!-- </div> -->
+        <div id="preview"></div>
+        <!-- </div> -->
+      </div>
+      {% if message %}
+      <div class="alert alert-warning">{{ message }}</div>
+      {% endif %}
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
+  <div class="seperator">
+    <div class="devider-sep"></div>
+  </div>
+  <button class="btn btn-secondary m-5 py-2 px-4 rounded-4">
+    <a
+    href="{% url 'djangoapp:dealerships' %} "
+    class="text-warning text-decoration-none"
+    >Back</a
+    >
+  </button>
+</main>
+</body>
 </html>

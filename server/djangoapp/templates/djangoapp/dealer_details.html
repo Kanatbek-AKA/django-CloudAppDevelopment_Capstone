@@ -1,347 +1,354 @@
 <!-- This is only a demo, however, you can use layout to exntend, include navbar, body footer etc -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Dealership Review</title>
-    {% load static %}
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/dealers.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <!-- CDN -->
-    <!-- JQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
-      integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
-      crossorigin="anonymous"
-    ></script>
-    <!-- Ajax -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <!-- Bootstrap Table -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"
-    />
-    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>Dealership Review</title>
+  {% load static %}
+  <!-- OWn -->
+  <link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/dealers.css' %}"
+  />
+  <script defer src="{% static 'javascript/dealer.js' %}"></script>
+  <!-- CSS/JS CDN -->
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  />
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+  />
+  <script
+  src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
+  integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
+  crossorigin="anonymous"
+  ></script>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+  integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  ></script>
+  <!-- Bootstrap Table -->
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"
+  />
+  <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
 
-  <body>
-    <nav class="navbar navbar-light bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
-          <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
-          <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
-            >Dearlers</a
-          >
-          <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
-          <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
-        </div>
-        <div class="r-anchor">
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <li>
-              <a class="btn btn-link" href="#"
-                >{{ user.first_name }}({{ user.username }})</a
-              >
-              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-                >Logout</a
-              >
-            </li>
-            {% else %}
-            <li>
-              <a
-                class="btn btn-link text-decoration-none"
-                href="{% url 'djangoapp:login' %}"
-                >Login
-              </a>
-              <a
-                class="btn btn-link text-decoration-none"
-                href="{% url 'djangoapp:registration' %}"
-                >Sign Up
-              </a>
-            </li>
-            {% endif %}
-          </ul>
+  <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-dark">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
+        <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+        <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+        >Dearlers</a
+        >
+        <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+        <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+      </div>
+      <div class="r-anchor">
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a class="btn btn-link" href="#"
+            >{{ user.first_name }}({{ user.username }})</a
+            >
+            <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+            >Logout</a
+            >
+          </li>
+          {% else %}
+          <li>
+            <a
+            class="btn btn-link text-decoration-none"
+            href="{% url 'djangoapp:login' %}"
+            >Login
+          </a>
+          <a
+          class="btn btn-link text-decoration-none"
+          href="{% url 'djangoapp:registration' %}"
+          >Sign Up
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+</nav>
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+
+<main>
+  <article class="artickle">
+    <section class="w-50 ml-5">
+      <div class="container px-4">
+        <h2 class="pb-2 display-3">AKA dealers</h2>
+        <p>
+          Far far away, behind the word mountains, far from the countries
+          Vokalia and Consonantia, there live the blind texts. Separated
+          they live in Bookmarksgrove right at the coast of the Semantics, a
+          large language ocean. A small river named Duden flows by their
+          place and supplies it with the necessary regelialia. It is a
+          paradisematic country, in which roasted parts of sentences fly
+          into your mouth. Even the all-powerful Pointing has no control
+          about the blind texts it is an almost unorthographic life One day
+          however a small line of blind text by the name of Lorem Ipsum
+          decided to leave for the far World of Grammar. The Big Oxmox
+          advised her not to do so, because there were thousands of bad
+          Commas, wild Question Marks and devious Semikoli, but the Little
+          Blind Text didn’t listen. She packed her seven versalia, put her
+          initial into the belt and made herself on the way. When she
+          reached the first hills of the Italic Mountains, she had a last
+          view back on the skyline of her hometown Bookmarksgrove, the
+          headline of Alphabet Village and the subline of her own road, the
+          Line Lane. Pityful a rethoric question ran over her cheek, then
+        </p>
+        <br />
+        <div>
+          Around the world, AKA motors has more than 100.000 dealers in 120
+          countries. Want to join AKA dealers, click
+          <a href="{% url 'djangoapp:members' %}">here</a>.
         </div>
       </div>
-    </nav>
-    <div class="seperator">
-      <div class="devider-sep"></div>
-    </div>
-
-    <main>
-      <article class="artickle">
-        <section class="w-50 ml-5">
-          <div class="container px-4">
-            <h2 class="pb-2 display-3">AKA dealers</h2>
-            <p>
-              Far far away, behind the word mountains, far from the countries
-              Vokalia and Consonantia, there live the blind texts. Separated
-              they live in Bookmarksgrove right at the coast of the Semantics, a
-              large language ocean. A small river named Duden flows by their
-              place and supplies it with the necessary regelialia. It is a
-              paradisematic country, in which roasted parts of sentences fly
-              into your mouth. Even the all-powerful Pointing has no control
-              about the blind texts it is an almost unorthographic life One day
-              however a small line of blind text by the name of Lorem Ipsum
-              decided to leave for the far World of Grammar. The Big Oxmox
-              advised her not to do so, because there were thousands of bad
-              Commas, wild Question Marks and devious Semikoli, but the Little
-              Blind Text didn’t listen. She packed her seven versalia, put her
-              initial into the belt and made herself on the way. When she
-              reached the first hills of the Italic Mountains, she had a last
-              view back on the skyline of her hometown Bookmarksgrove, the
-              headline of Alphabet Village and the subline of her own road, the
-              Line Lane. Pityful a rethoric question ran over her cheek, then
-            </p>
-            <br />
-            <div>
-              Around the world, AKA motors has more than 100.000 dealers in 120
-              countries. Want to join AKA dealers, click
-              <a href="{% url 'djangoapp:members' %}">here</a>.
-            </div>
-          </div>
           <!-- <div class="seperator">
         <div class="devider-sep"></div>
       </div> -->
-        </section>
+    </section>
 
-        <section class="mr-3 cards">
-          <!-- Choose  dealer by state -->
-          <h5>FInd dealers in your state</h5>
-          <!-- Need to fix filter using data-field etc  -->
-          <div class="input-group">
-            <input
-              type="text"
-              placeholder="Find your dealer in your state..."
-              class="form-control input-group-sm mb-2"
-              name="data_name"
-              id="input"
-            />
-            <br />
-            <button
-              class="btn btn-primary text-white"
-              data-bs-toggle="collapse"
-              data-bs-target="#dealers_bys"
-              aria-expanded="false"
-              aria-controls="dealers_bys"
-            >
-              Show
-            </button>
-            <!-- collapse -->
-            <div class="container-fluid collapse" id="dealers_bys">
-              <h6>Dealers in your state:</h6>
-              {% for item in dealerships %}
-              <div class="card-columns-vertical">
-                <div class="card mt-1">
-                  <div class="card-header">
-                    <h6>
-                      {{ item.doc.id }} &nbsp; - &nbsp; &nbsp;
-                      {{item.doc.state}}
-                    </h6>
-                  </div>
-                  <div class="card-body col-xs-4">
-                    Address: &nbsp; {{ item.doc.full_name }} <br />
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; {{item.doc.address }} <br />
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; {{item.doc.zip}}, &nbsp; &nbsp;
-                    {{item.doc.city }}
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
+    <section class="mr-3 cards">
+      <!-- Choose  dealer by state -->
+      <h5>Find dealers in your state</h5>
+      <!-- Need to fix filter using data-field etc  -->
+      <div class="input-group">
+        <input
+        type="text"
+        placeholder="Find your dealer in your state..."
+        class="form-control input-group-sm mb-2"
+        name="data_name"
+        id="input"
+        data-bs-toggle="collapse"
+        data-bs-target="#dealers_bys"
+        aria-expanded="false"
+        aria-controls="dealers_bys"
+        />
+        <br />
+        <button
+        class="btn btn-primary text-white"
+        >
+        Show
+      </button>
+      <!-- collapse -->
+      <div class="container-fluid" id="dealers_bys">
+        <h6>Dealers in your state:</h6>
+        {% for item in test.dealerships %}
+        <div class="card-columns-vertical rounded-2">
+          <div class="card mt-1">
+            <div class="card-header">
+              <h6>
+                {{ item.doc.id }} &nbsp; - &nbsp; &nbsp;
+                {{item.doc.state}}
+              </h6>
+            </div>
+            <div class="card-body col-xs-4">
+              Address: &nbsp; {{ item.doc.full_name }} <br />
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp; {{item.doc.address }} <br />
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp; {{item.doc.zip}}, &nbsp; &nbsp;
+              {{item.doc.city }}
             </div>
           </div>
-        </section>
-      </article>
-
-      <div class="seperator">
-        <div class="devider-sep"></div>
+        </div>
+        {% endfor %}
       </div>
-      <section class="sticky-sm-bottom s_table">
-        <h2 class="dealer_header">AKA dealers across USA</h2>
-        <div class="container overflow_table">
-          <div class="table-repsonsive">
-            <!-- data-pagination="true"-->
-            <table
-              data-filter-control="true"
-              data-search="true"
-              data-toggle="table"
-              class="table table-bordered border-warning caption-top fixed_header"
-              id="table"
+    </div>
+  </section>
+</article>
+
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+<section class="sticky-sm-bottom s_table">
+  <h2 class="dealer_header">AKA dealers across USA</h2>
+  <div class="container overflow_table">
+    <div class="table-repsonsive">
+      <table
+      data-filter-control="true"
+      data-search="search"
+      data-toggle="table"
+      class="table table-bordered caption-top"
+      id="tbl"
+      >
+      <caption>
+        Dealers list
+      </caption>
+      <thead class="table-dark">
+        <!-- {for item in dealerships %} -->
+        <tr>
+          <th scope="col" class="col-xs-3 header_col">ID</th>
+          <!-- item.doc.keys:2 }}-->
+          <th scope="col" class="col-xs-3 header_col">Name</th>
+          <th scope="col" class="col-xs-3 header_col">City</th>
+          <th scope="col" class="col-xs-3 header_col">Address</th>
+          <th scope="col" class="col-xs-3 header_col">Postal/Zip</th>
+          <th
+          scope="col"
+          class="col-xs-3 header_col"
+          data-field="state"
+          data-filter-control="select"
+          data-sortable="true"
+          >
+          State
+        </th>
+        <th scope="col" class="col-xs-3 header_col">Latitude</th>
+        <th scope="col" class="col-xs-3 header_col">Longitude</th>
+      </tr>
+    </thead>
+    {% for test in test.dealerships %}
+    <tbody>
+      <tr>
+        <td scope="row" class="col-xs-3">{{ test.doc.id }}</td>
+        <td class="col-xs-3">
+          <!-- add review_id  in url -->
+          <a
+          href="{% url 'djangoapp:reviewed'  %}"
+          rel="noopener noreferrer"
+          target="_self"
+          class="text-decoration-none"
+          >{{ test.doc.full_name }}</a
+          >
+        </td>
+        <td class="col-xs-3">{{ test.doc.city }}</td>
+        <td class="col-xs-3">{{ test.doc.address }}</td>
+        <td class="col-xs-3">{{ test.doc.zip }}</td>
+        <td class="col-xs-3">{{ test.doc.st }}</td>
+        <td class="col-xs-3">{{ test.doc.lat }}</td>
+        <td class="col-xs-3">{{ test.doc.long }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+</div>
+
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+</section>
+
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+</main>
+
+<!-- Footer -->
+<div class="container sticky-sm-bottom">
+  <footer class="py-5">
+    <div class="row">
+      <div class="col-6 col-md-2 mb-3">
+        <h5>AKA Cars</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="/" class="nav-link p-0 text-muted">HQ AKA motors</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Pricing</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Partners</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a
+            href="{% url 'djangoapp:contact' %}"
+            class="nav-link p-0 text-muted"
+            >Contact</a
             >
-              <caption>
-                Dealers list
-              </caption>
-              <thead class="table-dark">
-                <!-- for item in dealerships %} -->
-                <tr>
-                  <th scope="col" class="col-xs-3 header_col">ID</th>
-                  <!-- item.doc.keys:2 }}-->
-                  <th scope="col" class="col-xs-3 header_col">Name</th>
-                  <th scope="col" class="col-xs-3 header_col">City</th>
-                  <th scope="col" class="col-xs-3 header_col">Address</th>
-                  <th scope="col" class="col-xs-3 header_col">Postal/Zip</th>
-                  <th
-                    scope="col"
-                    class="col-xs-3 header_col"
-                    data-field="state"
-                    data-filter-control="select"
-                    data-sortable="true"
-                  >
-                    State
-                  </th>
-                  <th scope="col" class="col-xs-3 header_col">Latitude</th>
-                  <th scope="col" class="col-xs-3 header_col">Longitude</th>
-                </tr>
-                <!-- endfor %} -->
-              </thead>
-              {% for test in dealerships %}
-              <tbody>
-                <tr>
-                  <td scope="row" class="col-xs-3">{{ test.doc.id }}</td>
-                  <td class="col-xs-3">
-                    <a href="#" rel="noopener noreferrer" target="_self"
-                      >{{ test.doc.full_name }}</a
-                    >
-                  </td>
-                  <td class="col-xs-3">{{ test.doc.city }}</td>
-                  <td class="col-xs-3">{{ test.doc.address }}</td>
-                  <td class="col-xs-3">{{ test.doc.zip }}</td>
-                  <td class="col-xs-3">{{ test.doc.st }}</td>
-                  <td class="col-xs-3">{{ test.doc.lat }}</td>
-                  <td class="col-xs-3">{{ test.doc.long }}</td>
-                </tr>
-              </tbody>
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-
-        <div class="seperator">
-          <div class="devider-sep"></div>
-        </div>
-      </section>
-
-      <div class="seperator">
-        <div class="devider-sep"></div>
+          </li>
+        </ul>
       </div>
 
-      <div class="seperator">
-        <div class="devider-sep"></div>
+      <div class="col-6 col-md-2 mb-3">
+        <h5>Service</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Actions</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Buy</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Warranty</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-muted">Delivery</a>
+          </li>
+        </ul>
       </div>
-    </main>
 
-    <!-- Footer -->
-    <div class="container sticky-sm-bottom">
-      <footer class="py-5">
-        <div class="row">
-          <div class="col-6 col-md-2 mb-3">
-            <h5>AKA Cars</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="/" class="nav-link p-0 text-muted">HQ AKA motors</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Pricing</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Partners</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a
-                  href="{% url 'djangoapp:contact' %}"
-                  class="nav-link p-0 text-muted"
-                  >Contact</a
-                >
-              </li>
-            </ul>
+      <div class="col-md-5 offset-md-1 mb-3">
+        <form>
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of what's new and exciting from us.</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden"
+            >Email address</label
+            >
+            <input
+            id="newsletter1"
+            type="text"
+            class="form-control"
+            placeholder="Email address"
+            />
+            <button class="btn btn-primary" type="button">Subscribe</button>
           </div>
+        </form>
+      </div>
+    </div>
 
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Service</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Actions</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Buy</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Warranty</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Delivery</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form>
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden"
-                  >Email address</label
-                >
-                <input
-                  id="newsletter1"
-                  type="text"
-                  class="form-control"
-                  placeholder="Email address"
-                />
-                <button class="btn btn-primary" type="button">Subscribe</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div
-          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-        >
-          <p>&copy; 2023 Inc. All rights reserved.</p>
-          <ul class="list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook" /></svg
+    <div
+    class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+    >
+    <p>&copy; 2023 Inc. All rights reserved.</p>
+    <ul class="list-unstyled d-flex">
+      <li class="ms-3">
+        <a class="link-dark" href="#"
+        ><svg class="bi" width="24" height="24">
+          <use xlink:href="#twitter" /></svg
+          ></a>
+        </li>
+        <li class="ms-3">
+          <a class="link-dark" href="#"
+          ><svg class="bi" width="24" height="24">
+            <use xlink:href="#instagram" /></svg
+            ></a>
+          </li>
+          <li class="ms-3">
+            <a class="link-dark" href="#"
+            ><svg class="bi" width="24" height="24">
+              <use xlink:href="#facebook" /></svg
               ></a>
             </li>
           </ul>
         </div>
       </footer>
     </div>
+    <!--  -->
+
   </body>
-</html>
+  </html>
