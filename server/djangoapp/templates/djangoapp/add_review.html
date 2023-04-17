@@ -66,107 +66,14 @@
           </div>
         </div>
       </nav>
+
       <div class="seperator">
         <div class="devider-sep"></div>
       </div>
 
-      <header>
-        <h2 class="h2">Clients feedbacks/reviews</h2>
-      </header>
-
-      <!--Add review form here -->
-      <!-- Adding sentimental analysis for authenticated users to view dealerships  -->
-      <section class="sentiment" id="sentiment">
-        <div class="inner_sentiment">
-          <div class="columns_own">
-            {% for test in data %}
-            <!--indent  -->
-            {% for anal_test in analyse.keywords %}
-            <!-- Here is sentiment analysis to define -->
-            {% if anal_test.sentiment.label == 'positive' %}
-            <div class="d-inline-flex p-2 mx-auto">
-              <div class="card" style="width: 18rem">
-                <div class="card-body bg-primary rounded-4 mb-4">
-                  <img
-                    class="card-img-left mb-3"
-                    src="{{MEDIA_URL}}/emoji/positive.png"
-                    width="40px"
-                    height="20px"
-                  />
-                  &nbsp; &nbsp;<span>{{ anal_test.sentiment.label }}</span>
-                  <hr />
-
-                  <div class="card-titlemb-3">
-                    {{ test.doc.car_make}} &nbsp; {{test.doc.car_model}}
-
-                    <div class="card-subtitle mb-3">
-                      {{ test.doc.car_year }}
-                      <div class="card-text">{{ test.doc.review }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% elif anal_test.sentiment.label == 'neutral' %}
-            <div
-              class="d-inline-flex flex-row justify-content-center align-items-center p-2 mx-auto"
-            >
-              <div class="card rounded-4" style="width: 18rem">
-                <div class="card-body text-dark mb-4">
-                  <img
-                    class="card-img-left mb-0"
-                    src="{{MEDIA_URL}}/emoji/neutral.png"
-                    width="40px"
-                    height="20px"
-                  />
-                  &nbsp; &nbsp;<span>{{ anal_test.sentiment.label }}</span>
-                  <hr />
-                  <div class="card-title">
-                    <span class="mb-3">
-                      {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
-                    >
-                    <div class="card-subtitle mb-3">
-                      {{ test.doc.car_year }}
-                      <div class="card-text">{{ test.doc.review }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% else %}
-            <div class="d-inline-flex p-2 mx-auto">
-              <div class="card" style="width: 18rem">
-                <img
-                  class="card-img-left"
-                  src="{{MEDIA_URL}}/emoji/negative.png"
-                  width="40px"
-                  height="20px"
-                />
-                &nbsp; &nbsp;<span>{{ anal_test.sentiment.label }}</span> <br />
-                <div class="card-body bg-dangerous text-warning rounded-4 mb-4">
-                  <div class="card-title">
-                    <span class="mb-3">
-                      {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
-                    >
-                    <div class="card-subtitle mb-3">
-                      {{ test.doc.car_year }}
-                      <div class="card-text">{{ test.doc.review }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endif %}
-            <!-- close for loop-->
-            {% endfor %}
-            <!-- close for loop- -->
-            {% endfor %}
-          </div>
-        </div>
-      </section>
 
       <!-- Need to create purchase to buy a car and not a list of cars in the json file -->
-      <section>
+<!--       <section>
         <textarea
           class="form-control w-3"
           id="content"
@@ -188,20 +95,20 @@
           </option>
           { endfor %}
         </select>
-        <!-- Create calendar jquery -->
+
         <script type="text/javascript">
           $('.date-own').datepicker({
             format: 'mm/dd/yyyy',
           });
         </script>
-      </section>
+      </section> -->
 
       <div class="seperator">
         <div class="devider-sep"></div>
       </div>
 
       <section class="feedback">
-        <h3 class="h3">
+        <h3 class="h3 w-5">
           If you have a minute while you're here, AKA dealers love to hear your
           feedback/review
         </h3>

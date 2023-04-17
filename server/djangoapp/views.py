@@ -247,7 +247,7 @@ class DealerPageView(TemplateView):
         context = {}
         try:
             templ_file = get_dealers()
-            dct['dealerships'] = templ_file['body']['rows']    
+            context['dealerships'] = templ_file['body']['rows']    
             return render(request, "djangoapp/dealer_details.html", context)
         except (ConnectionError, ConnectionRefusedError ) as err:
             return render(request, 'djangoapp/error.html', {} )

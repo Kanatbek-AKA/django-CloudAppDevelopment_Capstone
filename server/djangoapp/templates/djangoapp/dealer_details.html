@@ -152,7 +152,7 @@
       <!-- collapse -->
       <div class="container-fluid" id="dealers_bys">
         <h6>Dealers in your state:</h6>
-        {% for item in test.dealerships %}
+        {% for item in dealerships %}
         <div class="card-columns-vertical rounded-2">
           <div class="card mt-1">
             <div class="card-header">
@@ -216,7 +216,7 @@
         <th scope="col" class="col-xs-3 header_col">Longitude</th>
       </tr>
     </thead>
-    {% for test in test.dealerships %}
+    {% for test in dealerships %}
     <tbody>
       <tr>
         <td scope="row" class="col-xs-3">{{ test.doc.id }}</td>
