@@ -5,7 +5,7 @@ from sendgrid.helpers.mail import Mail
 
 # Note: safely store your api key  and email  
 # This api key and email are only for demo
-api_key= "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"
+api_key= "api_key"
 
 
 def send_emails(to_email, text):
