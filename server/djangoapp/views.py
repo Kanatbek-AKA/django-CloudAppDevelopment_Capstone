@@ -226,39 +226,31 @@ class NewDealerMember(TemplateView):
         return render(request, 'djangoapp/member.html', )
 
 
-
-def dealers_aka():
-    dct = {}
-    templ_file = get_dealers()
-    dct['dealerships'] = templ_file['body']['rows']
-    return dct
+# You ca use it in extra_content
+# def dealers_aka():
+#     dct = {}
+#     templ_file = get_dealers()
+#     dct['dealerships'] = templ_file['body']['rows']
+#     return dct
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 class DealerPageView(TemplateView):
     # model =
     template_name = 'djangoapp/dealer_details.html'
     # context_object_name=
-    extra_context =  {"test": dealers_aka()}
+    # extra_context =  {"test": dealers_aka()}
     # login_url=
     # success_url=
     # form_class=
 
-    # def get(self, request, **kwargs):  #
-    #     context = {}
-    #     # try:
-    #     templ_file = get_dealers()
-    #     dct['dealerships'] = templ_file['body']['rows']    
-    #     return render(request, "djangoapp/dealer_details.html", context)
-        # except ConnectionError as conn:
-        #     return render(request, 'djangoapp/error.html', )
-        # TODO create warning, connection, file, interrupt etc execptions
-        # except (ConnectionError, ConnectionRefusedError ) as err:
-        #     return render(request, 'djangoapp/error.html', {})
-        # except (UnboundLocalError ):
-        #     return render("")
-        # except  ValueError:
-        #     return render("")
-
+    def get(self, request, **kwargs):  #
+        context = {}
+        try:
+            templ_file = get_dealers()
+            dct['dealerships'] = templ_file['body']['rows']    
+            return render(request, "djangoapp/dealer_details.html", context)
+        except (ConnectionError, ConnectionRefusedError ) as err:
+            return render(request, 'djangoapp/error.html', {} )
 
 
 #
@@ -270,44 +262,37 @@ class ReviewsView(TemplateView):
 
     def get(self, request):   # HOW to use review_id in CloudantDB NoSQL 
         context = {}
-        # try:
-        dealer = get_dealers()['body']['rows']
-        review = get_reviews()['body']['rows']
-        if review is not None or review != "":
-            context['reviews'] = review
-            for i in context['reviews']:
-                value = i['doc']   # dict
-                # print(value)
-                conv = json.dumps(value)
-                # print(conv)  # str
-                sentiment = analyze_review_sentiments(conv)
-                return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+        try:
+            dealer = get_dealers()['body']['rows']
+            review = get_reviews()['body']['rows']
+            if review is not None or review != "":
+                context['reviews'] = review
+                for i in context['reviews']:
+                    value = i['doc']   # dict
+                    # print(value)
+                    conv = json.dumps(value)
+                    # print(conv)  # str
+                    sentiment = analyze_review_sentiments(conv)
+                    return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
     
-    # From here I would like to get relation between Dealers ID and Reviews Dealership
-        for deal in dealer:
-            for dk, dv in deal['doc'].items():
-                if dk == "id":
-                    dct_d.append(dv)
+        # From here I would like to get relation between Dealers ID and Reviews Dealership
+            for deal in dealer:
+                for dk, dv in deal['doc'].items():
+                    if dk == "id":
+                        dct_d.append(dv)
+                
+            for rev in review:
+                for rk, rv in rev['doc'].items():
+                    if rk == "dealership":
+                        dct_r.append(rv)
             
-        for rev in review:
-            for rk, rv in rev['doc'].items():
-                if rk == "dealership":
-                    dct_r.append(rv)
-        
-        # Tested to check matching IDs, but stuck with review_id 
-        import numpy as np                          # ------------ worked
-        test = np.intersect1d(dct_r, dct_d)
+            # Tested to check matching IDs, but stuck with review_id 
+            import numpy as np                          # ------------ worked
+            test = np.intersect1d(dct_r, dct_d)
 
-
-
-        return render(request, "djangoapp/reviews.html", {})
-    # TODO create warning, connection, file, interrupt etc execptions
-    # except (ConnectionError, ConnectionRefusedError ) as err:
-    #     return render(request, 'djangoapp/error.html', {})
-    # except (UnboundLocalError ):
-    #     return render("")
-    # except  ValueError:
-    #     return render("")
+            return render(request, "djangoapp/reviews.html", {})
+        except (ConnectionError, ConnectionRefusedError ) as err:
+            return render(request, 'djangoapp/reviews.html', {})
 
 
 
