@@ -29,7 +29,6 @@ dct = {
 'zipapi': os.getenv("ZIPCODE"),
 # "zipurl": os.getenv('URLCODE'),
 }
-#print(dct['zipurl'], dct['zipapi'])
 
 
 # New member get address by zip and state code
@@ -165,123 +164,25 @@ def post_reviews(params):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 def analyze_review_sentiments(text):
-    authenticator = IAMAuthenticator(dct['NLUAPI'])
-    natural_language_understanding = NaturalLanguageUnderstandingV1(
-        version='2022-04-07', authenticator=authenticator)
-    natural_language_understanding.set_service_url(dct['NLURL'])
-    response = natural_language_understanding.analyze(
-        text=text,
-        # return_analyzed_text=True,
-        # fallback_to_raw=True,  # to use raw html
-        features=Features(
-            entities=EntitiesOptions(emotion=True, sentiment=True, limit=2),
-            keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
-    # print(json.dumps(response, indent=2))
-    return response
+    try:
+        authenticator = IAMAuthenticator(dct['NLUAPI'])
+        natural_language_understanding = NaturalLanguageUnderstandingV1(
+            version='2022-04-07', authenticator=authenticator)
+        natural_language_understanding.set_service_url(dct['NLURL'])
+        response = natural_language_understanding.analyze(
+            text=text,
+            # return_analyzed_text=True,
+            # fallback_to_raw=True,  # to use raw html
+            features=Features(
+                entities=EntitiesOptions(emotion=True, sentiment=True, limit=2),
+                keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
+        # print(json.dumps(response, indent=2))
+        return response
+    except ApiException as apierr:
+        pass
 
 
 
-
-
-
-
-
-
-
-
-
-# ///////////////////////////////////////////////   To different 
-# Additional to get the point
-    # data={'name':request.POST.get("device")}
-    #    headers = {'content-type': 'application/json'}
-    #    response = requests.post('http://localhost:3000/path', data=json.dumps(data), headers=headers)
-    # return render(request, 'mytemplate.html', {'allow_redirect': settings.ALLOW_REDIRECT})
-# ///////////////////////////////////////////////
-
-# def getMatches(a, b):     # ----------- not worked 
-#     import numpy as np
-#     matches = []
-#     unique_a = np.unique(a)
-#     unique_b = np.unique(b)
-#     for a in unique_a:
-#         for b in unique_b:
-#             if a == b:
-#                 matches.append(a)
-#     return matches
-
-# import operator as op       # ----------- not worked                  
-# def checkIdentical(test_list1, test_list2):
-#     for i in test_list1:
-#         if op.countOf(test_list1, i) != op.countOf(test_list2, i):
-#             return False
-#     if(len(test_list1) != len(test_list2)):
-#         return False
-#     return True
-
-
-def relationNoSQL():
-    dct_d = []
-    dct_r = []
-    dealer = get_dealers()['body']['rows']
-    review = get_reviews()['body']['rows']
-    for deal in dealer:
-        for dk, dv in deal['doc'].items():
-            if dk == "id":
-                dct_d.append(dv)
-        
-    for rev in review:
-        for rk, rv in rev['doc'].items():
-            if rk == "dealership":
-                dct_r.append(rv)
-
-    # print(type(dct_d), type(dct_r), dct_d, dct_r)
-
-    # test = set(dct_d).intersection(set(dct_r)) # remove set last in intersection result same
-    # test = [i for i in dct_r if i in dct_d ]   # empty
-    # test = [i for i, k in zip(dct_d, dct_r) if i == k]  # empty
-    # test = all(i == j for i, j in zip(dct_r, dct_d))    # False
-    # import itertools
-    # ls = []
-    # for i in list(itertools.product(dct_d, dct_r)):
-    #     if i[0] == i[1]:
-    #         ls.append(i[1])
-    # test = set(dct_r) & set(dct_d)
-    # a = set(dct_d)
-    # b = set(dct_r)
-    # test = a.intersection(b)
-    # test = set(dct_r).__and__(set(dct_d))
-    # test = getMatches(dct_d, dct_r)         # ----------- function defined above
-    #
-    # import functools
-    # if functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q, dct_r, dct_d), True):
-    #     print (f"The lists l1and l2 are the same")
-    # else:
-    #     print ("The lists l1 and l2 are not the same")
-    # import collections
-    # if collections.Counter(dct_r) == collections.Counter(dct_d):
-    #     print ("The lists l1 and l2 are the same")
-    # else:
-    #     print ("The lists l1 and l2 are not the same")
-    # 
-    # res = [x for x in dct_d + dct_r if x not in dct_d or x not in dct_r]
-    # print(res)
-    # if not res:
-    #     print("Lists l1 and l2 are equal")
-    # else:
-    #     print("Lists l1 and l2 are not equal")
-    #
-    # test = checkIdentical(dct_r, dct_d)      # ----------- function defined above
-    # 
-    # This worked
-    if dct_r not in dct_d:    
-        import numpy as np                          # ------------ worked
-        test = np.intersect1d(dct_r, dct_d)
-        print(test)
-    else: 
-        print(dct_d)    
-    return "test"
-
-# print(relationNoSQL())
 
 
 
