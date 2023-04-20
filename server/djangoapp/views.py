@@ -268,27 +268,14 @@ class ReviewsView(TemplateView):
             if review is not None or review != "":
                 context['reviews'] = review
                 for i in context['reviews']:
-                    value = i['doc']   # dict
+                    value = i['doc']['review']  
                     # print(value)
                     conv = json.dumps(value)
                     # print(conv)  # str
                     sentiment = analyze_review_sentiments(conv)
                     return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
     
-        # From here I would like to get relation between Dealers ID and Reviews Dealership
-            for deal in dealer:
-                for dk, dv in deal['doc'].items():
-                    if dk == "id":
-                        dct_d.append(dv)
-                
-            for rev in review:
-                for rk, rv in rev['doc'].items():
-                    if rk == "dealership":
-                        dct_r.append(rv)
-            
-            # Tested to check matching IDs, but stuck with review_id 
-            import numpy as np                          # ------------ worked
-            test = np.intersect1d(dct_r, dct_d)
+
 
             return render(request, "djangoapp/reviews.html", {})
         except (ConnectionError, ConnectionRefusedError ) as err:

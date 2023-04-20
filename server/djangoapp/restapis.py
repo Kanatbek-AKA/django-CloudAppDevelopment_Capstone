@@ -184,6 +184,22 @@ def analyze_review_sentiments(text):
 
 
 
+# IDs related both dbs 
+def intermediarForSameID(file, file2):
+    res = []
+    r = [rev['doc'] for rev in file2['body']['rows']]
+    d = [deal['doc'] for deal in file['body']['rows']]
+
+    for dk, rk in zip(d, r):
+        for key, val in (dk.items() & rk.items()):  
+            if dk[key] == rk[key]:                  # looking for same keys e.g. id
+                res.append({key:val})
+                # print(key, val)
+
+    return res
+
+
+
 
 
 

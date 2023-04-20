@@ -32,7 +32,7 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 DEBUG = True #os.environ.get("DEBUG")
 
 # APPEND_SLASH = True    #
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
