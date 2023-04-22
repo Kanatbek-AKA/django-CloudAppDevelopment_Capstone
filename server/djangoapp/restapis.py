@@ -40,38 +40,45 @@ def infoAddress(html_zip, html_code):
 
 
 def connectServer(params):
-    authenticator = IAMAuthenticator(params['IAM_API_KEY'])
-    service = CloudantV1(authenticator=authenticator)
-    service.set_service_url(params['COUCH_URL'])
-    return service
+    try:
+        authenticator = IAMAuthenticator(params['IAM_API_KEY'])
+        service = CloudantV1(authenticator=authenticator)
+        service.set_service_url(params['COUCH_URL'])
+        return service
+    except (ValueError, AttributeError,ApiException) as anyerror:
+        pass
 
 
 def get_dealers():
-    service = connectServer(dct)
-    dbname = dct['DB1']
-    values = service.post_all_docs(db=dbname, include_docs=True).get_result()
-    result = {
-        'statusCode': 200,
-        'headers': {'Content-Type': 'application/json'},
-        'body': values
-    }
-    return result
+    try:
+        service = connectServer(dct)
+        dbname = dct['DB1']
+        values = service.post_all_docs(db=dbname, include_docs=True).get_result()
+        result = {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': values
+        }
+        return result
+    except (ValueError, AttributeError,ApiException) as anyerror:
+        pass
 
 
 def get_reviews():
-    service = connectServer(dct)
-    dbname = dct['DB2']
-    # try:
-    values = service.post_all_docs(
-        db=dbname, include_docs=True).get_result()
-    result = {
-        'statusCode': 200,
-        'headers': {'Content-Type': 'application/json'},
-        'body': values
-    }
-    # print(result)
-
-    return result
+    try:
+        service = connectServer(dct)
+        dbname = dct['DB2']
+        values = service.post_all_docs(
+            db=dbname, include_docs=True).get_result()
+        result = {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': values
+        }
+        # print(result)
+        return result
+    except (ValueError, AttributeError,ApiException) as anyerror:
+        pass
 
 
 
@@ -114,20 +121,20 @@ def be_aka(params):
 
 
 
-# Get reviews
-def get_reviews():
-    service = connectServer(dct)
-    dbname = dct['DB2']
-    # try:
-    values = service.post_all_docs(
-        db=dbname, include_docs=True).get_result()
-    result = {
-        'statusCode': 200,
-        'headers': {'Content-Type': 'application/json'},
-        'body': values
-    }
-    # print(result)
-    return result
+# # Get reviews
+# def get_reviews():
+#     service = connectServer(dct)
+#     dbname = dct['DB2']
+#     # try:
+#     values = service.post_all_docs(
+#         db=dbname, include_docs=True).get_result()
+#     result = {
+#         'statusCode': 200,
+#         'headers': {'Content-Type': 'application/json'},
+#         'body': values
+#     }
+#     # print(result)
+#     return result
 
 
 
@@ -178,7 +185,7 @@ def analyze_review_sentiments(text):
                 keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
         # print(json.dumps(response, indent=2))
         return response
-    except ApiException as apierr:
+    except (ValueError, AttributeError,ApiException) as anyerror:
         pass
 
 

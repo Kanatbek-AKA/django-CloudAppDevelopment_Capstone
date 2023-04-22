@@ -20,6 +20,10 @@ environ.Env().read_env(os.path.join('../../functions/.env'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Read and write file outside the django project
+BASE_ADD_FILE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FILES_DIR = os.path.abspath(os.path.join(BASE_DIR, '../cloudant/data/'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/

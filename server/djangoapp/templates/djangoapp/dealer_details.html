@@ -149,10 +149,31 @@
         >
         Show
       </button>
-      <!-- collapse -->
+      <!-- After fixing going to add  collapse -->
       <div class="container-fluid" id="dealers_bys">
         <h6>Dealers in your state:</h6>
         {% for item in dealerships %}
+        <!-- Local file -->
+        {% if "doc" not in item  %}
+        <div class="card-columns-vertical rounded-2">
+            <div class="card mt-1">
+              <div class="card-header">
+                <h6>
+                  {{ item.id }} &nbsp; - &nbsp; &nbsp;
+                  {{item.state}}
+                </h6>
+              </div>
+              <div class="card-body col-xs-4">
+                Address: &nbsp; {{ item.full_name }} <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; {{item.address }} <br />
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; {{item.zip}}, &nbsp; &nbsp;
+                {{item.city }}
+              </div>
+            </div>
+          </div>
+        {% else %}
         <div class="card-columns-vertical rounded-2">
           <div class="card mt-1">
             <div class="card-header">
@@ -171,6 +192,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
         {% endfor %}
       </div>
     </div>

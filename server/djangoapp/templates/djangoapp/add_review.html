@@ -81,6 +81,7 @@
           If you have a minute while you're here, AKA dealers love to hear your
           feedback/review
         </h3>
+        {% if user.is_authenticated %}
         <!-- Add review  -->
         <div class="row mt-5">
           <div class="mx-auto col-10 p-20">
@@ -198,6 +199,14 @@
         <!-- <div class="seperator">
         <div class="devider-sep"></div>
       </div> -->
+
+      {% else %}
+       <div class="container w-3 mt-3 px-auto text-align-center">
+           <span class="text-info mx-auto px-auto">Hey, could you please sign in your account to share your feedback.</span>
+           <br />
+           <span class="text-warning px-auto mx-auto">If you are visitor and have to share your review of one of AKA dealers offices, please register <a href="{% url 'djangoapp:registration' %}" target="_self" rel="noopene">here</a></span>
+       </div>
+       {% endif %}
       </section>
     </main>
     <!-- JS -->

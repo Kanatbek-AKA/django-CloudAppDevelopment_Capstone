@@ -17,7 +17,10 @@ import random  # used for dealership in reviews
 
 # from django.core.mail import send_mail, BadHeaderError, EmailMessage
 # from .send_grid import send_emails    # used for newsletter weekly, monthly etc 
- 
+
+# Used for files outside the django project
+from django.conf import settings
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -243,14 +246,22 @@ class DealerPageView(TemplateView):
     # success_url=
     # form_class=
 
-    def get(self, request, **kwargs):  #
+    def get(self, request ):  # get by name to refer to reviewView
         context = {}
         try:
             templ_file = get_dealers()
             context['dealerships'] = templ_file['body']['rows']    
             return render(request, "djangoapp/dealer_details.html", context)
-        except (ConnectionError, ConnectionRefusedError ) as err:
-            return render(request, 'djangoapp/error.html', {} )
+        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
+                # Reading the dealership.json outside the django project e.g. cloudant/data/dealership.json
+                file_cld = os.path.join(settings.FILES_DIR, 'dealerships.json')
+                with open(file_cld, mode='r') as temp_js:
+                    temp_file = json.loads(temp_js.read().strip() )
+                    for i in temp_file['dealerships']:
+                       context["dealerships"] = str(i)
+                return render(request, 'djangoapp/dealer_details.html', context )
+        # except Other Possible HTTP or API errors:
+        #     return render(request, 'djangoapp/add_review.html', {} )
 
 
 #
@@ -260,7 +271,7 @@ class ReviewsView(TemplateView):
     # context_object_name =
     # extra_context = 
 
-    def get(self, request):   # HOW to use review_id in CloudantDB NoSQL 
+    def get(self, request):   # here dealership numbes 
         context = {}
         try:
             dealer = get_dealers()['body']['rows']
@@ -275,11 +286,25 @@ class ReviewsView(TemplateView):
                     sentiment = analyze_review_sentiments(conv)
                     return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
     
-
-
             return render(request, "djangoapp/reviews.html", {})
-        except (ConnectionError, ConnectionRefusedError ) as err:
-            return render(request, 'djangoapp/reviews.html', {})
+        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
+            # Reading the dealership.json outside the django project e.g. cloudant/data/dealership.json
+            file_cld = os.path.join(settings.FILES_DIR, 'reviews_full.json')
+            with open(file_cld, mode='r') as temp_js:
+                temp_file = json.loads(temp_js.read().strip())
+                if temp_file :
+                    context['reviews'] = temp_file
+                    for i in context['reviews']:
+                        value = i['doc']['review']  
+                        # print(value)
+                        conv = json.dumps(value)
+                        # print(conv)  # str
+                        sentiment = analyze_review_sentiments(conv)
+                    return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+                return render(request, "djangoapp/reviews.html", {})
+            # return render(request, 'djangoapp/reviews.html', temp_file )
+        # except Other Possible HTTP or API errors:
+        #     return render(request, 'djangoapp/add_review.html', {} )
 
 
 
@@ -290,7 +315,7 @@ class AddReviewView(TemplateView):
     template_name = 'djangoapp/add_review.html'
     # extra_content =
 
-    def post(self, request):  # Add id
+    def post(self, request):  # dealership numbers or name 
         context = []
         dealers_rec = get_reviews()
         for row in dealers_rec['body']['rows']:
