@@ -26,7 +26,7 @@
   </head>
   <body>
     <main class="contact">
-      <nav class="navbar navbar-light bg-dark">
+      <nav class="navbar navbar-light bg-dark" id="navid">
         <div class="container-fluid">
           <div class="navbar-header">
             <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
@@ -191,7 +191,7 @@
 
         <button class="btn btn-secondary m-5 py-2 px-4 rounded-4">
           <a
-            href="{% url 'djangoapp:dealerships' %} "
+            href="{% url 'djangoapp:reviewed' %} "
             class="text-warning text-decoration-none"
             >Back</a
           >
@@ -201,10 +201,10 @@
       </div> -->
 
       {% else %}
-       <div class="container w-3 mt-3 px-auto text-align-center">
+       <div class="container w-4 mt-5 px-auto text-align-center">
            <span class="text-info mx-auto px-auto">Hey, could you please sign in your account to share your feedback.</span>
            <br />
-           <span class="text-warning px-auto mx-auto">If you are visitor and have to share your review of one of AKA dealers offices, please register <a href="{% url 'djangoapp:registration' %}" target="_self" rel="noopene">here</a></span>
+           <span class="text-warning px-auto mx-auto">If you are a visitor and have to share your review of one of AKA dealers offices, please register <a href="{% url 'djangoapp:registration' %}" target="_self" rel="noopener">here</a> or login <a href="{% url 'djangoapp:login' %}">here</a></span>
        </div>
        {% endif %}
       </section>

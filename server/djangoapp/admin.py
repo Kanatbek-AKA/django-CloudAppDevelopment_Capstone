@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CarDealer, CarMake, CarModel
+from .models import CarMake, CarModel, Dealers, CarReviews
 
 
 # Course
@@ -10,27 +10,36 @@ class CarModelInline(admin.StackedInline):
 	model = CarModel
 
 
-class CarDealerInline(admin.StackedInline):
-	model = CarDealer
+class DealerInline(admin.StackedInline):
+	model = Dealers
 
+
+class CarReviewsInline(admin.StackedInline):
+	model = CarReviews
+
+
+
+class CarModelAdmin(admin.ModelAdmin):
+	model = CarModelInline
+	extra = 5
 
 class CarMakeAdmin(admin.ModelAdmin):
-	model = [CarModelInline]
+	inlines = [CarModelInline]
 	list_display = ['name']
 	list_filter = ['name']
 
 
 
 admin.site.register(CarMake, CarMakeAdmin)
-admin.site.register(CarModel)
-# admin.site.register(CarDealer)
+admin.site.register(CarModel, CarModelAdmin)
+admin.site.register(Dealers)
+admin.site.register(CarReviews)
 
 
 
 
 
-
-# Apart
+# Apart if you want to tune you auto
 # from django.contrib import admin
 # from .models import CarDealer, CarMake, CarModel, DealerReview, TuningModel
 # # CarModelInline class
@@ -57,6 +66,7 @@ admin.site.register(CarModel)
 #     list_display = ['name', "type"]
 #     list_filter = ['type']
 #     search_fields = ['name', 'description']
+
 
 # # CarMakeAdmin class with CarModelInline
 # class CarMakeAdmin(admin.ModelAdmin):

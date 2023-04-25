@@ -77,15 +77,14 @@
 <!--Add review form here -->
 <!-- Adding sentimental analysis for authenticated users to view dealerships  -->
 <section class="sentiment" id="sentiment">
-    {% if user.is_authenticated %}
-    <div class="inner_sentiment">
-        <div class="columns_own">
-        {% for test in data %}
-        <!--indent  -->
-        {% for anal_test in analyse.keywords %}
-        <!-- Here is sentiment analysis to define -->
-        {% if anal_test.text  %}
-
+  {% if user.is_authenticated %}
+  <div class="inner_sentiment">
+    <div class="columns_own">
+      {% for test in data %}
+      <!-- Here is sentiment analysis to define -->
+      {% for anal_test in analyse.keywords %}
+      <!--indent  -->
+      {% if anal_test.text %}
       {% if anal_test.sentiment.label == 'positive' %}
       <div class="d-inline-flex p-2 mx-auto">
         <a href="{% url 'djangoapp:reviews' %}" target="_self" rel="noopener noreferrer" class="card_ref">

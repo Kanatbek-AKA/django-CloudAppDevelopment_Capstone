@@ -3,6 +3,7 @@ from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 import uuid
+from datetime import datetime
 
 # Course
 class CarMake(models.Model):
@@ -20,26 +21,65 @@ class CarModel(models.Model):
     type = models.CharField(null=False, max_length=20, blank=True)
     make = models.CharField(null=False, max_length=150, blank=True)
     year = models.DateField(default=now)
+    reviews = models.TextField(max_length=2500)
 
     def __str__(self):
-        return str(self.id)
+        return self.name + " " + self.make
 
 
-class CarDealer:
-	
-    def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
-        self.address = address
-        self.city = city
-        self.full_name = full_name
-        self.id = id
-        self.lat = lat
-        self.long = long
-        self.short_name = short_name
-        self.st = st
-        self.zip = zip
+# class CarDealer:
+#     def __init__(self, address, city, full_name, id, lat, long, short_name, st, zip):
+#         self.address = address
+#         self.city = city
+#         self.full_name = full_name
+#         self.id = id
+#         self.lat = lat
+#         self.long = long
+#         self.short_name = short_name
+#         self.st = st
+#         self.zip = zip
+
+#     def __str__(self):
+#         return "Dealer name: " + self.full_name
+
+
+# This model is to store the data from external resource dealerships.json
+class Dealers(models.Model):
+    id = models.AutoField(primary_key=True)
+    dealer_id = models.IntegerField(null=False)  #  
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=15)
+    st = models.CharField(max_length=5)
+    address = models.CharField(max_length=50)
+    zipcode = models.CharField(max_length=15)
+    lat = models.FloatField()
+    long = models.FloatField()
+    short_name = models.CharField(max_length=20)
+    full_name = models.CharField(null=False, max_length=50)    
+
 
     def __str__(self):
-        return "Dealer name: " + self.full_name
+        return str(self.dealer_id) + " " + self.full_name
+
+
+# This model is to store the data from external resource reviews.json
+class CarReviews(models.Model):
+    id = models.AutoField(primary_key=True)
+    review_id = models.IntegerField(null=False)  #  
+    name = models.CharField(max_length=100)
+    dealership = models.IntegerField(null=False)
+    review = models.CharField(max_length=2500)
+    purchase = models.BooleanField(default=False)
+    purchase_date = models.DateField()
+    car_make = models.CharField(max_length=50)
+    car_model = models.CharField(max_length=10)
+    car_year = models.DateField()
+# default=datetime.strptime(f"{datetime.now().strftime('%Y/%m/%d')}", "%Y/%m/%d").strftime('%d/%m/%Y')
+
+    def __str__(self):
+        return str(self.dealership) + " " + self.name  
+
+
 
 
 # This part is apart with additional models.

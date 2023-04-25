@@ -1,25 +1,30 @@
 import os
+from requests.exceptions import ConnectionError
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import CarDealer, CarMake, CarModel #DealerReview  
+from .models import CarMake, CarModel, Dealers, CarReviews  
 from datetime import datetime
 import logging
 import json
 from django.views.generic import TemplateView
 from .restapis import get_dealers, get_reviews, post_reviews, be_aka, analyze_review_sentiments, infoAddress
 from datetime import datetime
-from requests.exceptions import ConnectionError
-
 import random  # used for dealership in reviews
 
 # from django.core.mail import send_mail, BadHeaderError, EmailMessage
-# from .send_grid import send_emails    # used for newsletter weekly, monthly etc 
+# from .send_grid import send_emails    # using for newsletter weekly, monthly etc 
 
 # Used for files outside the django project
 from django.conf import settings
+
+# Filter 
+# from django import template
+# from django.template.defaultfilters import stringfilter
+# from django.utils.html import conditional_escape, mark_safe, escape
+from django.db.models import Q
 
 
 # Get an instance of a logger
@@ -89,17 +94,17 @@ class IndexPageView(TemplateView):
     template_name = "djangoapp/index.html"
     extra_context = {"date": datetime.today().strftime("%Y")}
 
-# def get(self, request, **kwargs):
-#     context = {}
-#     # In case you want to read the stored files in the same folder/ directory
-#     # DIRNAME = os.path.dirname(__file__)
-#     # file_cld = os.path.join(DIRNAME, 'folder/file.json')
-#     # with open(file_cld, mode='r') as temp_js:
-#     #     temp_file = json.loads(temp_js.read().strip())
-#     if request.method == "GET":
-#         return render(request, 'djangoapp/index.html', context)
+    # def get(self, request):
+    #     context = {}
+    #     # In case you want to read a stored json file in the same folder/ directory as restapi.py
+    #     # DIRNAME = os.path.dirname(__file__)
+    #     # file_cld = os.path.join(DIRNAME, 'folder/file.json')
+    #     # with open(file_cld, mode='r') as temp_js:
+    #     #     temp_file = json.loads(temp_js.read().strip())
+    #     if request.method == "GET":
+    #         return render(request, 'djangoapp/index.html', context)
 
-#     return HttpResponse("Your temp Error file")
+    #     return HttpResponse("Your temp Error file")
 
 
 # Create an `about` view to render a static about page
@@ -135,6 +140,21 @@ class HQAKAPageView(TemplateView):
 
 
 
+# def storeJson(request):
+#     # context = {}
+#     # for row in get_dealers()['body']['rows']:
+#     #     ids = row['doc'] 
+#     # Use each column and store it like (name by name or )
+#     body_unicode = request.body.decode('utf-8')
+#     body = json.loads(body_unicode)
+#     test = Dealers(**body)
+#     test.save()
+#     return JsonResponse({"result": "OK"})
+
+
+
+
+
 def infoDevice():
     from platform import platform, machine, system, processor, node
     dct = {
@@ -157,17 +177,6 @@ class NewDealerMember(TemplateView):
     # success_url=
     # form_class=
 
-    # def get(self, request):
-    #     context = []
-    #     if request.method == "GET":
-    #         dealers_rec = get_dealers()
-    #         for row in dealers_rec['body']['rows']:
-    #             ids = row['doc']['_id'] 
-    #             context.append(ids)
-    #         print("Length: ", len(context) )
-    #         return render(request, "djangoapp/member.html", {})
-    #     return render(request, "djangoapp/member.html", {})
-    #     #
 
     # To find free providers for automation EU/US/CA/Australian, etc addressess by entering Postal/ZIP, City for verification.
     def post(self, request):
@@ -186,7 +195,7 @@ class NewDealerMember(TemplateView):
             zipcode = request.POST['zip']
             # city = request.POST['city']
             # state = request.POST['state']      
-            st = request.POST['state']           # country code
+            st = request.POST['state']           # country code -> needs to use US state codes 
             # Using JS or Python to get address lat (to create)
             # latitude = request.POST['latitude']
             # Using JS or Python to get address lat (to create)
@@ -238,7 +247,7 @@ class NewDealerMember(TemplateView):
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 class DealerPageView(TemplateView):
-    # model =
+    model = Dealers
     template_name = 'djangoapp/dealer_details.html'
     # context_object_name=
     # extra_context =  {"test": dealers_aka()}
@@ -246,65 +255,149 @@ class DealerPageView(TemplateView):
     # success_url=
     # form_class=
 
-    def get(self, request ):  # get by name to refer to reviewView
+    def get(self, request ):  # use name to refer to ReviewView
         context = {}
+        # all_items = Dealers.objects.all()
         try:
-            templ_file = get_dealers()
-            context['dealerships'] = templ_file['body']['rows']    
-            return render(request, "djangoapp/dealer_details.html", context)
+            templ_file = get_dealers()['body']['rows']
+            context['dealerships'] = templ_file
+    
+            # Stored in local model DB
+            # Need to TODO --.  If the file with the same values does not store else store new values of the file
+            # for i in context['dealerships']:
+                # # obj, created = Dealers.objects.filter(
+                # #     Q(full_name="TestFull") | Q(full_name="TestShort"),
+                # # ).get_or_create(
+                # obj= db(
+                #     dealer_id=data['id'],
+                #     full_name=data['full_name'], 
+                #     city=data['city'], 
+                #     st=data['st'], 
+                #     state=data['state'], 
+                #     address=data['address'], 
+                #     zipcode=data['zip'], 
+                #     short_name=data['short_name'], 
+                #     lat=data['lat'], 
+                #     long=data['long']
+                #     # defaults={"full_name": i['doc']['full_name']}
+                # )
+                # obj.save()
+
+            return render(request, "djangoapp/dealer_details.html", context)     
         except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
                 # Reading the dealership.json outside the django project e.g. cloudant/data/dealership.json
                 file_cld = os.path.join(settings.FILES_DIR, 'dealerships.json')
                 with open(file_cld, mode='r') as temp_js:
-                    temp_file = json.loads(temp_js.read().strip() )
-                    for i in temp_file['dealerships']:
-                       context["dealerships"] = str(i)
-                return render(request, 'djangoapp/dealer_details.html', context )
+                    temp_file = json.loads(temp_js.read().strip())['dealerships']
+
+                    return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )
         # except Other Possible HTTP or API errors:
-        #     return render(request, 'djangoapp/add_review.html', {} )
+        #     return render(request, 'djangoapp/.....html', {} )
 
 
+# Testing to store the file datasets values, failed
+    # def get_queryset(self):
+    #     context = {}
+    #     # Local model DB, get all 
+    #     all_items = Dealers.objects.all()
+
+    #     templ_file = get_dealers()['body']['rows']
+    #     context['dealerships'] = templ_file
+    #     if all_items not in context['dealerships']:
+    #         for i in context['dealerships']:
+    #             # obj, created = Dealers.objects.filter(
+    #             #     Q(full_name="TestFull") | Q(full_name="TestShort"),
+    #             # ).get_or_create(
+    #             # if all_items in 
+    #             obj= db(
+    #                 dealer_id=data['id'],
+    #                 full_name=data['full_name'], 
+    #                 city=data['city'], 
+    #                 st=data['st'], 
+    #                 state=data['state'], 
+    #                 address=data['address'], 
+    #                 zipcode=data['zip'], 
+    #                 short_name=data['short_name'], 
+    #                 lat=data['lat'], 
+    #                 long=data['long']
+    #                 # defaults={"full_name": i['doc']['full_name']}
+    #             )
+    #             obj.save()
+
+    #     else:
+    #         return all_items
+
+
+    
 #
 class ReviewsView(TemplateView):
-    # model = 
+    model = CarReviews
     template_name = 'djangoapp/reviews.html'
     # context_object_name =
     # extra_context = 
 
     def get(self, request):   # here dealership numbes 
         context = {}
+        user = self.request.user
+        review = get_reviews()['body']['rows']
         try:
-            dealer = get_dealers()['body']['rows']
-            review = get_reviews()['body']['rows']
-            if review is not None or review != "":
+            if review is not None:
                 context['reviews'] = review
-                for i in context['reviews']:
-                    value = i['doc']['review']  
-                    # print(value)
+                for i in context['reviews']: 
+                    # Sentiment NLU IBM
+                    value = i['doc']['review'] 
+                    # print(value) 
                     conv = json.dumps(value)
-                    # print(conv)  # str
+                    # print(type(conv))  # type str
                     sentiment = analyze_review_sentiments(conv)
-                    return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
-    
+                return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})    
+           
             return render(request, "djangoapp/reviews.html", {})
-        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
-            # Reading the dealership.json outside the django project e.g. cloudant/data/dealership.json
-            file_cld = os.path.join(settings.FILES_DIR, 'reviews_full.json')
+        except (TypeError,ConnectionError, ConnectionRefusedError ) as err:
+            # Reading the dealership.json outside the django project e.g. cloudant/data/reviews-full.json
+            file_cld = os.path.join(settings.FILES_DIR, 'reviews-full.json')
             with open(file_cld, mode='r') as temp_js:
                 temp_file = json.loads(temp_js.read().strip())
-                if temp_file :
-                    context['reviews'] = temp_file
-                    for i in context['reviews']:
-                        value = i['doc']['review']  
-                        # print(value)
-                        conv = json.dumps(value)
-                        # print(conv)  # str
+                if user.is_authenticated: # is_superuser 
+                    for i in temp_file['reviews']:
+                        conv = json.dumps(i)
                         sentiment = analyze_review_sentiments(conv)
                     return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+                
                 return render(request, "djangoapp/reviews.html", {})
-            # return render(request, 'djangoapp/reviews.html', temp_file )
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/add_review.html', {} )
+
+# Testing 
+    # def get_queryset(self):
+    #     context = {}
+    #     # Local model DB, get all 
+    #     all_items = CarReviews.objects.all()
+
+    #     templ_file = get_reviews()['body']['rows']
+    #     context['reviews'] = templ_file
+    #     if all_items not in context['reviews']:
+    #         for i in context['reviews']:
+    #             # obj, created = CarReviews.objects.filter(
+    #             #     Q(full_name="TestReview") | Q(full_name="TestRev"),
+    #             # ).get_or_create(
+    #             obj = CarReviews(
+    #                 review_id=i['doc']['id'],
+    #                 name=i['doc']['name'], 
+    #                 dealership=i['doc']['dealership'], 
+    #                 review=i['doc']['review'], 
+    #                 purchase=i['doc']['purchase'], 
+    #                 purchase_date= datetime.strptime(i['doc']['purchase_date'], '%d/%m/%Y').strftime('%Y-%m-%d'), 
+    #                 car_make=i['doc']['car_make'], 
+    #                 car_model=i['doc']['car_model'], 
+    #                 car_year=i['doc']['car_year']
+    #                 # defaults={"full_name": i['doc']['name']}
+    #             )
+    #             obj.save()
+
+    #     else:
+    #         return all_items
+
 
 
 
@@ -330,22 +423,7 @@ class AddReviewView(TemplateView):
             client_purchase = request.POST['purchase']
             car_year = request.POST['year']
             review = request.POST['review']
-            # Here or in RestApi exclude bool 
-            # if purchase == "" or len(purchase) == 0:
-            #     payloads = {
-            #         'name': name,
-            #         'dealership': f'{random.randrange(1, 100, 15)}',
-            #         "review": review,
-            #         'car_make': car_make,
-            #         'car_model': car_model,
-            #         'year': car_year,
-            #         'bool': purchase,       # passes an emtpy value to CloudantDb
-            #         "client_purchase": f"{client_purchase}",
-            #         'date': f"{datetime.now().strftime('%Y-%m-%d')}",
-            #     }
-            #     post_reviews(payloads)
-            #     return redirect("djangoapp:reviews")
-            # else:
+ 
             payloads = {
                 "ids": f"{len(context)+1}",
                 'name': name,

@@ -36,7 +36,7 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 DEBUG = True #os.environ.get("DEBUG")
 
 # APPEND_SLASH = True    #
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -65,6 +65,7 @@ MIDDLEWARE = [
 
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_HTTPONLY = True
+# # SECURE_HSTS_SECONDS = 300  # set low, but when site is ready for deployment, set to at least 15768000 (6 months)
 # SECURE_HSTS_SECONDS = 60 * 60 * 24 * 7 * 52  # one year
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_SSL_REDIRECT = True
@@ -72,10 +73,20 @@ MIDDLEWARE = [
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # SECURE_BROWSER_XSS_FILTER = True
-# #SECURE_HSTS_PRELOAD = True    # 
+# SECURE_HSTS_PRELOAD = True    # 
 # 
 # SESSION_COOKIE_SECURE = True
+#
+# CSRF_COOKIE_SAMESITE = 'Strict'
+# SESSION_COOKIE_SECURE = True
+# X_FRAME_OPTIONS = 'DENY'
 
+# If installed moz django csp
+# CSP_DEFAULT_SRC = ("'none'",)
+# CSP_STYLE_SRC = ("'self'",)
+# CSP_SCRIPT_SRC = ("'self'",)
+# CSP_FONT_SRC = ("'self'",)
+# CSP_IMG_SRC = ("'self'",)
 
 
 ROOT_URLCONF = 'djangobackend.urls'
@@ -134,13 +145,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+# DATE_FORMAT = "d-m-Y"
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 

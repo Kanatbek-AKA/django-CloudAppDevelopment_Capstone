@@ -64,6 +64,7 @@ def get_dealers():
         pass
 
 
+# # Get reviews
 def get_reviews():
     try:
         service = connectServer(dct)
@@ -121,20 +122,6 @@ def be_aka(params):
 
 
 
-# # Get reviews
-# def get_reviews():
-#     service = connectServer(dct)
-#     dbname = dct['DB2']
-#     # try:
-#     values = service.post_all_docs(
-#         db=dbname, include_docs=True).get_result()
-#     result = {
-#         'statusCode': 200,
-#         'headers': {'Content-Type': 'application/json'},
-#         'body': values
-#     }
-#     # print(result)
-#     return result
 
 
 
@@ -191,6 +178,8 @@ def analyze_review_sentiments(text):
 
 
 
+
+# Extra exercise 
 # IDs related both dbs 
 def intermediarForSameID(file, file2):
     res = []
@@ -204,6 +193,7 @@ def intermediarForSameID(file, file2):
                 # print(key, val)
 
     return res
+
 
 
 
