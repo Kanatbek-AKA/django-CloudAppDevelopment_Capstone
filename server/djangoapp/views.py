@@ -247,7 +247,7 @@ class NewDealerMember(TemplateView):
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 class DealerPageView(TemplateView):
-    model = Dealers
+    model = CarMake
     template_name = 'djangoapp/dealer_details.html'
     # context_object_name=
     # extra_context =  {"test": dealers_aka()}
@@ -257,31 +257,31 @@ class DealerPageView(TemplateView):
 
     def get(self, request ):  # use name to refer to ReviewView
         context = {}
-        # all_items = Dealers.objects.all()
+        # all_items = Dealers.objects.values().all()
         try:
             templ_file = get_dealers()['body']['rows']
             context['dealerships'] = templ_file
     
             # Stored in local model DB
-            # Need to TODO --.  If the file with the same values does not store else store new values of the file
+            # Need to TODO --.  If the file with the same values do not store else store new values
             # for i in context['dealerships']:
-                # # obj, created = Dealers.objects.filter(
-                # #     Q(full_name="TestFull") | Q(full_name="TestShort"),
-                # # ).get_or_create(
-                # obj= db(
-                #     dealer_id=data['id'],
-                #     full_name=data['full_name'], 
-                #     city=data['city'], 
-                #     st=data['st'], 
-                #     state=data['state'], 
-                #     address=data['address'], 
-                #     zipcode=data['zip'], 
-                #     short_name=data['short_name'], 
-                #     lat=data['lat'], 
-                #     long=data['long']
-                #     # defaults={"full_name": i['doc']['full_name']}
-                # )
-                # obj.save()
+            #     # obj, created = Dealers.objects.filter(
+            #     #     Q(full_name="TestFull") | Q(full_name="TestShort"),
+            #     # ).get_or_create(
+            #     obj= Dealers(
+            #         dealer_id=i['doc']['id'],
+            #         full_name=i['doc']['full_name'], 
+            #         city=i['doc']['city'], 
+            #         st=i['doc']['st'], 
+            #         state=i['doc']['state'], 
+            #         address=i['doc']['address'], 
+            #         zipcode=i['doc']['zip'], 
+            #         short_name=i['doc']['short_name'], 
+            #         lat=i['doc']['lat'], 
+            #         long=i['doc']['long']
+            #         # defaults={"full_name": i['doc']['full_name']}
+            #     )
+            #     obj.save()
 
             return render(request, "djangoapp/dealer_details.html", context)     
         except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
@@ -289,56 +289,20 @@ class DealerPageView(TemplateView):
                 file_cld = os.path.join(settings.FILES_DIR, 'dealerships.json')
                 with open(file_cld, mode='r') as temp_js:
                     temp_file = json.loads(temp_js.read().strip())['dealerships']
-
                     return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/.....html', {} )
 
-
-# Testing to store the file datasets values, failed
-    # def get_queryset(self):
-    #     context = {}
-    #     # Local model DB, get all 
-    #     all_items = Dealers.objects.all()
-
-    #     templ_file = get_dealers()['body']['rows']
-    #     context['dealerships'] = templ_file
-    #     if all_items not in context['dealerships']:
-    #         for i in context['dealerships']:
-    #             # obj, created = Dealers.objects.filter(
-    #             #     Q(full_name="TestFull") | Q(full_name="TestShort"),
-    #             # ).get_or_create(
-    #             # if all_items in 
-    #             obj= db(
-    #                 dealer_id=data['id'],
-    #                 full_name=data['full_name'], 
-    #                 city=data['city'], 
-    #                 st=data['st'], 
-    #                 state=data['state'], 
-    #                 address=data['address'], 
-    #                 zipcode=data['zip'], 
-    #                 short_name=data['short_name'], 
-    #                 lat=data['lat'], 
-    #                 long=data['long']
-    #                 # defaults={"full_name": i['doc']['full_name']}
-    #             )
-    #             obj.save()
-
-    #     else:
-    #         return all_items
-
-
     
 #
 class ReviewsView(TemplateView):
-    model = CarReviews
+    # model = CarReviews
     template_name = 'djangoapp/reviews.html'
     # context_object_name =
     # extra_context = 
 
     def get(self, request):   # here dealership numbes 
         context = {}
-        user = self.request.user
         review = get_reviews()['body']['rows']
         try:
             if review is not None:
@@ -358,45 +322,14 @@ class ReviewsView(TemplateView):
             file_cld = os.path.join(settings.FILES_DIR, 'reviews-full.json')
             with open(file_cld, mode='r') as temp_js:
                 temp_file = json.loads(temp_js.read().strip())
-                if user.is_authenticated: # is_superuser 
-                    for i in temp_file['reviews']:
+                for i in temp_file['reviews']:
                         conv = json.dumps(i)
                         sentiment = analyze_review_sentiments(conv)
-                    return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+                        return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
                 
                 return render(request, "djangoapp/reviews.html", {})
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/add_review.html', {} )
-
-# Testing 
-    # def get_queryset(self):
-    #     context = {}
-    #     # Local model DB, get all 
-    #     all_items = CarReviews.objects.all()
-
-    #     templ_file = get_reviews()['body']['rows']
-    #     context['reviews'] = templ_file
-    #     if all_items not in context['reviews']:
-    #         for i in context['reviews']:
-    #             # obj, created = CarReviews.objects.filter(
-    #             #     Q(full_name="TestReview") | Q(full_name="TestRev"),
-    #             # ).get_or_create(
-    #             obj = CarReviews(
-    #                 review_id=i['doc']['id'],
-    #                 name=i['doc']['name'], 
-    #                 dealership=i['doc']['dealership'], 
-    #                 review=i['doc']['review'], 
-    #                 purchase=i['doc']['purchase'], 
-    #                 purchase_date= datetime.strptime(i['doc']['purchase_date'], '%d/%m/%Y').strftime('%Y-%m-%d'), 
-    #                 car_make=i['doc']['car_make'], 
-    #                 car_model=i['doc']['car_model'], 
-    #                 car_year=i['doc']['car_year']
-    #                 # defaults={"full_name": i['doc']['name']}
-    #             )
-    #             obj.save()
-
-    #     else:
-    #         return all_items
 
 
 

@@ -24,7 +24,7 @@ class CarModel(models.Model):
     reviews = models.TextField(max_length=2500)
 
     def __str__(self):
-        return self.name + " " + self.make
+        return self.make
 
 
 # class CarDealer:
@@ -73,11 +73,15 @@ class CarReviews(models.Model):
     purchase_date = models.DateField()
     car_make = models.CharField(max_length=50)
     car_model = models.CharField(max_length=10)
-    car_year = models.DateField()
-# default=datetime.strptime(f"{datetime.now().strftime('%Y/%m/%d')}", "%Y/%m/%d").strftime('%d/%m/%Y')
+    car_year = models.DateField()# default=datetime.strptime(f"{datetime.now().strftime('%Y/%m/%d')}", "%Y/%m/%d").strftime('%d/%m/%Y')
+    # 
+    # docs = models.JSONField()
 
     def __str__(self):
         return str(self.dealership) + " " + self.name  
+
+
+
 
 
 
@@ -333,4 +337,3 @@ class CarReviews(models.Model):
 
 
 # # TO fix multiple foreign key, just use for 2,3,4 etc fk_name & related_name='name_of_colum_plus_something'  Done!
-# # Not clear if we define name in both car make and model, what name field in car model does do for when the name is already defined by car make. Or car make name is manufacture and car model name of car name with model

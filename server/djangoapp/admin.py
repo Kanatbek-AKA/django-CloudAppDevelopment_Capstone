@@ -38,7 +38,6 @@ admin.site.register(CarReviews)
 
 
 
-
 # Apart if you want to tune you auto
 # from django.contrib import admin
 # from .models import CarDealer, CarMake, CarModel, DealerReview, TuningModel

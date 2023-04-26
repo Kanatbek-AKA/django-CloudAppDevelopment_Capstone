@@ -9,7 +9,7 @@ import json
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import ConnectionError
 
-# django-environ worked 5-10 minutes ago and now stopped working on Chromebook
+# django-environ worked 5-10 minutes ago and now stopped working on 
 # import environ
 # environ.Env()
 # environ.Env.read_env('../../functions/.env')

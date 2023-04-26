@@ -12,6 +12,7 @@
   href="{% static 'css/dealers.css' %}"
   />
   <script defer src="{% static 'javascript/dealer.js' %}"></script>
+  <script defer src="{% static 'javascript/dealers_todo.js' %}"></script>
   <!-- CSS/JS CDN -->
   <link
   rel="stylesheet"
@@ -129,8 +130,9 @@
 
     <section class="mr-3 cards">
       <!-- Choose  dealer by state -->
-      <h5>Find dealers in your state</h5>
-      <!-- Need to fix filter using data-field etc  -->
+      <h5 id="warnText">Find dealers in your state</h5>
+      
+      <!-- Need to fix filter using data-field etc. If you have any idea to fix it just share with me :)  -->
       <div class="input-group">
         <input
         type="text"
@@ -146,6 +148,7 @@
         <br />
         <button
         class="btn btn-primary text-white"
+        id="warnings"
         >
         Show
       </button>
@@ -202,6 +205,9 @@
 <div class="seperator">
   <div class="devider-sep"></div>
 </div>
+
+<!-- In this bootstrap table  there is bug in JS if you comment it out, tables render as expected but the search and select do not work.
+If you have any idea to fix it, just share with me. -->
 <section class="sticky-sm-bottom s_table">
   <h2 class="dealer_header">AKA dealers across USA</h2>
   <div class="container overflow_table">
@@ -297,6 +303,7 @@
 <div class="seperator">
   <div class="devider-sep"></div>
 </div>
+
 
 <div class="seperator">
   <div class="devider-sep"></div>
