@@ -10,15 +10,16 @@ from datetime import datetime
 import logging
 import json
 from django.views.generic import TemplateView
-from .restapis import get_dealers, get_reviews, post_reviews, be_aka, analyze_review_sentiments, infoAddress
+from .restapis import get_dealers, get_reviews, post_reviews, be_aka, analyze_review_sentiments
+from .actions import get_action_dealers, get_action_reviews
+from .zipinfo import infoAddress
 from datetime import datetime
 import random  # used for dealership in reviews
 
-# from django.core.mail import send_mail, BadHeaderError, EmailMessage
-# from .send_grid import send_emails    # using for newsletter weekly, monthly etc 
+# from django.core.mail import send_mail, BadHeaderError, EmailMessage       # 
+# from .send_grid import send_emails                                         # using for newsletter weekly, monthly etc 
 
-# Used for files outside the django project
-from django.conf import settings
+from django.conf import settings                                             # Used for files outside the django project
 
 # Filter 
 # from django import template
@@ -255,10 +256,12 @@ class DealerPageView(TemplateView):
     # success_url=
     # form_class=
 
-    def get(self, request ):  # use name to refer to ReviewView
+    def get(self, request ):  
         context = {}
-        # all_items = Dealers.objects.values().all()
+        # user = self.request.user
+        # all_items = Dealers.objects.values().all() 
         try:
+            # if user.is_authenticated:
             templ_file = get_dealers()['body']['rows']
             context['dealerships'] = templ_file
     
@@ -285,13 +288,20 @@ class DealerPageView(TemplateView):
 
             return render(request, "djangoapp/dealer_details.html", context)     
         except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
-                # Reading the dealership.json outside the django project e.g. cloudant/data/dealership.json
-                file_cld = os.path.join(settings.FILES_DIR, 'dealerships.json')
-                with open(file_cld, mode='r') as temp_js:
-                    temp_file = json.loads(temp_js.read().strip())['dealerships']
-                    return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )
+            # if your DB connection failed, retrieve the data from enabled url
+            # if user.is_authenticated:
+            url_file = get_action_dealers() # exception retrieves the data            
+            context['dealerships'] = url_file
+            return render(request, "djangoapp/dealer_details.html", context)
+        except (InvalidURL, ConnectionError) as err :    
+            # If both above failed, read the dealership.json outside the django project e.g. folder cloudant/data/reviews-full.json
+            file_cld = os.path.join(settings.FILES_DIR, 'dealerships.json')
+            # if user.is_authenticated:
+            with open(file_cld, mode='r') as temp_js:
+                temp_file = json.loads(temp_js.read().strip())['dealerships']
+                return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )
         # except Other Possible HTTP or API errors:
-        #     return render(request, 'djangoapp/.....html', {} )
+            # return render(request, 'djangoapp/.....html', {} )
 
     
 #
@@ -303,31 +313,44 @@ class ReviewsView(TemplateView):
 
     def get(self, request):   # here dealership numbes 
         context = {}
-        review = get_reviews()['body']['rows']
         try:
+            # if user.is_authenticated:
+            review = get_reviews()['body']['rows']
             if review is not None:
                 context['reviews'] = review
                 for i in context['reviews']: 
                     # Sentiment NLU IBM
-                    value = i['doc']['review'] 
-                    # print(value) 
-                    conv = json.dumps(value)
-                    # print(type(conv))  # type str
+                    value = i['doc']['review']    # get review column 
+                    conv = json.dumps(value)      # to string
                     sentiment = analyze_review_sentiments(conv)
                 return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})    
-           
             return render(request, "djangoapp/reviews.html", {})
-        except (TypeError,ConnectionError, ConnectionRefusedError ) as err:
-            # Reading the dealership.json outside the django project e.g. cloudant/data/reviews-full.json
+        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
+            # if your DB connection failed, retrieve the data from enabled url
+            # if user.is_authenticated:
+            url_file = get_action_reviews() 
+            context['reviews'] = url_file
+            for i in context['reviews']: 
+                # Sentiment NLU IBM
+                value = i['doc']['review']    # get review column 
+                conv = json.dumps(value)      # to string
+                sentiment = analyze_review_sentiments(conv)
+                return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+        except (InvalidURL, ConnectionError) as err :
+            # If both above failed, read the dealership.json outside the django project e.g. folder cloudant/data/reviews-full.json
             file_cld = os.path.join(settings.FILES_DIR, 'reviews-full.json')
             with open(file_cld, mode='r') as temp_js:
                 temp_file = json.loads(temp_js.read().strip())
+                # print(type(temp_file))
+                context['reviews'] = temp_file['reviews']
+                # if user.is_authenticated:
                 for i in temp_file['reviews']:
-                        conv = json.dumps(i)
-                        sentiment = analyze_review_sentiments(conv)
-                        return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+                    conv = json.dumps(i['review'])
+                    sentiment = analyze_review_sentiments(conv)
+                    # print(sentiment)
+                return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
                 
-                return render(request, "djangoapp/reviews.html", {})
+            return render(request, "djangoapp/reviews.html", {})
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/add_review.html', {} )
 

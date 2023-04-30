@@ -3,7 +3,7 @@ FROM python:3.8.2
 ENV PYTHONBUFFERED 1
 ENV PYTHONWRITEBYTECODE 1
 
-RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y netcat nano
 
 ENV APP=/app
 
@@ -15,6 +15,7 @@ COPY entrypoint.sh .
 
 #Install the requirements
 RUN pip3 install -r requirements.txt
+RUN python -m pip install -U pip --user
 
 # Copy the rest of the file
 COPY . APP

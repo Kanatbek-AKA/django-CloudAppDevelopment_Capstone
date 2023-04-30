@@ -20,13 +20,13 @@ dct = {"COUCH_USERNAME": os.getenv("USERNAME"),
 
 
 #
-def connectCloudant(params):
-    authenticator = IAMAuthenticator(params["IAM_API_KEY"])
-    service = CloudantV1(authenticator=authenticator)
-    service.set_service_url(params["COUCH_URL"])
-    # a = [i for i in dir(service) if "head" in i]
-    # print(a)
-    return service
+# def connectCloudant(params):
+#     authenticator = IAMAuthenticator(params["IAM_API_KEY"])
+#     service = CloudantV1(authenticator=authenticator)
+#     service.set_service_url(params["COUCH_URL"])
+#     # a = [i for i in dir(service) if "head" in i]
+#     # print(a)
+#     return service
 
 # connectCloudant(dct)
 
@@ -229,7 +229,7 @@ def getDesign(db, dbname, **kwargs):
 # serverInfo(connectCloudant(dct))
 # getAllDB(connectCloudant(dct))
 # infoAboutDB(connectCloudant(dct))
-getInfoMultipleDB(connectCloudant(dct))
+# getInfoMultipleDB(connectCloudant(dct))
 # getValues(connectCloudant(dct), 'django-reviews')
 # getInfoDoc(connectCloudant(dct), "django-reviews", "868d332061185672fe633f284f0f0d2e")
 # createDOC(connectCloudant(dct), "django-reviews")

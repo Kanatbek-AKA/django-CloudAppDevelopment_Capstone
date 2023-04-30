@@ -126,6 +126,8 @@
             />
             &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span>
             <hr />
+            <!-- When the Cloudant API or Functions-Action Urls fail, render the local data-->
+            {% if test.doc %}
             <div class="card-title">
               <span class="mb-3 text-decoration-none">
                 {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
@@ -135,6 +137,17 @@
                   <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
                 </div>
               </div>
+              {% else %}
+              <div class="card-title">
+              <span class="mb-3 text-decoration-none">
+                {{test.car_make}} &nbsp; {{test.car_model}}</span
+                >
+                <div class="card-subtitle mb-3 text-decoration-none">
+                  {{ test.car_year }}
+                  <div class="card-text text-decoration-none">{{ test.review }}</div>
+                </div>
+              </div>
+              {% endif %}
             </div>
           </div>
         </a>
