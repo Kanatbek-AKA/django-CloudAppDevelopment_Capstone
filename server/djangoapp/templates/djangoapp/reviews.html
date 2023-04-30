@@ -98,72 +98,8 @@
               />
               &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span>
               <hr />
-
-              <div class="card-titlemb-3 text-decoration-none">
-                {{ test.doc.car_make}} &nbsp; {{test.doc.car_model}}
-
-                <div class="card-subtitle mb-3 text-decoration-none">
-                  {{ test.doc.car_year }}
-                  <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-      {% elif anal_test.sentiment.label == 'neutral' %}
-      <div
-      class="d-inline-flex flex-row justify-content-center align-items-center p-2 mx-auto"
-      >
-      <a href="{% url 'djangoapp:reviews' %}" target="_self" rel="noopener noreferrer" class="card_ref">
-        <div class="card rounded-4" style="width: 20rem;">
-          <div class="card-body text-dark mb-4">
-            <img
-            class="card-img-left mb-0"
-            src="{{MEDIA_URL}}/emoji/neutral.png"
-            width="40px"
-            height="20px"
-            />
-            &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span>
-            <hr />
-            <!-- When the Cloudant API or Functions-Action Urls fail, render the local data-->
-            {% if test.doc %}
-            <div class="card-title">
-              <span class="mb-3 text-decoration-none">
-                {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
-                >
-                <div class="card-subtitle mb-3 text-decoration-none">
-                  {{ test.doc.car_year }}
-                  <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
-                </div>
-              </div>
-              {% else %}
-              <div class="card-title">
-              <span class="mb-3 text-decoration-none">
-                {{test.car_make}} &nbsp; {{test.car_model}}</span
-                >
-                <div class="card-subtitle mb-3 text-decoration-none">
-                  {{ test.car_year }}
-                  <div class="card-text text-decoration-none">{{ test.review }}</div>
-                </div>
-              </div>
-              {% endif %}
-            </div>
-          </div>
-        </a>
-      </div>
-      {% else %}
-      <div class="d-inline-flex p-2 mx-auto">
-        <a href="{% url 'djangoapp:reviews' %}" target="_self" rel="noopener noreferrer" class="card_ref">
-          <div class="card" style="width: 20rem;">
-            <img
-            class="card-img-left"
-            src="{{MEDIA_URL}}/emoji/negative.png"
-            width="40px"
-            height="20px"
-            />
-            &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span> <br />
-            <div class="card-body bg-dangerous text-warning rounded-4 mb-4">
+              <!-- When the Cloudant API or Functions-Action Urls fail, render the local data-->
+              {% if test.doc %}
               <div class="card-title">
                 <span class="mb-3 text-decoration-none">
                   {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
@@ -173,27 +109,119 @@
                     <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        {% endif %}
-        <!-- Close sec -->
-        {% endif %}
-        <!-- close for loop-->
-        {% endfor %}
-        <!-- close for loop- -->
-        {% endfor %}
-      </div>
-    </div>
-    {% else %}
-    <div class="warn">
-      <div>Hey, we would be happy if you authenticate yourself to view and share your reviews.</div>
-    </div>
-    {% endif %}
-  </section>
+                {% elif else %}
+                <div class="card-title">
+                  <span class="mb-3 text-decoration-none">
+                    {{test.car_make}} &nbsp; {{test.car_model}}</span
+                    >
+                    <div class="card-subtitle mb-3 text-decoration-none">
+                      {{ test.car_year }}
+                      <div class="card-text text-decoration-none">{{ test.review }}</div>
+                    </div>
+                  </div>
+                  {% endif %}
 
-  <!-- Need to create purchase to buy a car and not a list of cars in the json file -->
+                </div>
+              </div>
+            </a>
+          </div>
+          {% elif anal_test.sentiment.label == 'neutral' %}
+          <div
+          class="d-inline-flex flex-row justify-content-center align-items-center p-2 mx-auto"
+          >
+          <a href="{% url 'djangoapp:reviews' %}" target="_self" rel="noopener noreferrer" class="card_ref">
+            <div class="card rounded-4" style="width: 20rem;">
+              <div class="card-body text-dark mb-4">
+                <img
+                class="card-img-left mb-0"
+                src="{{MEDIA_URL}}/emoji/neutral.png"
+                width="40px"
+                height="20px"
+                />
+                &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span>
+                <hr />
+                <!-- When the Cloudant API or Functions-Action Urls fail, render the local data-->
+                {% if test.doc %}
+                <div class="card-title">
+                  <span class="mb-3 text-decoration-none">
+                    {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
+                    >
+                    <div class="card-subtitle mb-3 text-decoration-none">
+                      {{ test.doc.car_year }}
+                      <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
+                    </div>
+                  </div>
+                  {% else %}
+                  <div class="card-title">
+                    <span class="mb-3 text-decoration-none">
+                      {{test.car_make}} &nbsp; {{test.car_model}}</span
+                      >
+                      <div class="card-subtitle mb-3 text-decoration-none">
+                        {{ test.car_year }}
+                        <div class="card-text text-decoration-none">{{ test.review }}</div>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                  </div>
+                </div>
+              </a>
+            </div>
+            {% else %}
+            <div class="d-inline-flex p-2 mx-auto">
+              <a href="{% url 'djangoapp:reviews' %}" target="_self" rel="noopener noreferrer" class="card_ref">
+                <div class="card" style="width: 20rem;">
+                  <img
+                  class="card-img-left"
+                  src="{{MEDIA_URL}}/emoji/negative.png"
+                  width="40px"
+                  height="20px"
+                  />
+                  &nbsp; &nbsp;<span class="text-decoration-none">{{ anal_test.sentiment.label }}</span> 
+                  <hr />
+                  <!-- When the Cloudant API or Functions-Action Urls fail, render the local data-->
+                  {% if test.doc %}
+                  <div class="card-title">
+                    <span class="mb-3 text-decoration-none">
+                      {{test.doc.car_make}} &nbsp; {{test.doc.car_model}}</span
+                      >
+                      <div class="card-subtitle mb-3 text-decoration-none">
+                        {{ test.doc.car_year }}
+                        <div class="card-text text-decoration-none">{{ test.doc.review }}</div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="card-title">
+                      <span class="mb-3 text-decoration-none">
+                        {{test.car_make}} &nbsp; {{test.car_model}}</span
+                        >
+                        <div class="card-subtitle mb-3 text-decoration-none">
+                          {{ test.car_year }}
+                          <div class="card-text text-decoration-none">{{ test.review }}</div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </a>
+              </div>
+              {% endif %}
+              <!-- Close sec -->
+              {% endif %}
+              <!-- close for loop-->
+              {% endfor %}
+              <!-- close for loop- -->
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <div class="warn">
+            <div>Hey, we would be happy if you authenticate yourself to view and share your reviews.</div>
+          </div>
+          {% endif %}
+        </section>
+
+        <!-- Need to create purchase to buy a car and not a list of cars in the json file -->
       <!-- <section>
         <textarea
           class="form-control w-3"

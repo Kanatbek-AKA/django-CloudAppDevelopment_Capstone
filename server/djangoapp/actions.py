@@ -2,7 +2,7 @@ import os
 import json
 import requests
 # from requests.auth import HTTPBasicAuth
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, InvalidURL
 
 # import environ
 # environ.Env()
@@ -11,24 +11,22 @@ from requests.exceptions import ConnectionError
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('../../functions/.env'))
 
-DEALERS= os.environ.get('ACTION_URL_PY')
-REVIEWS= os.environ.get('ACTION_URL_NODE')
+# DEALERS= os.environ.get('ACTION_URL_PY')
+# REVIEWS= os.environ.get('ACTION_URL_NODE')
 
 def get_action_dealers():
     try:
         response = requests.get(DEALERS, headers={'Content-Type': 'application/json'}).json()
         return response
-    except Exception as err:
-        return err
-
-get_action_dealers()
+    except (InvalidURL,ConnectionError, NameError) as err:
+        pass
 
 def get_action_reviews():
     try:
         response = requests.get(REVIEWS, headers={'Content-Type': 'application/json'}).json()
         return response
-    except Exception as err:
-        return err
+    except (InvalidURL, ConnectionError, NameError) as err:
+        pass
 
 
 

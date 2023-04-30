@@ -20,9 +20,10 @@ environ.Env().read_env(os.path.join('../../functions/.env'))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Read and write file outside the django project
 BASE_ADD_FILE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FILES_DIR = os.path.abspath(os.path.join(BASE_DIR, '../cloudant/data/'))
+FILES_DIR = os.path.abspath(os.path.join(BASE_ADD_FILE, '../cloudant/data/'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +37,7 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 DEBUG = True #os.environ.get("DEBUG")
 
 # APPEND_SLASH = True    #
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["*"]   
 
 
 # Application definition
@@ -145,7 +146,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-# DATE_FORMAT = "d-m-Y"
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True

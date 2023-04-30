@@ -24,9 +24,7 @@ dct = {
 # 'IAM_API_KEY': os.getenv("APIKEY"),
 # 'COUCH_URL': os.getenv("URL"),
 # "DB1": os.getenv("DATADBNAME"),
-# 'DB2': os.getenv("DATADBNAME2"),
-"DEALERS": os.environ.get('ACTION_URL_PY'),
-'REVIEWS': os.environ.get('ACTION_URL_NODE'), 
+# 'DB2': os.getenv("DATADBNAME2"), 
 'NLUAPI': os.getenv('NLU_KEY'),
 "NLURL": os.getenv('NLU_URL'),
 }
@@ -165,7 +163,7 @@ def analyze_review_sentiments(text):
                 keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
         # print(json.dumps(response, indent=2))
         return response
-    except (ValueError, AttributeError,ApiException) as anyerror:
+    except (KeyError,ValueError, AttributeError,ApiException) as anyerror:
         pass
 
 
