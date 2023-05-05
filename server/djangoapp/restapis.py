@@ -36,7 +36,7 @@ def connectServer(params):
         service = CloudantV1(authenticator=authenticator)
         service.set_service_url(params['COUCH_URL'])
         return service
-    except (KeyError,ValueError, AttributeError,ApiException) as anyerror:
+    except (KeyError,ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
         pass
 
 
@@ -51,7 +51,7 @@ def get_dealers():
             'body': values
         }
         return result
-    except (KeyError,ValueError, AttributeError,ApiException) as anyerror:
+    except (KeyError,ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
         pass
 
 
@@ -69,7 +69,7 @@ def get_reviews():
         }
         # print(result)
         return result
-    except (KeyError,ValueError, AttributeError,ApiException) as anyerror:
+    except (KeyError,ValueError,AttributeError,ApiException,ConnectionError) as anyerror:
         pass
 
 
@@ -160,7 +160,7 @@ def analyze_review_sentiments(text):
                 keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
         # print(json.dumps(response, indent=2))
         return response
-    except (KeyError,ValueError, AttributeError,ApiException) as anyerror:
+    except (KeyError, ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
         pass
 
 

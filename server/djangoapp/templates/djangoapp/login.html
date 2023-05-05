@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+<!--   <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
   <meta name="viewport" name="width=device-width, inital-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="IBM Capstone Project" />
+  <meta name="keywords" content="Django Flask WedDev HTML/CSS JS Jinja2" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,nosnippet" />
+  <meta name="googlebot" content="noindex,noarchive,nosnippet" />
+  <!--   <meta
+    http-equiv="Cache-Control"
+    content="no-cache, not-store must-revalidate"
+  /> -->
+  <!-- <meta http-equiv="Pragma" content="no-cache" /> -->
+  <meta http-http-equiv="Expires" content="0" />
+  <meta name="author" content="Kanatbek-AKA" />
   <title>Login</title>
   {% load static %}
   <link
   rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
   />
+     <!-- Local Bootstrap -->
+  <link
+  rel="stylesheet"
+  href="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"/>
+  <script defer scr="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+  <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.css' %}"
+  rel="stylesheet"/>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.js' %}"
+  ></script>
+  <script defer scr="{% static 'bootstrap/jquery-3.3.1.min.js' %}"></script>
+  <!-- Table Filter  -->
+  <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css' %}"
+  rel="stylesheet"/>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"
+  ></script>
 </head>
 <body>
   <!-- Navigation bar -->

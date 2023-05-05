@@ -1,0 +1,26 @@
+main {
+  background-color: aliceblue;
+  heigh: 100%;
+  min-height: 20cm;
+}
+
+.anchor {
+  margin-left: 10px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover,
+.anchor:focus {
+  color: red;
+  text-decoration: none;
+}
+
+.r-anchor {
+  text-align: right;
+}
+
+.seperator {
+  margin: 100px 0 100px 0;
+}

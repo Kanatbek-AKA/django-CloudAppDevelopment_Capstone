@@ -1,0 +1,58 @@
+.anchor {
+  margin-left: 5px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.text_label {
+  padding-top: 10px;
+  font-style: oblique;
+}
+
+
+.r-anchor {
+  text-align: right;
+  /* margin-right: 5px; */
+}
+
+
+.seperator {
+  margin: 100px 0 100px 0;
+}
+
+
+main {
+  background-color: aliceblue;
+  height: 100%;
+  min-height: 20cm;
+  display: block;
+}
+
+.background {
+  display: flex;
+  flex-direction: row;
+/*  flex-shrink:  ;*/
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.mt {
+  margin-top: 5rem;
+}
+
+.tx {
+  margin-left: 50px;
+  margin-right: 400px;
+}
+
+.mx {
+  position: absolute;
+  top: 9cm;
+  right: 1cm;
+}
+

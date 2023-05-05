@@ -1,0 +1,90 @@
+.contact {
+  background: aliceblue;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 20cm;
+}
+
+.anchor {
+  margin-left: 10px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover,
+.anchor:focus {
+  color: red;
+  text-decoration: none;
+}
+
+.r-anchor {
+  text-align: right;
+}
+
+.h2 {
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.h3 {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  /* width: 500px; */
+}
+.seperator {
+  margin: 100px 0 0 100px;
+}
+
+.cards_img {
+  border: thin solid hidden;
+  margin-left: 40px;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.sentiment {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  border: thin solid yellow;
+}
+
+.inner_sentiment {
+  margin: 10px auto;
+  padding: 10px auto;
+  border: thin dashed darkblue;
+}
+
+/* .pn {
+
+} */
+
+.columns_own {
+  margin: 10px auto;
+  padding: 10px auto;
+  /* width: 100%; */
+  /* max-width: 500px; */
+  height: 100%;
+  max-height: 400px;
+  
+  overflow: scroll;
+}
+
+.warn {
+  margin-top: 100px;
+  text-align: center;
+}
+
+
+/* .feedback {
+  border: thin solid rgba(red, green, blue, 1);
+} */

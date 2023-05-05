@@ -2,10 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
+  <!-- <meta charset="UTF-8" /> -->
+  <meta name="viewport" name="width=device-width, inital-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="IBM Capstone Project" />
+  <meta name="keywords" content="Django Flask WedDev HTML/CSS JS Jinja2" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,nosnippet" />
+  <meta name="googlebot" content="noindex,noarchive,nosnippet" />
+  <!--   <meta
+    http-equiv="Cache-Control"
+    content="no-cache, not-store must-revalidate"
+  /> -->
+  <!-- <meta http-equiv="Pragma" content="no-cache" /> -->
+  <meta http-http-equiv="Expires" content="0" />
+  <meta name="author" content="Kanatbek-AKA" />
   <title>Dealership Review</title>
   {% load static %}
-  <!-- OWn -->
+  <!-- Own -->
   <link
   rel="stylesheet"
   type="text/css"
@@ -13,29 +29,39 @@
   />
   <script defer src="{% static 'javascript/dealer.js' %}"></script>
   <script defer src="{% static 'javascript/dealers_todo.js' %}"></script>
-  <!-- CSS/JS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link
-      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+  <!-- External CSS/JS CDN -->
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  />
+  <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link
+  href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+  rel="stylesheet"
+  />
+  <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+  <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
   <!-- Bootstrap Table -->
   <link
   rel="stylesheet"
   href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"
   />
-  <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-
-  <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-
+  <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+  <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+  
+    <!-- Local Bootstrap -->
+  <link
+  rel="stylesheet"
+  href="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"/>
+    <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.css' %}"
+  rel="stylesheet"/>
+   <!-- Table Filter  -->
+  <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css' %}"
+  rel="stylesheet"/>
 </head>
 
 <body>
@@ -79,50 +105,50 @@
   </div>
 </div>
 
-  <!-- Bootstrap Modal -->
-  <!--Pop-Up  Login -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginLabel">Login</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="{% url 'djangoapp:login' %}" method="post" class="mt-5">
-            {% csrf_token %}
-            <div class="container">
-              <h1>Login</h1>
-              <div class="form-group">
-                <label for="username"><b>User Name</b></label>
-                <input
-                id="username"
-                class="form-control"
-                type="text"
-                placeholder="Enter User Name: "
-                name="username"
-                required
-                />
+<!-- Bootstrap Modal -->
+<!--Pop-Up  Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'djangoapp:login' %}" method="post" class="mt-5">
+          {% csrf_token %}
+          <div class="container">
+            <h1>Login</h1>
+            <div class="form-group">
+              <label for="username"><b>User Name</b></label>
+              <input
+              id="username"
+              class="form-control"
+              type="text"
+              placeholder="Enter User Name: "
+              name="username"
+              required
+              />
 
-                <label for="psw"><b>Password</b></label>
-                <input
-                id="psw"
-                class="form-control"
-                type="password"
-                placeholder="Enter Password: "
-                name="psw"
-                required
-                />
-              </div>
-              {% if message %}
-              <div class="alert alert-warning">{{ message }}</div>
-              {% endif %}
-              <button class="btn btn-primary" type="submit">Login</button>
+              <label for="psw"><b>Password</b></label>
+              <input
+              id="psw"
+              class="form-control"
+              type="password"
+              placeholder="Enter Password: "
+              name="psw"
+              required
+              />
             </div>
-          </form>
-        </div>
+            {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            <button class="btn btn-primary" type="submit">Login</button>
+          </div>
+        </form>
+      </div>
         <!--       <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="sample_msg_csr" data-dismiss="modal" >Send message</button>
               </div> -->
@@ -220,44 +246,44 @@
                   })
 
                 </script>
-</nav>
+              </nav>
 
-<div class="seperator">
-  <div class="devider-sep"></div>
-</div>
+              <div class="seperator">
+                <div class="devider-sep"></div>
+              </div>
 
-<main>
-  <article class="artickle">
-    <section class="w-50 ml-5">
-      <div class="container px-4">
-        <h2 class="pb-2 display-3">AKA dealers</h2>
-        <p>
-          Far far away, behind the word mountains, far from the countries
-          Vokalia and Consonantia, there live the blind texts. Separated
-          they live in Bookmarksgrove right at the coast of the Semantics, a
-          large language ocean. A small river named Duden flows by their
-          place and supplies it with the necessary regelialia. It is a
-          paradisematic country, in which roasted parts of sentences fly
-          into your mouth. Even the all-powerful Pointing has no control
-          about the blind texts it is an almost unorthographic life One day
-          however a small line of blind text by the name of Lorem Ipsum
-          decided to leave for the far World of Grammar. The Big Oxmox
-          advised her not to do so, because there were thousands of bad
-          Commas, wild Question Marks and devious Semikoli, but the Little
-          Blind Text didn’t listen. She packed her seven versalia, put her
-          initial into the belt and made herself on the way. When she
-          reached the first hills of the Italic Mountains, she had a last
-          view back on the skyline of her hometown Bookmarksgrove, the
-          headline of Alphabet Village and the subline of her own road, the
-          Line Lane. Pityful a rethoric question ran over her cheek, then
-        </p>
-        <br />
-        <div>
-          Around the world, AKA motors has more than 100.000 dealers in 120
-          countries. Want to join AKA dealers, click
-          <a href="{% url 'djangoapp:members' %}">here</a>.
-        </div>
-      </div>
+              <main>
+                <article class="artickle">
+                  <section class="w-50 ml-5">
+                    <div class="container px-4">
+                      <h2 class="pb-2 display-3">AKA dealers</h2>
+                      <p>
+                        Far far away, behind the word mountains, far from the countries
+                        Vokalia and Consonantia, there live the blind texts. Separated
+                        they live in Bookmarksgrove right at the coast of the Semantics, a
+                        large language ocean. A small river named Duden flows by their
+                        place and supplies it with the necessary regelialia. It is a
+                        paradisematic country, in which roasted parts of sentences fly
+                        into your mouth. Even the all-powerful Pointing has no control
+                        about the blind texts it is an almost unorthographic life One day
+                        however a small line of blind text by the name of Lorem Ipsum
+                        decided to leave for the far World of Grammar. The Big Oxmox
+                        advised her not to do so, because there were thousands of bad
+                        Commas, wild Question Marks and devious Semikoli, but the Little
+                        Blind Text didn’t listen. She packed her seven versalia, put her
+                        initial into the belt and made herself on the way. When she
+                        reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the
+                        headline of Alphabet Village and the subline of her own road, the
+                        Line Lane. Pityful a rethoric question ran over her cheek, then
+                      </p>
+                      <br />
+                      <div>
+                        Around the world, AKA motors has more than 100.000 dealers in 120
+                        countries. Want to join AKA dealers, click
+                        <a href="{% url 'djangoapp:members' %}">here</a>.
+                      </div>
+                    </div>
           <!-- <div class="seperator">
         <div class="devider-sep"></div>
       </div> -->
@@ -292,7 +318,7 @@
         <h6>Dealers in your state:</h6>
         {% for item in dealerships %}
         <!-- Local file -->
-         {% if "doc" not in item  %}
+        {% if "doc" not in item  %}
         <div class="card-columns-vertical rounded-2">
           <div class="card mt-1">
             <div class="card-header">
@@ -330,7 +356,7 @@
             </div>
           </div>
         </div>
-         {% endif %}
+        {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -343,92 +369,92 @@
 
 
 <!-- In this bootstrap table  there is bug in JS if you comment it out, tables render as expected but the search and select do not work.
-If you have any idea to fix it, just share with me. -->
-<section class="sticky-sm-bottom s_table">
-  <h2 class="dealer_header">AKA dealers across USA</h2>
-  <div class="container overflow_table">
-    <div class="table-repsonsive">
-      <table
-      data-filter-control="true"
-      data-search="search"
-      data-toggle="table"
-      class="table table-bordered caption-top"
-      id="tbl"
-      >
-      <caption>
-        Dealers list
-      </caption>
-      <thead class="table-dark">
-        <!-- {for item in dealerships %} -->
+  If you have any idea to fix it, just share with me. -->
+  <section class="sticky-sm-bottom s_table">
+    <h2 class="dealer_header">AKA dealers across USA</h2>
+    <div class="container overflow_table">
+      <div class="table-repsonsive">
+        <table
+        data-filter-control="true"
+        data-search="search"
+        data-toggle="table"
+        class="table table-bordered caption-top"
+        id="tbl"
+        >
+        <caption>
+          Dealers list
+        </caption>
+        <thead class="table-dark">
+          <!-- {for item in dealerships %} -->
+          <tr>
+            <th scope="col" class="col-xs-3 header_col">ID</th>
+            <!-- item.doc.keys:2 }}-->
+            <th scope="col" class="col-xs-3 header_col">Name</th>
+            <th scope="col" class="col-xs-3 header_col">City</th>
+            <th scope="col" class="col-xs-3 header_col">Address</th>
+            <th scope="col" class="col-xs-3 header_col">Postal/Zip</th>
+            <th
+            scope="col"
+            class="col-xs-3 header_col"
+            data-field="state"
+            data-filter-control="select"
+            data-sortable="true"
+            >
+            State
+          </th>
+          <th scope="col" class="col-xs-3 header_col">Latitude</th>
+          <th scope="col" class="col-xs-3 header_col">Longitude</th>
+        </tr>
+      </thead>
+      {% for test in dealerships %}
+      {% if "doc" not in test %}
+      <tbody>
         <tr>
-          <th scope="col" class="col-xs-3 header_col">ID</th>
-          <!-- item.doc.keys:2 }}-->
-          <th scope="col" class="col-xs-3 header_col">Name</th>
-          <th scope="col" class="col-xs-3 header_col">City</th>
-          <th scope="col" class="col-xs-3 header_col">Address</th>
-          <th scope="col" class="col-xs-3 header_col">Postal/Zip</th>
-          <th
-          scope="col"
-          class="col-xs-3 header_col"
-          data-field="state"
-          data-filter-control="select"
-          data-sortable="true"
-          >
-          State
-        </th>
-        <th scope="col" class="col-xs-3 header_col">Latitude</th>
-        <th scope="col" class="col-xs-3 header_col">Longitude</th>
-      </tr>
-    </thead>
-    {% for test in dealerships %}
-    {% if "doc" not in test %}
-    <tbody>
-      <tr>
-        <td scope="row" class="col-xs-3">{{ test.id }}</td>
-        <td class="col-xs-3">
-          <!-- add review_id  in url -->
-          <a
-          href="{% url 'djangoapp:reviewed'  %}"
-          rel="noopener noreferrer"
-          target="_self"
-          class="text-decoration-none"
-          >{{ test.full_name }}</a
-          >
-        </td>
-        <td class="col-xs-3">{{ test.city }}</td>
-        <td class="col-xs-3">{{ test.address }}</td>
-        <td class="col-xs-3">{{ test.zip }}</td>
-        <td class="col-xs-3">{{ test.st }}</td>
-        <td class="col-xs-3">{{ test.lat }}</td>
-        <td class="col-xs-3">{{ test.long }}</td>
-      </tr>
-    </tbody>
-    {% else %}
-    <tbody>
-      <tr>
-        <td scope="row" class="col-xs-3">{{ test.doc.id }}</td>
-        <td class="col-xs-3">
-          <!-- add review_id  in url -->
-          <a
-          href="{% url 'djangoapp:reviewed'  %}"
-          rel="noopener noreferrer"
-          target="_self"
-          class="text-decoration-none"
-          >{{ test.doc.full_name }}</a
-          >
-        </td>
-        <td class="col-xs-3">{{ test.doc.city }}</td>
-        <td class="col-xs-3">{{ test.doc.address }}</td>
-        <td class="col-xs-3">{{ test.doc.zip }}</td>
-        <td class="col-xs-3">{{ test.doc.st }}</td>
-        <td class="col-xs-3">{{ test.doc.lat }}</td>
-        <td class="col-xs-3">{{ test.doc.long }}</td>
-      </tr>
-    </tbody>
-    {% endif %}
-    {% endfor %}
-  </table>
-</div>
+          <td scope="row" class="col-xs-3">{{ test.id }}</td>
+          <td class="col-xs-3">
+            <!-- add review_id  in url -->
+            <a
+            href="{% url 'djangoapp:reviewed'  %}"
+            rel="noopener noreferrer"
+            target="_self"
+            class="text-decoration-none"
+            >{{ test.full_name }}</a
+            >
+          </td>
+          <td class="col-xs-3">{{ test.city }}</td>
+          <td class="col-xs-3">{{ test.address }}</td>
+          <td class="col-xs-3">{{ test.zip }}</td>
+          <td class="col-xs-3">{{ test.st }}</td>
+          <td class="col-xs-3">{{ test.lat }}</td>
+          <td class="col-xs-3">{{ test.long }}</td>
+        </tr>
+      </tbody>
+      {% else %}
+      <tbody>
+        <tr>
+          <td scope="row" class="col-xs-3">{{ test.doc.id }}</td>
+          <td class="col-xs-3">
+            <!-- add review_id  in url -->
+            <a
+            href="{% url 'djangoapp:reviewed'  %}"
+            rel="noopener noreferrer"
+            target="_self"
+            class="text-decoration-none"
+            >{{ test.doc.full_name }}</a
+            >
+          </td>
+          <td class="col-xs-3">{{ test.doc.city }}</td>
+          <td class="col-xs-3">{{ test.doc.address }}</td>
+          <td class="col-xs-3">{{ test.doc.zip }}</td>
+          <td class="col-xs-3">{{ test.doc.st }}</td>
+          <td class="col-xs-3">{{ test.doc.lat }}</td>
+          <td class="col-xs-3">{{ test.doc.long }}</td>
+        </tr>
+      </tbody>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
 </div>
 
 <div class="seperator">
@@ -580,7 +606,16 @@ If you have any idea to fix it, just share with me. -->
         </div>
       </footer>
     </div>
-    <!--  -->
+  
+  <!-- Local Bootstrap JS -->
+  <script defer scr="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.js' %}"
+  ></script>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"
+  ></script>
+  <script defer scr="{% static 'bootstrap/jquery-3.3.1.min.js' %}"></script>
 
   </body>
   </html>

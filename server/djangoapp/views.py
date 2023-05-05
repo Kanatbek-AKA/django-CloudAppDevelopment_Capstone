@@ -1,6 +1,7 @@
 import os
 from requests.exceptions import ConnectionError, InvalidURL
-from urllib3.exceptions import ConnectTimeoutError
+from urllib.error import URLError
+from urllib3.exceptions import ConnectTimeoutError, NewConnectionError
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
@@ -168,20 +169,23 @@ class ContactPageView(TemplateView):
 
 
 def infoDevice():
-    from platform import platform, machine, system, processor, node
-    from urllib.request import urlopen
-    import re as r
-    d = str(urlopen('http://checkip.dyndns.com/').read())
-    ipdata = r.compile(r'Address: (\d+\.\d+\.\d+\.\d+)').search(d).group(1)
-    dct = {
-        "ip": ipdata,
-        "devices": platform()[:10],
-        'machines': machine(),
-        'processors': processor()[:5],
-        'nodes': node(),
-        'systems': system(),
-    }
-    return dct
+    try:
+        from platform import platform, machine, system, processor, node
+        from urllib.request import urlopen
+        import re as r
+        d = str(urlopen('http://checkip.dyndns.com/').read())
+        ipdata = r.compile(r'Address: (\d+\.\d+\.\d+\.\d+)').search(d).group(1)
+        dct = {
+            "ip": ipdata,
+            "devices": platform()[:10],
+            'machines': machine(),
+            'processors': processor()[:5],
+            'nodes': node(),
+            'systems': system(),
+        }
+        return dct
+    except URLError:
+        pass
 
 # Testing automation fill in the address and verification
 # For new dealers
@@ -324,7 +328,7 @@ class DealerPageView(TemplateView):
                 with open(file_cld, mode='r') as temp_js:
                     temp_file = json.loads(temp_js.read().strip())['dealerships']
                     return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )    
-        except Exception :
+        except (ConnectionError, NewConnectionError) as err :
             return redirect('djangoapp:errors',)
         # # except Other Possible HTTP or API errors:
         #     # return render(request, 'djangoapp/.....html', {} )
@@ -380,7 +384,7 @@ class ReviewsView(TemplateView):
                             return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
                         
                 return render(request, "djangoapp/reviews.html", {"warning": warning})
-        except Exception:
+        except (ConnectionError, NewConnectionError) as err:
             return redirect("djangoapp:errors", )
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/add_review.html', {} )

@@ -1,0 +1,92 @@
+
+main {
+  background-color: aliceblue;
+  width: 100%;
+  height: 100%;
+  min-height: 20cm;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.anchor {
+  margin-left: 10px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover,
+.anchor:focus {
+  color: red;
+  text-decoration: none;
+}
+
+.r-anchor {
+  text-align: right;
+}
+
+.head2 {
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.h3 {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  /* width: 500px; */
+}
+.seperator {
+  margin: 100px 0 0 100px;
+}
+
+.cards_img {
+  border: thin solid hidden;
+  margin-left: 40px;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.sentiment {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  border: thin solid hidden;
+}
+
+.inner_sentiment {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 20px;
+  border: thin dashed darkred;
+  border-radius: 5rem;
+  background-color: lightseagreen;
+}
+
+.columns_own {
+  margin: 15px auto;
+  padding: 10px;
+/*   width: 100%; */
+/*   max-width: 500px; */
+  height: 100%;
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.card_ref {
+  text-decoration: none;
+}
+
+.card_ref:hover {
+  cursor: pointer;
+  background: lightseagreen;
+  text-decoration: none;
+  transform: scaleX(0.8);
+}

@@ -1,0 +1,94 @@
+body {
+  background-color: aliceblue;
+}
+
+.anchor {
+  margin-left: 10px;
+  color: whitesmoke;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.anchor:hover,
+.anchor:focus {
+  color: red;
+  text-decoration: none;
+}
+
+.r-anchor {
+  text-align: right;
+}
+
+.seperator {
+  margin: 100px 0 100px 0;
+}
+
+.artickle {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cards {
+  border: thin solid lightblue;
+  background-color: lightseagreen;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-right: 50px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.form_inline {
+  margin-top: 50px;
+}
+
+.s_table {
+  margin-top: 5rem;
+}
+
+.dealer_header {
+  text-align: center;
+}
+
+.overflow_table {
+  height: 500px;
+  overflow: scroll;
+}
+
+.header_col {
+  /* color: darkblue; */
+  position: sticky;
+  top: 0;
+}
+
+/* Thead fixed does not work due to BUG in CSS */
+/* .fixed_header {
+  margin-right: 60px;
+  width: 100%;
+  max-width: 55rem;
+  table-layout: fixed;
+  border-collapse: collapse;
+} */
+/* .fixed_header tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 100px;
+} */
+/* .fixed_header thead tr {
+  display: block;
+}
+.fixed_header thead {
+  background: black;
+  color: #fff;
+}
+.fixed_header th,
+.fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+} */

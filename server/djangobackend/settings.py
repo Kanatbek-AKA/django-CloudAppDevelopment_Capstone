@@ -37,7 +37,13 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 DEBUG = True #os.environ.get("DEBUG")
 
 # APPEND_SLASH = True    #
-ALLOWED_HOSTS = ["*"]   
+ALLOWED_HOSTS = ["127.0.0.1"]
+
+# CORS_ORIGIN_WHITELIST
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5000',
+    'http://localhost:5000',
+]   
 
 
 # Application definition
@@ -49,35 +55,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_extensions",
     # securing
+    "corsheaders",
     'guardian',
     'oauth2_provider',
     'rest_framework',
     'django_filters',
-    # 'api',            # app
-    # 'ugc',            # app
-    # 'billing',        # app
-    # 'twofactorauth',  # app
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # securing
+    # 'django_referrer_policy.middleware.ReferrerPolicyMiddleware',
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
+
 ]
 
+REFERRER_POLICY = 'no-referrer'
 
 # SESSION_COOKIES_HTTP=True
-
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_HTTPONLY = True
-# # SECURE_HSTS_SECONDS = 300  # set low, but when site is ready for deployment, set to at least 15768000 (6 months)
+# SECURE_HSTS_SECONDS = 300  # set low, but when site is ready for deployment, set to at least 15768000 (6 months)
 # SECURE_HSTS_SECONDS = 60 * 60 * 24 * 7 * 52  # one year
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_SSL_REDIRECT = True
@@ -86,14 +92,11 @@ MIDDLEWARE = [
 # SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_HSTS_PRELOAD = True    # 
-# 
 # SESSION_COOKIE_SECURE = True
-#
 # CSRF_COOKIE_SAMESITE = 'Strict'
 # SESSION_COOKIE_SECURE = True
 # X_FRAME_OPTIONS = 'DENY'
-
-# If installed moz django csp
+# define also on html templates
 # CSP_DEFAULT_SRC = ("'none'",)
 # CSP_STYLE_SRC = ("'self'",)
 # CSP_SCRIPT_SRC = ("'self'",)

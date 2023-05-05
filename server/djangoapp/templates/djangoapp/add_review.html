@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <!-- <meta charset="UTF-8" /> -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
+  <meta name="referrer" content="origin" />
+  <meta name="viewport" name="width=device-width, inital-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="IBM Capstone Project" />
+  <meta name="keywords" content="Django Flask WedDev HTML/CSS JS Jinja2" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,nosnippet" />
+  <meta name="googlebot" content="noindex,noarchive,nosnippet" />
+  <!--   <meta
+    http-equiv="Cache-Control"
+    content="no-cache, not-store must-revalidate"
+  /> -->
+  <!-- <meta http-equiv="Pragma" content="no-cache" /> -->
+  <meta http-http-equiv="Expires" content="0" />
+  <meta name="author" content="Kanatbek-AKA" />
+  <title>AKA review</title>
   {% load static %}
   <!-- Local Css/Js -->
   <link
@@ -10,26 +28,43 @@
   href="{% static 'css/reviews.css' %}"
   />
   <script defer src="{% static 'javascript/reviews.js' %}"></script>
-
- <!-- CSS/JS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link
-      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-  <!-- Bootstrap Table -->
+  <!-- External CSS/JS CDN -->
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link
+  href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+  rel="stylesheet"
+  />
+  <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script> 
   <link
   rel="stylesheet"
   href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"
   />
+   <!-- Local Bootstrap -->
+  <link
+  rel="stylesheet"
+  href="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"/>
+  <script defer scr="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+  <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.css' %}"
+  rel="stylesheet"/>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.js' %}"
+  ></script>
+  <script defer scr="{% static 'bootstrap/jquery-3.3.1.min.js' %}"></script>
+  <!-- Table Filter  -->
+  <link
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css' %}"
+  rel="stylesheet"/>
+  <script defer
+  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"
+  ></script>
 </head>
 <body>
   <main class="contact">
@@ -368,27 +403,28 @@
      {% endif %}
    </section>
  </main>
+
  <!-- JS -->
- <script
+ <script defer 
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
  crossorigin="anonymous"
  ></script>
  <!-- JQuery -->
- <script
+ <script defer 
  src="https://code.jquery.com/jquery-3.6.4.slim.min.js"
  integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw="
  crossorigin="anonymous"
  ></script>
  <!-- Ajax -->
- <script
+ <script defer 
  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
  integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
  crossorigin="anonymous"
  referrerpolicy="no-referrer"
  ></script>
 
- <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
- <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+ <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+ <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 </body>
 </html>
