@@ -79,6 +79,11 @@
   overflow: scroll;
 }
 
+.warn {
+  margin-top: 100px;
+  text-align: center;
+}
+
 
 /* .feedback {
   border: thin solid rgba(red, green, blue, 1);

@@ -1,353 +1,353 @@
-{%load static i18n %}
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Dealership Review</title>
-    <!-- CDN -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <title>Dealership Review</title>
+  <!-- CDN -->
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+  <link
+  href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+  rel="stylesheet"/>
+  <!-- MUX player -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script> -->
 
-    <link
-      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-    <!-- MUX player -->
-    <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+  <!-- Local css/js -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <script defer src="{% static 'javascript/style.js' %}"></script>
+</head>
 
-    <!-- Local css/js -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <script defer src="{% static 'javascript/style.js' %}"></script>
-  </head>
-
-  <body>
-    <main>
-      <nav class="navbar navbar-light bg-dark">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
-            <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
-              >Dearlers</a
-            >
-            <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
-            <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
-          </div>
-          <div class="r-anchor">
-            <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
-              <li>
-                <a class="btn btn-link" href="#"
-                  >{{ user.first_name }}({{ user.username }})</a
-                >
-                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-                  >Logout</a
-                >
-              </li>
-              {% else %}
-              <li>
-                <form
-                  class="form-inline"
-                  action="{% url 'djangoapp:login' %}"
-                  method="post"
-                >
-                  {% csrf_token %}
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Username"
-                      name="username"
-                    />
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="password"
-                      name="psw"
-                    />
-                    <button class="btn btn-primary" type="submit">Login</button>
-                    <a
-                      class="btn btn-link"
-                      href="{% url 'djangoapp:registration' %}"
-                      >Sign Up</a
-                    >
-                  </div>
-                </form>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
+<body>
+  <main>
+    <nav class="navbar navbar-light bg-dark">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+          <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+          >Dearlers</a>
+          <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+          <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
         </div>
-      </nav>
-
-      <!-- Begin page content -->
-      <!-- Demo video on background-->
-      <section class="test_video">
-        <!-- <video autoplay muted loop id="myVideo">
-          <source src="{static 'video/demo.mp4' }" type="video/mp4">
-        </video> -->
-
-        <!-- Form -->
-        <!-- <div class="content"> -->
-        <div class="flex-shrink-0">
-          <div class="container">
-            <h1 class="mt-5 display-2">AKA Cars</h1>
-            <p class="lead">
-              Get an offer for super cars in less than 2 minutes. It is simple
-              easy online in 3 steps.<br />
-              Enter a few details and leave pickup to us.
-            </p>
-            <form novalidate>
-              <div class="text-dangerous mx-auto px-auto" id="warning"></div>
-              <label for="loc" class="text_label">State: </label>
-              <input
-                type="text"
-                id="loc"
-                placeholder="e.g. New-York"
-                name="location"
-                class="mb-2 rounded"
-                style="margin-left: 70px"
-                value=""
-                required
-              />
-              <br />
-              <label for="statecode" class="text_label">City Code: </label>
-              <input
-                type="text"
-                id="statecode"
-                placeholder="e.g. 3001BE"
-                name="statecode"
-                class="mb-2 rounded"
-                style="margin-left: 40px"
-                value=""
-                required
-              />
-              <br />
-              <label for="phone" class="text_label">Phone Number: </label>
-              <input
-                type="tel"
-                id="phone"
-                placeholder="e.g.+4175362319"
-                name="phone"
-                style="margin-left: 5px"
-                class="mb-2 rounded"
-                pattern="^\d+$"
-                value=""
-                required
-              />
-              <br />
-              <button
-                class="btn btn-outline-secondary btn-sm mt-3 px-4"
-                id="btn_demo"
+        <div class="r-anchor">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+              <a class="btn btn-link" href="#"
+              >{{ user.first_name }}({{ user.username }})</a
               >
-                Send
-              </button>
-              <div class="pop_txt ctc_form" id="ctc_form">
-                <div
-                  class="text-warning bg-dangerous p-3 mx-3-auto"
-                  id="txt_demo"
-                ></div>
-                <button
-                  onclick="popUp(false)"
-                  class="btn btn-secondary col-xs-3"
-                >
-                  OK
-                </button>
-              </div>
-            </form>
-          </div>
-          <!-- </div> -->
-
-          <div class="seperator">
-            <div class="devider-sep"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Cars -->
-      <div class="container px-4 py-5" id="custom-cards">
-        <h2 class="pb-2 border-bottom">Super cars for simple price</h2>
-
-        <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
-          <div class="col">
-            <div class="card">
-              <img
-                src="{% static 'images/lamb.png' %}"
-                class="card-img-top"
-                alt="lamborghini"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Fly</h5>
-                <p class="card-text">
-                  <q>Expect the unexpected</q>
-                  You want to fly first class, not needed to own a plane.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img
-                src="{% static 'images/astmart.png' %}"
-                class="card-img-top"
-                alt="aston martin"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Power, Beauty, and Soul</h5>
-                <p class="card-text">
-                  Which is meant to subjugate women and not only. The car that
-                  seduces women without the effort of a man.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img
-                src="{% static 'images/bmw.png' %}"
-                class="card-img-top"
-                alt="bmw"
-              />
-              <div class="card-body">
-                <h5 class="card-title">King of the road</h5>
-                <p class="card-text">
-                  Car for singles to attract women.<br />
-                  This type cars remain a highly desirable, the most luxurious,
-                  stylish and comfortable vehicles to attract women.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img
-                src="{% static 'images/porsche.png' %}"
-                class="card-img-top"
-                alt="Porsche"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Baby boomers</h5>
-                <p class="card-text">
-                  Baby boomers love convertibles. The unfortunate truth is that
-                  most women are attracted to men with money (whether they
-                  consciously recognize it or not). This has been scientifically
-                  proven numerous times such as recently on the “Science of Sex
-                  Appeal” that aired on the Discovery Channel.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="seperator">
-        <div class="devider-sep"></div>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <!-- <div class="content"> -->
-    <div class="container mt-4 border-top">
-      <footer class="py-5">
-        <div class="row">
-          <div class="col-6 col-md-2 mb-3">
-            <h5>AKA Cars</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="/" class="nav-link p-0 text-body-secondary"
-                  >HQ AKA motors</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-body-secondary"
-                  >Partners</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a
-                  href="{% url 'djangoapp:contact' %}"
-                  class="nav-link p-0 text-body-secondary"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Service</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Actions</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Buy</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Warranty</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Delivery</a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form>
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden"
-                  >Email address</label
-                >
+              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+              >Logout</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <form
+              class="form-inline"
+              action="{% url 'djangoapp:login' %}"
+              method="post"
+              >
+              {% csrf_token %}
+              <div class="input-group">
                 <input
-                  id="newsletter1"
-                  type="text"
-                  class="form-control"
-                  placeholder="Email address"
+                type="text"
+                class="form-control"
+                placeholder="Username"
+                name="username"
                 />
-                <button class="btn btn-primary" type="button">Subscribe</button>
+                <input
+                type="password"
+                class="form-control"
+                placeholder="password"
+                name="psw"
+                />
+                <button class="btn btn-primary" type="submit">Login</button>
+                <a
+                class="btn btn-link"
+                href="{% url 'djangoapp:registration' %}"
+                >Sign Up</a
+                >
               </div>
             </form>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Demo video on background-->
+  <section class="test_video">
+<!--     <video autoplay muted loop id="myVideo">
+      <source src="{% static 'video/test_video.mp4' %}" type="video/mp4">
+      </video>
+    -->      
+    <!-- Form -->
+    <!-- <div class="content"> -->
+      <div class="flex-shrink-0">
+        <div class="container">
+          <h1 class="mt-5 display-2">AKA Cars</h1>
+          <p class="lead">
+            Get an offer for super cars in less than 2 minutes. It is simple
+            easy online in 3 steps.<br />
+            Enter a few details and leave pickup to us.
+          </p>
+          <form action="{%url 'djangoapp:index' %}" method="post" id="formID"  validate>
+            {% csrf_token %}
+            <div class="text-dangerous mx-auto px-auto" id="warning"></div>
+            <label for="loc" class="text_label">State: </label>
+            <input
+            type="text"
+            id="state"
+            placeholder="e.g. New-York"
+            name="3stp_state"
+            class="mb-2 rounded"
+            style="margin-left: 70px"
+            required
+            />
+            <br />
+            <label for="statecode" class="text_label">City Code: </label>
+            <input
+            type="text"
+            id="citycode"
+            placeholder="e.g. 3001BE"
+            name="3stp_citycode"
+            class="mb-2 rounded"
+            style="margin-left: 40px"
+            required
+            />
+            <br />
+            <label for="phone" class="text_label">Phone Number: </label>
+            <input
+            type="tel"
+            id="phone"
+            placeholder="e.g.+4175362319"
+            name="3stp_phone"
+            style="margin-left: 5px"
+            class="mb-2 rounded"
+            pattern="^\d+$"
+            required
+            />
+            <br />
+            <button
+            class="btn btn-outline-secondary btn-sm mt-3 px-4"
+            id="myBtn"
+            >
+            Send
+          </button>
+          <div class="text-success">{{ success }}</div>
+          <!-- Need TODO fix using JQuery -->
+<!--           <div class="alert alert-success alert-dismissible w-50 h-25 bg-light text-align-center fade" role="alert">
+            <button class="text-danger mr-4 pr-4 close" data-dismiss="alert" aria-label="Close">
+             &nbsp;&nbsp; <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+ -->
+      </div>
+    </form>
+    <!-- </div> -->
+  </div>
+
+  <div class="seperator">
+    <div class="devider-sep"></div>
+  </div>
+</div>        
+</section>
+<section class="bg-info" >
+  <!-- Cars -->
+  <div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Super cars for simple price</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+
+      <div class="col cols-clk">
+        <a href="https://nl.wikipedia.org/wiki/Supercar_(sportwagen)" rel="noopener nofollower" class="text-decoration-none text-dark" target="_blank">
+          <div class="card">
+            <img
+            src="{% static 'images/lamb.png' %}"
+            class="card-img-top"
+            alt="lamborghini"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Fly</h5>
+              <p class="card-text">
+                <q>Expect the unexpected</q>
+                You want to fly first class, not needed to own a plane.
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col cols-clk">
+        <a href="https://en.wikipedia.org/wiki/Aston_Martin_DB6" rel="noopener nofollower" class="text-decoration-none text-dark" target="_blank">
+          <div class="card">
+            <img
+            src="{% static 'images/astmart.png' %}"
+            class="card-img-top"
+            alt="aston martin"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Power, Beauty, and Soul</h5>
+              <p class="card-text">
+                Which is meant to subjugate women and not only. The car that
+                seduces women without the effort of a man.
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col cols-clk">
+        <a href="https://en.wikipedia.org/wiki/King_of_the_Road_(song)" rel="noopener nofollower" class="text-decoration-none text-dark" target="_blank">
+          <div class="card">
+            <img
+            src="{% static 'images/bmw.png' %}"
+            class="card-img-top"
+            alt="bmw"
+            />
+            <div class="card-body">
+              <h5 class="card-title">King of the road</h5>
+              <p class="card-text">
+                Car for singles to attract women.<br />
+                This type cars remain a highly desirable, the most luxurious,
+                stylish and comfortable vehicles to attract women.
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col cols-clk">
+        <a href="https://en.wikipedia.org/wiki/Baby_boomers" rel="noopener nofollower" class="text-decoration-none text-dark" target="_blank">
+          <div class="card">
+            <img
+            src="{% static 'images/porsche.png' %}"
+            class="card-img-top"
+            alt="Porsche"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Baby boomers</h5>
+              <p class="card-text">
+                Baby boomers love convertibles. The unfortunate truth is that
+                most women are attracted to men with money (whether they
+                consciously recognize it or not). This has been scientifically
+                proven numerous times such as recently on the “Science of Sex
+                Appeal” that aired on the Discovery Channel.
+              </p>
+            </div>
           </div>
         </div>
+      </div>
+    </a>
+  </div>
+</section>
 
-        <div
-          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-        >
-          <p>&copy; {{ date }} Inc. All rights reserved.</p>
-          <ul class="list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter" /></svg
-              ></a>
+<div class="seperator">
+  <div class="devider-sep"></div>
+</div>
+</main>
+
+<!-- Footer -->
+<!-- <div class="content"> -->
+  <div class="container mt-4 border-top" >
+    <footer class="py-5">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-3">
+          <h5>AKA Cars</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a href="/" class="nav-link p-0 text-body-secondary"
+              >HQ AKA motors</a
+              >
             </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram" /></svg
-              ></a>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
             </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook" /></svg
-              ></a>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-body-secondary"
+              >Partners</a
+              >
+            </li>
+            <li class="nav-item mb-2">
+              <a
+              href="{% url 'djangoapp:contact' %}"
+              class="nav-link p-0 text-body-secondary"
+              >Contact</a
+              >
             </li>
           </ul>
         </div>
-      </footer>
-    </div>
-    <!-- </div> -->
 
-    <!-- JS CDN -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-  </body>
-</html>
+        <div class="col-6 col-md-2 mb-3">
+          <h5>Service</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-muted">Actions</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-muted">Buy</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-muted">Warranty</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a href="#" class="nav-link p-0 text-muted">Delivery</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-5 offset-md-1 mb-3">
+          <form>
+            <h5>Subscribe to our newsletter</h5>
+            <p>Monthly digest of what's new and exciting from us.</p>
+            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+              <label for="newsletter1" class="visually-hidden"
+              >Email address</label
+              >
+              <input
+              id="newsletter1"
+              type="text"
+              class="form-control"
+              placeholder="Email address"
+              />
+              <button class="btn btn-primary" type="button">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div
+      class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+      >
+      <p>&copy; {{ date }} Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3">
+          <a class="link-dark" href="#"
+          ><svg class="bi" width="24" height="24">
+            <use xlink:href="#twitter" /></svg
+            ></a>
+          </li>
+          <li class="ms-3">
+            <a class="link-dark" href="#"
+            ><svg class="bi" width="24" height="24">
+              <use xlink:href="#instagram" /></svg
+              ></a>
+            </li>
+            <li class="ms-3">
+              <a class="link-dark" href="#"
+              ><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook" /></svg
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+      <!-- </div> -->
+
+      <!-- JS CDN -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+      <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    </body>
+    </html>

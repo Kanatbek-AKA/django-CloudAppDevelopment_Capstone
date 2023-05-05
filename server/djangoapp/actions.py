@@ -11,8 +11,8 @@ from requests.exceptions import ConnectionError, InvalidURL
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('../../functions/.env'))
 
-# DEALERS= os.environ.get('ACTION_URL_PY')
-# REVIEWS= os.environ.get('ACTION_URL_NODE')
+DEALERS= os.environ.get('ACTION_URL_PY')
+REVIEWS= os.environ.get('ACTION_URL_NODE')
 
 def get_action_dealers():
     try:

@@ -79,6 +79,7 @@
         <div class="card-body bg-warning">
           <span class="lst_text">Your device:</span>
           <hr />
+          <span class="lst"><b>IP-Address</b>: {{extract.ip}} </span><br />
           <span class="lst"><b>Device</b>: {{extract.devices}} </span><br />
           <span class="lst"><b>Processor</b>: {{ extract.processors }}</span
           ><br />
@@ -90,12 +91,25 @@
     </div>
   </div>
 
+{% if user.is_authenticated %}
   <form
   action="{% url 'djangoapp:members' %}"
   method="post"
   enctype="multipart/form-data"
   class="mx-auto px-auto"
   >
+  <!-- In case your internet is off or CloudantDB is not available, render warning -->
+  <div class="warn">
+    <span class="text-warning mx-auto px-auto h5">
+    {{ warning }}
+  </span>
+  </div>
+  <!-- Online or Cloudant available -->
+  <div class="warn">
+        <span class="text-warning mx-auto px-auto h5">
+    {{ success }}
+  </span>
+  </div>
   {% csrf_token %}
   <div class="container-sm">
     <h3 class="mt-5 mb-4 py-auto">New Member</h3>
@@ -246,16 +260,33 @@
       <button class="btn btn-primary" type="submit">Submit</button>
     </div>
   </form>
-  <div class="seperator">
+    <div class="seperator">
     <div class="devider-sep"></div>
   </div>
-  <button class="btn btn-secondary m-5 py-2 px-4 rounded-4">
+  <button class="btn btn-secondary m-5 py-2 px-4 rounded-4" id=btn>
     <a
     href="{% url 'djangoapp:dealerships' %} "
     class="text-warning text-decoration-none"
     >Back</a
     >
   </button>
+  {% else %}
+  <div class="container bg-dark mt-5 col-sm-5 rounded-4">
+      <div class="text-warning mx-auto px-auto">Please signin or signup first on the website to be able to register.</div>
+      <button class="btn btn-secondary m-3 py-2 px-4 rounded-4">
+        <a
+        href="{% url 'djangoapp:dealerships' %} "
+        class="text-warning text-decoration-none"
+        >Back</a
+        >
+      </button>
+
+  </div>
+  {% endif %}
+
+
+
+
 </main>
 </body>
 </html>

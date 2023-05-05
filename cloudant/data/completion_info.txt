@@ -1,0 +1,35 @@
+-- After completing the course Fullstack Developer you might know:
+Explain cloud computing characteristics, terminology, related trends, as well as cloud services, deployment, and infrastructure models.
+Use HTML, CSS, and JavaScript to develop web pages and front-end applications. Describe version control systems and use GitHub and Git commands to manage lifecycle of application source code.
+Describe version control systems and use GitHub and Git commands to manage lifecycle of application source code.
+Describe use of Cloud Native technologies and apply related concepts and practices such as DevOps and CI/CD.
+Apply knowledge of JSON, Node.js and REST APIs to develop back-end applications and services.
+Describe containers and container orchestration and explain how Docker, Kubernetes and OpenShift relates to these concepts.
+Explain concepts such as microservices, serverless computing, and Function as a Service and apply related technologies to compose loosely coupled applications.
+Develop Python code including data structures, branching, loops, functions, objects, and classes and use Pandas and Numpy libraries.
+Explain the core concepts of Django ORM, and create applications with users and authentication.
+Describe the attributes and usage of multiple cloud services including Watson AI, Cloudant NoSQL database, and Cloud Object Storage.
+
+-- The ten courses included:
+Core concepts in cloud computing 
+Web development languages including HTML, CSS, and JavaScript 
+Git and GitHub 
+Node.js and React 
+Containers 
+Python 
+Database concepts and related technologies such as SQL and Django 
+Microservices and serverless computing  
+
+-- In other words you learned:
+Introduction to Cloud Computing 
+Introduction to Web Development with HMTL, CSS, and JavaScript 
+Getting Started with Git and GitHub 
+Developing Cloud Native Applications 
+Developing Cloud Apps with Node.js and React 
+Introduction to Containers with Docker, Kubernetes and OpenShift 
+Python for Data Science, AI, and Development 
+Python Project for AI and Application Development 
+Developing Applications with SQL, Databases, and Django 
+Application Development Using Microservices and Serverless 
+Full Stack Cloud Development Capstone Project 
+

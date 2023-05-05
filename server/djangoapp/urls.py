@@ -20,7 +20,7 @@ urlpatterns = [
     # And than add <int:review_id/subtmit/
     path("reviews/", views.AddReviewView.as_view(), name="reviews"),
     path("contact_us/", views.ContactPageView.as_view(), name="contact"),
-    path("contact_us/hq/", views.HQAKAPageView.as_view(), name="hq_aka"),
+    # path("contact_us/hq/", views.HQAKAPageView.as_view(), name="hq_aka"),
     # path("contact_us/crs/", views.HQAKAPageView.as_view(), name="crs_service"),
     # path("contact_us/ads/", views.HQAKAPageView.as_view(), name="ads_team"),
 

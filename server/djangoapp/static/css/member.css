@@ -3,6 +3,8 @@
   align-items: center;
   color: whitesmoke;
   background-color: cornflowerblue;
+  height: 100%;
+  min-height: 20cm;
 }
 
 .sizer {
@@ -30,4 +32,9 @@
   color: black;
   line-height: 0px;
   padding: 0px;
+}
+
+.warn {
+  margin-top: 100px;
+  text-align: center;
 }

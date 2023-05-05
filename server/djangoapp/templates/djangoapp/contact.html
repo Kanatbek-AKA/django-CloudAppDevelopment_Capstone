@@ -95,13 +95,13 @@
               <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
             </svg>
 
-            <h3 class="fw-normal">Custom Service</h3>
+            <h3 class="fw-normal">Customer Service</h3>
             <p>
               Cars might be damaged, crashed or stolen that our representative
               at place is going to care of all paperclip for your. Your
               relaxation and time is our concern
             </p>
-            <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
+            <button type="button" class="btn btn-secondary w-5" data-toggle="modal" data-target="#csrContact" data-whatever="Customer Service">Contact &raquo;</button>
           </div>
           <!-- /.col-lg-4 -->
           <div class="col-lg-4">
@@ -126,7 +126,7 @@
               AKA ADS team is here for you. Just get in touch with us, we take
               care of all your needs.
             </p>
-            <p><a class="btn btn-secondary" href="#">Contact &raquo;</a></p>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#adsContact" data-whatever="ADS-Team">Contact &raquo;</button>
           </div>
           <!-- /.col-lg-4 -->
           <div class="col-lg-4">
@@ -151,10 +151,166 @@
               dissatisfied with the service, please contact us. You will here
               from us within 3 days.
             </p>
-            <p><a class="btn btn-secondary" href="{% url 'djangoapp:hq_aka' %}">Contact &raquo;</a></p>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#hqContact" data-whatever="HQ AKA motors">Contact &raquo;</button>
           </div>
         </div>
       </div>
+
+      <!-- It is only intro sample -->
+    <!-- Customer Service -->
+    <div class="modal fade" id="csrContact" tabindex="-1" role="dialog" aria-labelledby="csrContactLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="csrContactLabel">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="contact-name" class="col-form-label">Full Name:</label>
+                <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="csr_name">
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="col-form-label">Your E-Mail:</label>
+                <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="csr_email">
+              </div>
+              <div class="form-group">
+                <label for="contact-phone" class="col-form-label">Phone Number:</label>
+                <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="csr_phone" 
+                  pattern="^\d+$"
+                >
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text" rows="5" name="csr_message"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sample_msg_csr" data-dismiss="modal" >Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ADS Team -->
+    <div class="modal fade" id="adsContact" tabindex="-1" role="dialog" aria-labelledby="adsContactLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="adsContactLabel">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="contact-name" class="col-form-label">Full Name:</label>
+                <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="ads_name">
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="col-form-label">Your E-Mail:</label>
+                <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="ads_email">
+              </div>
+              <div class="form-group">
+                <label for="contact-phone" class="col-form-label">Phone Number:</label>
+                <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="ads_phone"
+                  pattern="^\d+$"
+                >
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text" rows="5" name="ads_message"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sample_msg_ads"  data-dismiss="modal">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- HQ Contact -->
+    <div class="modal fade" id="hqContact" tabindex="-1" role="dialog" aria-labelledby="hqContactLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="hqContactLabel">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="contact-name" class="col-form-label">Full Name:</label>
+                <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="contact_name">
+              </div>
+              <div class="form-group">
+                <label for="contact-email" class="col-form-label">Your E-Mail:</label>
+                <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="contact_email">
+              </div>
+              <div class="form-group">
+                <label for="contact-phone" class="col-form-label">Phone Number:</label>
+                <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="contact_phone" 
+                  pattern="^\d+$"
+                >
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text" rows="5" name="hq_message"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sample_msg" data-dismiss="modal">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+ <script type="text/javascript">
+  // Need to create a function to add all in  Note: need to dive in jquery|ts 
+
+      $('#hqContact').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var contact = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + contact)
+        // modal.find('.modal-body input').val(contact)
+      }) 
+
+      $('#adsContact').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var ads = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + ads)
+        // modal.find('.modal-body input').val(contact)
+      })
+
+      $('#csrContact').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var csr = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + csr)
+        // modal.find('.modal-body input').val(contact)
+      })
+</script>
+
+
 
       <div class="seperator">
         <div class="devider-sep"></div>

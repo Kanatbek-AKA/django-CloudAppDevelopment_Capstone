@@ -20,11 +20,11 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('../../functions/.env'))
 
 dct = {
-# "COUCH_USERNAME": os.getenv('USERNAME'),
-# 'IAM_API_KEY': os.getenv("APIKEY"),
-# 'COUCH_URL': os.getenv("URL"),
-# "DB1": os.getenv("DATADBNAME"),
-# 'DB2': os.getenv("DATADBNAME2"), 
+"COUCH_USERNAME": os.getenv('USERNAME'),
+'IAM_API_KEY': os.getenv("APIKEY"),
+'COUCH_URL': os.getenv("URL"),
+"DB1": os.getenv("DATADBNAME"),
+'DB2': os.getenv("DATADBNAME2"), 
 'NLUAPI': os.getenv('NLU_KEY'),
 "NLURL": os.getenv('NLU_URL'),
 }
@@ -96,6 +96,7 @@ def be_aka(params):
         # Image required
         image=params['image'],
         # Device informtion
+        ip_info=params['ip'],
         device=params['device'],
         machine=params['machine'],
         system=params['system'],
@@ -110,10 +111,6 @@ def be_aka(params):
     }
     # print(res)
     return res
-
-
-
-
 
 
 # Post review
@@ -170,7 +167,7 @@ def analyze_review_sentiments(text):
 
 
 
-# Extra exercise 
+# Extra exercise is not yet complete 
 # IDs related both dbs 
 def intermediarForSameID(file, file2):
     res = []

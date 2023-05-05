@@ -15,7 +15,7 @@
   </head>
   <body>
     <!-- Navigation bar -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-warning">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Home</a>
@@ -32,40 +32,23 @@
           </li>
           {% else %}
           <li>
-            <form
-              class="form-inline"
-              action="{% url 'djangoapp:login' %}"
-              method="post"
-            >
-              {% csrf_token %}
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Username"
-                  name="username"
-                />
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="password"
-                  name="psw"
-                />
-                <button class="btn btn-primary" type="submit">Login</button>
-                <a
-                  class="btn btn-link"
-                  href="{% url 'djangoapp:registration' %}"
-                  >Sign Up</a
-                >
-              </div>
-            </form>
+              <a
+              class="btn btn-link text-decoration-none"
+              href="{% url 'djangoapp:login' %}"
+              >Login
+            </a>
+            <a
+            class="btn btn-link text-decoration-none"
+            href="{% url 'djangoapp:registration' %}"
+            >Sign Up
+          </a>
           </li>
           {% endif %}
         </ul>
       </div>
     </nav>
 
-    <form action="{% url 'djangoapp:registration' %}" method="post">
+    <form action="{% url 'djangoapp:registration' %}" method="post" class="mt-5">
       <div class="container">
         {% csrf_token %}
         <h1>Sign Up</h1>

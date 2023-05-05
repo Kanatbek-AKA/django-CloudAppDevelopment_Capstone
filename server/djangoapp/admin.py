@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CarMake, CarModel, Dealers, CarReviews
+from .models import CarMake, CarModel, Dealers, CarReviews, ThreeStepCar
 
 
 # Course
@@ -34,7 +34,7 @@ admin.site.register(CarMake, CarMakeAdmin)
 admin.site.register(CarModel, CarModelAdmin)
 admin.site.register(Dealers)
 admin.site.register(CarReviews)
-
+admin.site.register(ThreeStepCar)
 
 
 

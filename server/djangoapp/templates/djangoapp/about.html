@@ -1,238 +1,241 @@
-{% load static i18n %}
+{% load static  %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About Us</title>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>About Us</title>
 
-    <link rel="stylesheet" href="{% static 'css/about.css' %}" />
-    <!-- <script defer src="url 'javascript/about.js' %}"></script> -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link
-      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-  </head>
-  <body>
-    <main>
+	<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+	<script defer src="{% static 'javascript/about.js' %}"></script>
+s	<link
+	rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	/>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link
+	href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+	rel="stylesheet"
+	/>
+	<script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+	<script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+</head>
+<body>
+	<main>
 
-      <nav class="navbar navbar-light bg-dark">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>            
-            <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
-            <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
-              >Dearlers</a
-            >
-            <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
-            <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
-          </div>
-          <div class="r-anchor">
-            <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
-              <li>
-                <a class="btn btn-link" href="#"
-                  >{{ user.first_name }}({{ user.username }})</a
-                >
-                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-                  >Logout</a
-                >
-              </li>
-              {% else %}
-              <li>
-                <a
-                  class="btn btn-link text-decoration-none"
-                  href="{% url 'djangoapp:login' %}"
-                  >Login
-                </a>
-                <a
-                  class="btn btn-link text-decoration-none"
-                  href="{% url 'djangoapp:registration' %}"
-                  >Sign Up
-                </a>
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      </nav>
+		<nav class="navbar navbar-light bg-dark">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>            
+					<a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+					<a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+					>Dearlers</a
+					>
+					<a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+					<a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+				</div>
+				<div class="r-anchor">
+					<ul class="nav navbar-nav navbar-right">
+						{% if user.is_authenticated %}
+						<li>
+							<a class="btn btn-link" href="#"
+							>{{ user.first_name }}({{ user.username }})</a
+							>
+							<a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+							>Logout</a
+							>
+						</li>
+						{% else %}
+						<li>
+							<a
+							class="btn btn-link text-decoration-none"
+							href="{% url 'djangoapp:login' %}"
+							>Login
+						</a>
+						<a
+						class="btn btn-link text-decoration-none"
+						href="{% url 'djangoapp:registration' %}"
+						>Sign Up
+					</a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>
 
-      <div class="background">
-        <div class="mt">
-          <h1 class="m-5 p-10 display-4 text-primary">
-            AKA motors and dealers
-          </h1>
-          <h4 class="m-5 p-10 display-5">
-            Rents and Sells exclusive, business and domestic cars at reasonbale
-            prices.
-          </h4>
-          <p class="text-secondary text-justify mx">
-            A wonderful serenity has taken possession of my entire soul, like
-            these sweet mornings of spring which I enjoy with my whole heart. I
-            am alone, and feel the charm of existence in this spot, which was
-            created for the bliss of souls like mine. I am so happy, my dear
-            friend, so absorbed in the exquisite sense of mere tranquil
-            existence, that I neglect my talents. I should be incapable of
-            drawing a single stroke at the present moment; and yet I feel that I
-            never was a greater artist than now. When, while the lovely valley
-            teems with vapour around me, and the meridian sun strikes the upper
-            surface of the impenetrable foliage of my trees, and but a few stray
-            gleams steal into the inner sanctuary, I throw myself down among the
-            tall grass by the trickling stream; and, as I lie close to the
-            earth, a thousand unknown plants are noticed by me: when I hear the
-            buzz of the little world among the stalks, and grow familiar with
-            the countless indescribable forms of the insects and flies, then I
-            feel the presence of the Almighty, who formed us in his own image,
-            and the breath
-          </p>
-        </div>
-      </div>
+<!-- about --> 
+<div class="background">
+	<div class="mt">
+		<h1 class=" m-3 p-3 display-4 text-primary">
+			AKA motors and dealers
+		</h1>
+		<div class="h4 ml-5 p-3">
+			Rents and Sells exclusive, business and domestic cars at reasonbale
+			prices.
+		</div>
+		<div>
+			<p class="text-secondary text-justify tx px-2 col-sm-5">
+				A wonderful serenity has taken possession of my entire soul, like
+				these sweet mornings of spring which I enjoy with my whole heart. I
+				am alone, and feel the charm of existence in this spot, which was
+				created for the bliss of souls like mine. I am so happy, my dear
+				friend, so absorbed in the exquisite sense of mere tranquil
+				existence, that I neglect my talents. I should be incapable of
+				drawing a single stroke at the present moment; and yet I feel that I
+				never was a greater artist than now. When, while the lovely valley
+				teems with vapour around me, and the meridian sun strikes the upper
+				surface of the impenetrable foliage of my trees, and but a few stray
+				gleams steal into the inner sanctuary, I throw myself down among the
+				tall grass by the trickling stream; and, as I lie close to the
+				earth, a thousand unknown plants are noticed by me: when I hear the
+				buzz of the little world among the stalks, and grow familiar with
+				the countless indescribable forms of the insects and flies, then I
+				feel the presence of the Almighty, who formed us in his own image,
+				and the breath
+			</p>
+			<div class="container-sm mx w-50 h-50 bg-light rounded">
+				<div
+				class="row p-4 pe-lg-0 pt-1 align-items-center rounded-3 border shadow-lg"
+				>
+				<div class="col-7 p-lg-1">
+					<h1 class="display-6 fw-bold lh-1">
+						Chairman <br />
+						AKA motors
+					</h1>
+					<p class="lead h6" id="text_chair">
+						A simple, modest, independent, transparent, sensible and impartial
+						man grown on mountains Tien-Shan in Central Asia who conquered
+						naughty, impudent and arrogant hearts and heads in the USA and EU. <br />
+						For more information on the chairman's autobiography, click the
+						button below.
+					</p>
+					<div
+					class="d-grid gap-2 d-md-flex justify-content-md-start mb-3"
+					>
+					<button
+					class="btn btn-primary btn-lg"
+					id="chairman"
+					>
+					Show
+				</button>
+			</div>
+		</div>
+		<div class="col-4 offset-lg-1 p-0 overflow-hidden">
+			<img
+			class="rounded"
+			src="/static/images/a.png"
+			alt="sample image"
+			width="250"
+			height="300"
+			/>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
 
-      <div class="seperator">
-        <div class="devider-sep"></div>
-      </div>
+<div class="seperator">
+	<div class="devider-sep"></div>
+</div>
 
-      <div class="container my-3" id="cont">
-        <div
-          class="row p-4 pe-lg-0 pt-5 align-items-center rounded-3 border shadow-lg"
-        >
-          <div class="col-7 p-lg-5">
-            <h1 class="display-4 fw-bold lh-1">
-              Chairman <br />
-              AKA motors
-            </h1>
-            <p class="lead">
-              A simple, modest, independet, transparent, sensible and impartial
-              man grown on mountains Tien-Shan in Central Asia, conquered
-              naughty, impudent, arrogant hearts in the USA and EU. <br />
-              For more information on the chairman's autobiography, click the
-              button below.
-            </p>
-            <div
-              class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-3"
-            >
-              <button
-                type="button"
-                class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
-              >
-                Show
-              </button>
-            </div>
-          </div>
-          <div class="col-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-            <img
-              class="rounded-sm-3"
-              src="/static/images/a.png"
-              alt="sample image"
-              width="320"
-              height="400"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="seperator">
-        <div class="devider-sep"></div>
-      </div>
-    </main>
-    <!-- Footer -->
-    <div class="container sticky-sm-bottom">
-      <footer class="py-5">
-        <div class="row">
-          <div class="col-6 col-md-2 mb-3">
-            <h5>AKA Cars</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="/" class="nav-link p-0 text-muted">HQ AKA motors</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Partners</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Pricing</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a
-                  href="{% url 'djangoapp:contact' %}"
-                  class="nav-link p-0 text-muted"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
+<div class="bg-light w-100">
+<!-- Footer -->
+<hr />
+<div class="container sticky-sm-bottom bg-light">
+	<footer class="py-5">
+		<div class="row">
+			<div class="col-6 col-md-2 mb-3">
+				<h5>AKA Cars</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item mb-2">
+						<a href="/" class="nav-link p-0 text-muted">HQ AKA motors</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Partners</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Pricing</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a
+						href="{% url 'djangoapp:contact' %}"
+						class="nav-link p-0 text-muted"
+						>Contact</a
+						>
+					</li>
+				</ul>
+			</div>
 
-          <div class="col-6 col-md-2 mb-3">
-            <h5>Service</h5>
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Actions</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Buy</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Warranty</a>
-              </li>
-              <li class="nav-item mb-2">
-                <a href="#" class="nav-link p-0 text-muted">Delivery</a>
-              </li>
-            </ul>
-          </div>
+			<div class="col-6 col-md-2 mb-3">
+				<h5>Service</h5>
+				<ul class="nav flex-column">
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Actions</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Buy</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Warranty</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="#" class="nav-link p-0 text-muted">Delivery</a>
+					</li>
+				</ul>
+			</div>
 
-          <div class="col-md-5 offset-md-1 mb-3">
-            <form>
-              <h5>Subscribe to our newsletter</h5>
-              <p>Monthly digest of what's new and exciting from us.</p>
-              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                <label for="newsletter1" class="visually-hidden"
-                  >Email address</label
-                >
-                <input
-                  id="newsletter1"
-                  type="text"
-                  class="form-control"
-                  placeholder="Email address"
-                />
-                <button class="btn btn-primary" type="button">Subscribe</button>
-              </div>
-            </form>
-          </div>
-        </div>
+			<div class="col-md-5 offset-md-1 mb-3">
+				<form>
+					<h5>Subscribe to our newsletter</h5>
+					<p>Monthly digest of what's new and exciting from us.</p>
+					<div class="d-flex flex-column flex-sm-row w-100 gap-2">
+						<label for="newsletter1" class="visually-hidden"
+						>Email address</label
+						>
+						<input
+						id="newsletter1"
+						type="email"
+						class="form-control"
+						placeholder="e.g. john@mail.nu"
+						/>
+						<button class="btn btn-primary" type="button" id="subcr_js" >Subscribe</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-        <div
-          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-        >
-          <p>&copy; 2023 Inc. All rights reserved.</p>
-          <ul class="list-unstyled d-flex">
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#twitter" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#instagram" /></svg
-              ></a>
-            </li>
-            <li class="ms-3">
-              <a class="link-dark" href="#"
-                ><svg class="bi" width="24" height="24">
-                  <use xlink:href="#facebook" /></svg
-              ></a>
-            </li>
-          </ul>
-        </div>
-      </footer>
-    </div>
-  </body>
-</html>
+		<div
+		class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+		>
+		<p>&copy; 2023 Inc. All rights reserved.</p>
+		<ul class="list-unstyled d-flex">
+			<li class="ms-3">
+				<a class="link-dark" href="#"
+				><svg class="bi" width="24" height="24">
+					<use xlink:href="#twitter" /></svg
+					></a>
+				</li>
+				<li class="ms-3">
+					<a class="link-dark" href="#"
+					><svg class="bi" width="24" height="24">
+						<use xlink:href="#instagram" /></svg
+						></a>
+					</li>
+					<li class="ms-3">
+						<a class="link-dark" href="#"
+						><svg class="bi" width="24" height="24">
+							<use xlink:href="#facebook" /></svg
+							></a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+		</div>
+</div>
+</main>
+	</body>
+	</html>
