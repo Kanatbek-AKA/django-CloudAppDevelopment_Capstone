@@ -14,7 +14,7 @@ from pathlib import Path
 
 import environ
 environ.Env()
-environ.Env().read_env(os.path.join('../../functions/.env'))
+environ.Env().read_env(os.path.join('../../functions/sample/.env'))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,7 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # if the repo runs on local machine set Debug to true else debug false hosted
-DEBUG = True #os.environ.get("DEBUG")
+DEBUG = os.environ.get("DEBUG")
 
 # APPEND_SLASH = True    #
 ALLOWED_HOSTS = ["127.0.0.1"]
@@ -56,12 +56,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
-    # securing
+    # 'django_pdb',
     "corsheaders",
     'guardian',
     'oauth2_provider',
-    'rest_framework',
-    'django_filters',
+    # 'rest_framework',
+    # 'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +96,15 @@ REFERRER_POLICY = 'no-referrer'
 # CSRF_COOKIE_SAMESITE = 'Strict'
 # SESSION_COOKIE_SECURE = True
 # X_FRAME_OPTIONS = 'DENY'
-# define also on html templates
+
+# LANGUAGE_COOKIE_DOMAIN = None
+# CSRF_TRUSTED_ORIGINS = ['https://...host.....app']
+# INTERNAL_IPS = []
+# CONN_MAX_AGE = 0 # restrict
+CONN_HEALTH_CHECKS = True  # improve the robustness of connection
+
+
+# Need to FIX CSS/JS after enabling
 # CSP_DEFAULT_SRC = ("'none'",)
 # CSP_STYLE_SRC = ("'self'",)
 # CSP_SCRIPT_SRC = ("'self'",)
@@ -159,7 +167,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-US'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -194,14 +202,14 @@ OAUTH2_PROVIDER = {
     },
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+# }
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis'

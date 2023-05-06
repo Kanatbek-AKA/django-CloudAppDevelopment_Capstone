@@ -1,354 +1,558 @@
-{%load static i18n %}
+{%load static i18n l10n %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- <meta charset="UTF-8" /> -->
-  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
-  <meta name="referrer" content="origin" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" name="width=device-width, inital-scale=1" />
-  <meta name="description" content="IBM Capstone Project" />
-  <meta name="keywords" content="Django Flask WedDev HTML/CSS JS Jinja2" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow,nosnippet" />
-  <meta name="googlebot" content="noindex,noarchive,nosnippet" />
-  <!--   <meta
+  <head>
+    <!-- <meta charset="UTF-8" /> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';"/> -->
+    <meta name="referrer" content="origin" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" name="width=device-width, inital-scale=1" />
+    <meta name="description" content="IBM Capstone Project" />
+    <meta name="keywords" content="Django Flask WedDev HTML/CSS JS Jinja2" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow,nosnippet" />
+    <meta name="googlebot" content="noindex,noarchive,nosnippet" />
+    <!--   <meta
     http-equiv="Cache-Control"
     content="no-cache, not-store must-revalidate"
   /> -->
-  <!-- <meta http-equiv="Pragma" content="no-cache" /> -->
-  <meta http-http-equiv="Expires" content="0" />
-  <meta name="author" content="Kanatbek-AKA" />
-  <title>AKA Contact</title>
-  <!-- Local -->
-  <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
-  <script defer src="{% static  'javascript/contact.js' %}"></script>
-  <!-- External -->
-  <link
-  rel="stylesheet"
-  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-  />
-  <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <link
-  href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
-  rel="stylesheet"
-  />
-  <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-  <script defer src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <!-- <meta http-equiv="Pragma" content="no-cache" /> -->
+    <meta http-http-equiv="Expires" content="0" />
+    <meta name="author" content="Kanatbek-AKA" />
+    <title>AKA Contact</title>
+    <!-- Local -->
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+    <script defer src="{% static  'javascript/contact.js' %}"></script>
+    <!-- External -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script
+      defer
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    ></script>
+    <script
+      defer
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    ></script>
+    <link
+      href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"
+    ></script>
+
     <!-- Local Bootstrap -->
-  <link
-  rel="stylesheet"
-  href="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"/>
-  <script defer scr="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
-  <link
-  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.css' %}"
-  rel="stylesheet"/>
-  <script defer
-  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.js' %}"
-  ></script>
-  <script defer scr="{% static 'bootstrap/jquery-3.3.1.min.js' %}"></script>
-  <!-- Table Filter  -->
-  <link
-  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css' %}"
-  rel="stylesheet"/>
-  <script defer
-  href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"
-  ></script>
-</head>
-<body>
-  <main>
-    <nav class="navbar navbar-light bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
-          <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
-          <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
-          >Dearlers</a
-          >
-          <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
-          <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}"
+    />
+    <script
+      defer
+      scr="{% static 'bootstrap/bootstrap-4.3.1-dist/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"
+    ></script>
+    <link
+      href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.css' %}"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/bootstrap-table.min.js' %}"
+    ></script>
+    <script defer scr="{% static 'bootstrap/jquery-3.3.1.min.js' %}"></script>
+    <!-- Table Filter  -->
+    <link
+      href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.css' %}"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      href="{% static 'bootstrap/bootstrap-table-master/bootstrap-table-master/dist/extensions/filter-control/bootstrap-table-filter-control.min.js' %}"
+    ></script>
+  </head>
+  <body>
+    <main>
+      {% localize on %}
+      <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href="{% url 'djangoapp:index' %}" class="anchor">Home</a>
+            <a href="{% url 'djangoapp:about' %}" class="anchor">About Us</a>
+            <a href="{% url 'djangoapp:dealerships' %}" class="anchor"
+              >Dearlers</a
+            >
+            <a href="{% url 'djangoapp:reviews' %}" class="anchor">Reviews</a>
+            <a href="{% url 'djangoapp:contact' %}" class="anchor">Contact</a>
+          </div>
+          <div class="r-anchor">
+            <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+              <li>
+                <a class="btn btn-link" href="#"
+                  >{{ user.first_name }}({{ user.username }})</a
+                >
+                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
+                  >Logout</a
+                >
+              </li>
+              {% else %}
+              <li>
+                <a
+                  class="btn btn-link text-decoration-none"
+                  href="{% url 'djangoapp:login' %}"
+                  >Login
+                </a>
+                <a
+                  class="btn btn-link text-decoration-none"
+                  href="{% url 'djangoapp:registration' %}"
+                  >Sign Up
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
         </div>
-        <div class="r-anchor">
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <li>
-              <a class="btn btn-link" href="#"
-              >{{ user.first_name }}({{ user.username }})</a
-              >
-              <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"
-              >Logout</a
-              >
-            </li>
-            {% else %}
-            <li>
-              <a
-              class="btn btn-link text-decoration-none"
-              href="{% url 'djangoapp:login' %}"
-              >Login
-            </a>
-            <a
-            class="btn btn-link text-decoration-none"
-            href="{% url 'djangoapp:registration' %}"
-            >Sign Up
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="seperator">
-  <div class="devider-sep"></div>
-</div>
+        {% endlocalize %}
+      </nav>
 
-<div class="container mt-4">
-  <h2>Have a question? Write to us</h2>
-</div>
-<div class="seperator">
-  <div class="devider-sep"></div>
-</div>
-<div class="b-example-divider"></div>
-<div class="container marketing mt-4">
-  <div class="row">
-    <div class="col-lg-4">
-      <svg
-      class="bd-placeholder-img rounded-circle"
-      width="140"
-      height="140"
-      xmlns=""
-      role="img"
-      aria-label="Placeholder: 140x140"
-      preserveAspectRatio="xMidYMid slice"
-      focusable="false"
+      <div class="seperator">
+        <div class="devider-sep"></div>
+      </div>
+
+      <div class="container mt-4">
+        <h2>Have a question? Write to us</h2>
+      </div>
+      <div class="seperator">
+        <div class="devider-sep"></div>
+      </div>
+      <div class="b-example-divider"></div>
+      <div class="container marketing mt-4">
+        <div class="row">
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>Custom</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">Customer Service</h3>
+            <p>
+              Cars might be damaged, crashed or stolen that our representative
+              at place is going to care of all paperclip for your. Your
+              relaxation and time is our concern
+            </p>
+            <button
+              type="button"
+              class="btn btn-secondary w-5"
+              data-toggle="modal"
+              data-target="#csrContact"
+              data-whatever="Customer Service"
+            >
+              Contact &raquo;
+            </button>
+          </div>
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>ADS</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">Advertising Team</h3>
+            <p>
+              You want to sell or rent your exclusive cars for businesses, then
+              AKA ADS team is here for you. Just get in touch with us, we take
+              care of all your needs.
+            </p>
+            <button
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#adsContact"
+              data-whatever="ADS-Team"
+            >
+              Contact &raquo;
+            </button>
+          </div>
+          <div class="col-lg-4">
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              xmlns=""
+              role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              <title>HQ</title>
+              <rect width="100%" height="100%" fill="#777" />
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <h3 class="fw-normal">HQ AKA motors</h3>
+            <p>
+              If you have a complaint, lawsuit about AKA dealers or you are
+              dissatisfied with the service, please contact us. You will here
+              from us within 3 days.
+            </p>
+            <button
+              class="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#hqContact"
+              data-whatever="HQ AKA motors"
+            >
+              Contact &raquo;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- It is only intro sample -->
+      <!-- Customer Service -->
+      <div
+        class="modal fade"
+        id="csrContact"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="csrContactLabel"
+        aria-hidden="true"
       >
-      <title>Custom</title>
-      <rect width="100%" height="100%" fill="#777" />
-      <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-    </svg>
-
-    <h3 class="fw-normal">Customer Service</h3>
-    <p>
-      Cars might be damaged, crashed or stolen that our representative
-      at place is going to care of all paperclip for your. Your
-      relaxation and time is our concern
-    </p>
-    <button type="button" class="btn btn-secondary w-5" data-toggle="modal" data-target="#csrContact" data-whatever="Customer Service">Contact &raquo;</button>
-  </div>
-  <!-- /.col-lg-4 -->
-  <div class="col-lg-4">
-    <svg
-    class="bd-placeholder-img rounded-circle"
-    width="140"
-    height="140"
-    xmlns=""
-    role="img"
-    aria-label="Placeholder: 140x140"
-    preserveAspectRatio="xMidYMid slice"
-    focusable="false"
-    >
-    <title>ADS</title>
-    <rect width="100%" height="100%" fill="#777" />
-    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-  </svg>
-
-  <h3 class="fw-normal">Advertising Team</h3>
-  <p>
-    You want to sell or rent your exclusive cars for businesses, then
-    AKA ADS team is here for you. Just get in touch with us, we take
-    care of all your needs.
-  </p>
-  <button class="btn btn-secondary" data-toggle="modal" data-target="#adsContact" data-whatever="ADS-Team">Contact &raquo;</button>
-</div>
-<!-- /.col-lg-4 -->
-<div class="col-lg-4">
-  <svg
-  class="bd-placeholder-img rounded-circle"
-  width="140"
-  height="140"
-  xmlns=""
-  role="img"
-  aria-label="Placeholder: 140x140"
-  preserveAspectRatio="xMidYMid slice"
-  focusable="false"
-  >
-  <title>HQ</title>
-  <rect width="100%" height="100%" fill="#777" />
-  <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-</svg>
-
-<h3 class="fw-normal">HQ AKA motors</h3>
-<p>
-  If you have a complaint, lawsuit about AKA dealers or you are
-  dissatisfied with the service, please contact us. You will here
-  from us within 3 days.
-</p>
-<button class="btn btn-secondary" data-toggle="modal" data-target="#hqContact" data-whatever="HQ AKA motors">Contact &raquo;</button>
-</div>
-</div>
-</div>
-
-<!-- It is only intro sample -->
-<!-- Customer Service -->
-<div class="modal fade" id="csrContact" tabindex="-1" role="dialog" aria-labelledby="csrContactLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="csrContactLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="csrContactLabel">New message</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="contact-name" class="col-form-label"
+                    >Full Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="contact-name"
+                    placeholder="e.g. John Doe"
+                    name="csr_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-email" class="col-form-label"
+                    >Your E-Mail:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="contact-email"
+                    placeholder="e.g. john_doe@mail.us"
+                    name="csr_email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-phone" class="col-form-label"
+                    >Phone Number:</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="contact-phone"
+                    placeholder="e.g. +417 8882299"
+                    name="csr_phone"
+                    pattern="^\d+$"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label"
+                    >Message:</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="message-text"
+                    rows="5"
+                    name="csr_message"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="sample_msg_csr"
+                data-dismiss="modal"
+              >
+                Send message
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="contact-name" class="col-form-label">Full Name:</label>
-            <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="csr_name">
+      <!-- ADS Team -->
+      <div
+        class="modal fade"
+        id="adsContact"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="adsContactLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="adsContactLabel">New message</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="contact-name" class="col-form-label"
+                    >Full Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="contact-name"
+                    placeholder="e.g. John Doe"
+                    name="ads_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-email" class="col-form-label"
+                    >Your E-Mail:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="contact-email"
+                    placeholder="e.g. john_doe@mail.us"
+                    name="ads_email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-phone" class="col-form-label"
+                    >Phone Number:</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="contact-phone"
+                    placeholder="e.g. +417 8882299"
+                    name="ads_phone"
+                    pattern="^\d+$"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label"
+                    >Message:</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="message-text"
+                    rows="5"
+                    name="ads_message"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="sample_msg_ads"
+                data-dismiss="modal"
+              >
+                Send message
+              </button>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="contact-email" class="col-form-label">Your E-Mail:</label>
-            <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="csr_email">
-          </div>
-          <div class="form-group">
-            <label for="contact-phone" class="col-form-label">Phone Number:</label>
-            <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="csr_phone" 
-            pattern="^\d+$"
-            >
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" rows="5" name="csr_message"></textarea>
-          </div>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="sample_msg_csr" data-dismiss="modal" >Send message</button>
+      <!-- HQ Contact -->
+      <div
+        class="modal fade"
+        id="hqContact"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="hqContactLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="hqContactLabel">New message</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="contact-name" class="col-form-label"
+                    >Full Name:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="contact-name"
+                    placeholder="e.g. John Doe"
+                    name="contact_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-email" class="col-form-label"
+                    >Your E-Mail:</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="contact-email"
+                    placeholder="e.g. john_doe@mail.us"
+                    name="contact_email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contact-phone" class="col-form-label"
+                    >Phone Number:</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="contact-phone"
+                    placeholder="e.g. +417 8882299"
+                    name="contact_phone"
+                    pattern="^\d+$"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label"
+                    >Message:</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="message-text"
+                    rows="5"
+                    name="hq_message"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="sample_msg"
+                data-dismiss="modal"
+              >
+                Send message
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- ADS Team -->
-<div class="modal fade" id="adsContact" tabindex="-1" role="dialog" aria-labelledby="adsContactLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="adsContactLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="contact-name" class="col-form-label">Full Name:</label>
-            <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="ads_name">
-          </div>
-          <div class="form-group">
-            <label for="contact-email" class="col-form-label">Your E-Mail:</label>
-            <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="ads_email">
-          </div>
-          <div class="form-group">
-            <label for="contact-phone" class="col-form-label">Phone Number:</label>
-            <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="ads_phone"
-            pattern="^\d+$"
-            >
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" rows="5" name="ads_message"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="sample_msg_ads"  data-dismiss="modal">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- HQ Contact -->
-<div class="modal fade" id="hqContact" tabindex="-1" role="dialog" aria-labelledby="hqContactLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="hqContactLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="contact-name" class="col-form-label">Full Name:</label>
-            <input type="text" class="form-control" id="contact-name" placeholder="e.g. John Doe" name="contact_name">
-          </div>
-          <div class="form-group">
-            <label for="contact-email" class="col-form-label">Your E-Mail:</label>
-            <input type="email" class="form-control" id="contact-email" placeholder="e.g. john_doe@mail.us" name="contact_email">
-          </div>
-          <div class="form-group">
-            <label for="contact-phone" class="col-form-label">Phone Number:</label>
-            <input type="tel" class="form-control" id="contact-phone" placeholder="e.g. +417 8882299" name="contact_phone" 
-            pattern="^\d+$"
-            >
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text" rows="5" name="hq_message"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="sample_msg" data-dismiss="modal">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
+      <script type="text/javascript">
+        // Need to create a function to add all in  Note: need to dive in jquery|ts
 
+        $("#hqContact").on("show.bs.modal", function (event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          var contact = button.data("whatever"); // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var modal = $(this);
+          modal.find(".modal-title").text("New message to " + contact);
+          // modal.find('.modal-body input').val(contact)
+        });
 
-<script type="text/javascript">
-  // Need to create a function to add all in  Note: need to dive in jquery|ts 
+        $("#adsContact").on("show.bs.modal", function (event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          var ads = button.data("whatever"); // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var modal = $(this);
+          modal.find(".modal-title").text("New message to " + ads);
+          // modal.find('.modal-body input').val(contact)
+        });
 
-  $('#hqContact').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var contact = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text('New message to ' + contact)
-        // modal.find('.modal-body input').val(contact)
-      }) 
-
-  $('#adsContact').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var ads = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text('New message to ' + ads)
-        // modal.find('.modal-body input').val(contact)
-      })
-
-  $('#csrContact').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var csr = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text('New message to ' + csr)
-        // modal.find('.modal-body input').val(contact)
-      })
-    </script>
-
-
-
-    <div class="seperator">
-      <div class="devider-sep"></div>
-    </div>
-  </main>
-</body>
+        $("#csrContact").on("show.bs.modal", function (event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          var csr = button.data("whatever"); // Extract info from data-* attributes
+          // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+          // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+          var modal = $(this);
+          modal.find(".modal-title").text("New message to " + csr);
+          // modal.find('.modal-body input').val(contact)
+        });
+      </script>
+    </main>
+  </body>
 </html>

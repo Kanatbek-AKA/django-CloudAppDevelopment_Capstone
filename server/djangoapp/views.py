@@ -1,5 +1,5 @@
 import os
-from requests.exceptions import ConnectionError, InvalidURL
+from requests.exceptions import ConnectionError, InvalidURL, MissingSchema
 from urllib.error import URLError
 from urllib3.exceptions import ConnectTimeoutError, NewConnectionError
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, Http404
@@ -20,6 +20,7 @@ import random  # used for dealership in reviews
 
 # from django.core.mail import send_mail, BadHeaderError, EmailMessage  
 from django.conf import settings                                             # Used for files outside the django project
+from .send_grid import send_emails
 
 # Filter 
 # from django import template
@@ -106,22 +107,27 @@ class IndexPageView(TemplateView):
     #     # file_cld = os.path.join(DIRNAME, 'folder/file.json')
     #     # with open(file_cld, mode='r') as temp_js:
     #     #     temp_file = json.loads(temp_js.read().strip())
-    #     # if request.method == "GET":
+    #     if request.method == "GET":
     #         return render(request, 'djangoapp/index.html', {})
 
-    # @csrf_exempt
+    # @csrf_protect
     def post(self, request, **kwargs):
+    
         if request.method == "POST":
-            state = request.POST['3stp_state']
-            city_code = request.POST['3stp_citycode']
-            phone = request.POST['3stp_phone']
-            # Store
-            threeSteps = ThreeStepCar(state=state, city_code=city_code, phone=phone)
-            threeSteps.save()
-            return render(request, "djangoapp/index.html", {'success': "Submitted successfully!"})
-        # return redirect("djangoapp:index", )
-
-
+            # Three steps
+            state = request.POST['stp3_state']
+            city_code = request.POST['stp3_citycode']
+            phone = request.POST['stp3_phone']
+            # subcription
+            subr = request.POST['subcribe']
+            if state and city_code and phone:
+                threeSteps = ThreeStepCar(state=state, city_code=city_code, phone=phone)
+                threeSteps.save()
+                return render(request, "djangoapp/index.html", {'success': "Submitted successfully!"})
+            else:
+                send_emails(subr)
+                return render(request, "djangoapp/index.html", {'success': "Subcription confirmed."})
+        # return redirect('djangoapp:index', )    
 
 # Create an `about` view to render a static about page
 class AboutPageView(TemplateView):
@@ -314,7 +320,7 @@ class DealerPageView(TemplateView):
             #     obj.save()
 
             return render(request, "djangoapp/dealer_details.html", context)     
-        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
+        except (InvalidURL, MissingSchema, TypeError, ConnectionError, ConnectionRefusedError) as err:
             # if your DB connection failed, retrieve the data from enabled url
             # if user.is_authenticated:
             url_file = get_action_dealers() # exception retrieves the data
@@ -328,7 +334,7 @@ class DealerPageView(TemplateView):
                 with open(file_cld, mode='r') as temp_js:
                     temp_file = json.loads(temp_js.read().strip())['dealerships']
                     return render(request, 'djangoapp/dealer_details.html', {'dealerships': temp_file} )    
-        except (ConnectionError, NewConnectionError) as err :
+        except Exception: 
             return redirect('djangoapp:errors',)
         # # except Other Possible HTTP or API errors:
         #     # return render(request, 'djangoapp/.....html', {} )
@@ -357,7 +363,7 @@ class ReviewsView(TemplateView):
                     sentiment = analyze_review_sentiments(conv)
                 return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})    
             return render(request, "djangoapp/reviews.html", {})
-        except (TypeError, ConnectionError, ConnectionRefusedError ) as err:
+        except (TypeError, InvalidURL, ConnectionError, ConnectionRefusedError, MissingSchema ) as err:
             # if your APIKey connection failed, retrieve the data from enabled url e.g. ibmcloud - functions- actions
             # if user.is_authenticated:
             url_file = get_action_reviews()
@@ -384,7 +390,21 @@ class ReviewsView(TemplateView):
                             return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
                         
                 return render(request, "djangoapp/reviews.html", {"warning": warning})
-        except (ConnectionError, NewConnectionError) as err:
+        except (ConnectionError, NewConnectionError, InvalidURL, MissingSchema) as err:
+            # # If both above failed, than read the dealership.json outside the django project e.g. folder cloudant/data/reviews-full.json
+            # warning = "Service is not available. Please visit later."
+            # file_cld = os.path.join(settings.FILES_DIR, 'reviews-full.json')
+            # with open(file_cld, mode='r') as temp_js:
+            #     temp_file = json.loads(temp_js.read().strip())
+            #     context['reviews'] = temp_file['reviews']
+            #     # if user.is_authenticated:
+            #     for i in temp_file['reviews']:
+            #         conv = json.dumps(i['review'])
+            #         sentiment = analyze_review_sentiments(conv)
+            #         if sentiment is not None: 
+            #             return render(request, "djangoapp/reviews.html", {"data": context['reviews'], "analyse": sentiment})
+                    
+            # return render(request, "djangoapp/reviews.html", {"warning": warning})
             return redirect("djangoapp:errors", )
         # except Other Possible HTTP or API errors:
         #     return render(request, 'djangoapp/add_review.html', {} )

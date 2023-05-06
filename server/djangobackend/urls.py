@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf.urls.static import static, serve
@@ -29,10 +30,14 @@ from rest_framework.routers import DefaultRouter
 # router.register(r'bookings', api.views.BookingViewSet)
 # router.register(r'journal', ugc.views.JournalViewSet)
 
-
+# import environ
+# env = environ.Env()
+# environ.Env.read_env("../../functions/sample/.env")
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv('../../functions/sample/.env'))
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(os.environ.get('ADMIN') + "/admin/", admin.site.urls),
     # djangpapp
     path('', include('djangoapp.urls')),
     

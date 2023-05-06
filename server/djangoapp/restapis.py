@@ -8,7 +8,7 @@ import json
 # import related models here
 import requests
 from requests.auth import HTTPBasicAuth
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, InvalidURL, MissingSchema
 
 # django-environ worked 5-10 minutes ago and now stopped working on 
 # import environ
@@ -20,13 +20,13 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('../../functions/.env'))
 
 dct = {
-"COUCH_USERNAME": os.getenv('USERNAME'),
-'IAM_API_KEY': os.getenv("APIKEY"),
-'COUCH_URL': os.getenv("URL"),
-"DB1": os.getenv("DATADBNAME"),
-'DB2': os.getenv("DATADBNAME2"), 
-'NLUAPI': os.getenv('NLU_KEY'),
-"NLURL": os.getenv('NLU_URL'),
+# "COUCH_USERNAME": os.getenv('USERNAME'),
+# 'IAM_API_KEY': os.getenv("APIKEY"),
+# 'COUCH_URL': os.getenv("URL"),
+# "DB1": os.getenv("DATADBNAME"),
+# 'DB2': os.getenv("DATADBNAME2"), 
+# 'NLUAPI': os.getenv('NLU_KEY'),
+# "NLURL": os.getenv('NLU_URL'),
 }
 
 
@@ -51,7 +51,7 @@ def get_dealers():
             'body': values
         }
         return result
-    except (KeyError,ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
+    except (KeyError,ValueError, AttributeError,ApiException, ConnectionError, InvalidURL) as anyerror:
         pass
 
 
@@ -69,78 +69,83 @@ def get_reviews():
         }
         # print(result)
         return result
-    except (KeyError,ValueError,AttributeError,ApiException,ConnectionError) as anyerror:
+    except (KeyError,ValueError,AttributeError,ApiException,ConnectionError, InvalidURL) as anyerror:
         pass
 
 
 
 def be_aka(params):
-    service = connectServer(dct)
-    dbname = dct['DB1']
-    new_member = Document(
-        id=params['ids'],
-        full_name=params['full_name'],
-        short_name=params['short_name'],
-        address=params['address'],
-        city=params['city'],
-        state=params['state'],
-        # or use JS  to read and find abbrivation for each state
-        st=params['st'],
-        zip=params['zipcode'],
-        # Using JS or Python to get address lat (new)
-        lat=params['latitude'],
-        # Using JS or Python to get address long (new)
-        long=params['longitude'],
-        # date of registration being aka
-        reg_date=params['date'],
-        # Image required
-        image=params['image'],
-        # Device informtion
-        ip_info=params['ip'],
-        device=params['device'],
-        machine=params['machine'],
-        system=params['system'],
-        processor=params['processor'],
-    )
-    response = service.post_document(
-        db=dbname, document=new_member).get_result()
-    res = {
-        "statusCode": 200,
-        'headers': {'Content-Type': 'application/json'},
-        'body': response
-    }
-    # print(res)
-    return res
+    try:
+        service = connectServer(dct)
+        dbname = dct['DB1']
+        new_member = Document(
+            id=params['ids'],
+            full_name=params['full_name'],
+            short_name=params['short_name'],
+            address=params['address'],
+            city=params['city'],
+            state=params['state'],
+            # or use JS  to read and find abbrivation for each state
+            st=params['st'],
+            zip=params['zipcode'],
+            # Using JS or Python to get address lat (new)
+            lat=params['latitude'],
+            # Using JS or Python to get address long (new)
+            long=params['longitude'],
+            # date of registration being aka
+            reg_date=params['date'],
+            # Image required
+            image=params['image'],
+            # Device informtion
+            ip_info=params['ip'],
+            device=params['device'],
+            machine=params['machine'],
+            system=params['system'],
+            processor=params['processor'],
+        )
+        response = service.post_document(
+            db=dbname, document=new_member).get_result()
+        res = {
+            "statusCode": 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': response
+        }
+        # print(res)
+        return res
+    except NameError :
+        pass
 
 
 # Post review
 def post_reviews(params):
-    service = connectServer(dct)
-    dbname = dct['DB2']
-    products_doc = Document(
-        id=params['ids'],
-        type="reviews",
-        name=params['name'],
-        dealership=params['dealership'],
-        review=params['review'],
-        car_make=params['car_make'],
-        car_model=params['car_model'],
-        purchase=params['bool'],
-        car_year=params['year'],
-        client_purchase_date= params['client_purchase'],
-        reviews_date=params['date']
-        # image="assets/img/0gmsnghhew.jpg")
-    )
-    response = service.post_document(
-        db=dbname, document=products_doc).get_result()
-    res = {
-        "statusCode": 200,
-        'headers': {'Content-Type': 'application/json'},
-        'body': response
-    }
-    # print(res)
-    return res
-
+    try:
+        service = connectServer(dct)
+        dbname = dct['DB2']
+        products_doc = Document(
+            id=params['ids'],
+            type="reviews",
+            name=params['name'],
+            dealership=params['dealership'],
+            review=params['review'],
+            car_make=params['car_make'],
+            car_model=params['car_model'],
+            purchase=params['bool'],
+            car_year=params['year'],
+            client_purchase_date= params['client_purchase'],
+            reviews_date=params['date']
+            # image="assets/img/0gmsnghhew.jpg")
+        )
+        response = service.post_document(
+            db=dbname, document=products_doc).get_result()
+        res = {
+            "statusCode": 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': response
+        }
+        # print(res)
+        return res
+    except NameError :
+        pass
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 # - Call get_request() with specified arguments
@@ -160,10 +165,8 @@ def analyze_review_sentiments(text):
                 keywords=KeywordsOptions(emotion=True, sentiment=True, limit=2))).get_result()
         # print(json.dumps(response, indent=2))
         return response
-    except (KeyError, ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
+    except (NameError, KeyError, ValueError, AttributeError,ApiException, ConnectionError) as anyerror:
         pass
-
-
 
 
 
