@@ -4,9 +4,9 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
  
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv("../../functions/sample/.env"))
+load_dotenv(find_dotenv("../../functions/.env"))
 
-api_key= os.environd.get('API_SEND')
+api_key= os.environ.get('API_SEND')
 your_email = os.environ.get('EMAIL')
 
 def send_emails(to_email):
@@ -22,4 +22,4 @@ def send_emails(to_email):
         print(response.body)
         print(response.headers)
     except Exception as e:
-        print(e.message)
+        pass

@@ -20,7 +20,7 @@ import random  # used for dealership in reviews
 
 # from django.core.mail import send_mail, BadHeaderError, EmailMessage  
 from django.conf import settings                                             # Used for files outside the django project
-from .send_grid import send_emails
+from .send_grid import send_emails                                           # subcription
 
 # Filter 
 # from django import template
@@ -112,22 +112,25 @@ class IndexPageView(TemplateView):
 
     # @csrf_protect
     def post(self, request, **kwargs):
-    
         if request.method == "POST":
             # Three steps
             state = request.POST['stp3_state']
             city_code = request.POST['stp3_citycode']
             phone = request.POST['stp3_phone']
-            # subcription
-            subr = request.POST['subcribe']
-            if state and city_code and phone:
-                threeSteps = ThreeStepCar(state=state, city_code=city_code, phone=phone)
-                threeSteps.save()
-                return render(request, "djangoapp/index.html", {'success': "Submitted successfully!"})
-            else:
-                send_emails(subr)
-                return render(request, "djangoapp/index.html", {'success': "Subcription confirmed."})
-        # return redirect('djangoapp:index', )    
+
+            threeSteps = ThreeStepCar(state=state, city_code=city_code, phone=phone)
+            threeSteps.save()
+            return render(request, "djangoapp/index.html", {'success': "Submitted successfully!"})    
+        return redirect('djangoapp:index', )
+
+    # # Need TODO 
+    # def subcribe(request, **kwargs):
+    #     if request.method == POST:
+    #         subr = request.POST['subcribe']
+    #         send_emails(subr)
+    #         return render(request, "djangoapp/index.html", {'success': "Subcription confirmed."})
+
+
 
 # Create an `about` view to render a static about page
 class AboutPageView(TemplateView):

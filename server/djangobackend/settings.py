@@ -14,7 +14,7 @@ from pathlib import Path
 
 import environ
 environ.Env()
-environ.Env().read_env(os.path.join('../../functions/sample/.env'))
+environ.Env().read_env(os.path.join('../../functions/.env'))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,7 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'  # os.environ.
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # if the repo runs on local machine set Debug to true else debug false hosted
-DEBUG = os.environ.get("DEBUG")
+DEBUG = True
 
 # APPEND_SLASH = True    #
 ALLOWED_HOSTS = ["127.0.0.1"]

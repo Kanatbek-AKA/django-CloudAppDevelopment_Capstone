@@ -30,11 +30,9 @@ from rest_framework.routers import DefaultRouter
 # router.register(r'bookings', api.views.BookingViewSet)
 # router.register(r'journal', ugc.views.JournalViewSet)
 
-# import environ
-# env = environ.Env()
-# environ.Env.read_env("../../functions/sample/.env")
+
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv('../../functions/sample/.env'))
+load_dotenv(find_dotenv('../../functions/.env'))
 
 urlpatterns = [
     path(os.environ.get('ADMIN') + "/admin/", admin.site.urls),
