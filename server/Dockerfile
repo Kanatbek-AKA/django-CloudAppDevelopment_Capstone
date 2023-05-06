@@ -27,7 +27,7 @@ RUN chmod +x /app/entrypoint.sh
 # Create bin folder in your app ?
 #ENTRYPOINT["/bin/bash","/app/entrypoint.sh"]
 
-CMD ["gunicorn", "--bind", "127.0.0.1:8000", "--workers", "3", "djangobackend.wsgi"]
+CMD ["gunicorn", "app:application", "--preload", "--bind", "127.0.0.1:5000", "--workers", "3", "djangobackend.wsgi"]
 
 #CMD ["gunicorn", "app:application", "--preload", "--bind", "127.0.0.1:5000"]
 
