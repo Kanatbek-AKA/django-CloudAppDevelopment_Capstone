@@ -4,6 +4,8 @@ Django
 django-environ
 python-dotenv
 django-cors-headers
+django-extensions
+djangorestframework
 django-guardian
 django-oauth-toolkit
 Pillow

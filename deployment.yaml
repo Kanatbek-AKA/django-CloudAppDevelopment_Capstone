@@ -20,7 +20,7 @@ spec:
         run: dealership
     spec:
       containers:
-      - image: us.icr.io/akadedirgen/dealership:latest
+      - image: akadedirgen/demo_web:dealers
         imagePullPolicy: Always
         name: dealership
         ports:
